@@ -21,7 +21,8 @@ import {
   Code2,
   Terminal,
   Layout,
-  Wrench
+  Wrench,
+  UserCheck
 } from 'lucide-react';
 
 export default function Home() {
@@ -53,7 +54,7 @@ export default function Home() {
   const navItems = [
     { id: 'about', label: 'O mnie' },
     { id: 'services', label: 'Kompetencje' },
-    { id: 'ecosystems', label: 'Ekosystemy & Slack' },
+    { id: 'ecosystems', label: 'Ekosystemy' },
     { id: 'vantrx', label: 'VANTRX' },
   ];
 
@@ -158,61 +159,60 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* 3. PEŁNOEKRANOWA SEKCJA "O MNIE" Z DYNAMICZNYM WEJŚCIEM I INNYM TŁEM */}
-      <section id="about" className="py-24 px-4 my-12 w-full">
+      {/* 3. EGANCKA SEKCJA "O MNIE" Z DYNAMICZNYM POWIĘKSZANIEM PRZY PRZEWIJANIU */}
+      <section id="about" className="my-32 px-6 max-w-5xl mx-auto">
         <motion.div 
-          initial={{ opacity: 0, scale: 0.93, y: 40 }}
+          initial={{ opacity: 0, scale: 0.92, y: 30 }}
           whileInView={{ opacity: 1, scale: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="max-w-6xl mx-auto rounded-[2.5rem] bg-gradient-to-b from-blue-950/40 via-slate-900/60 to-black/80 p-8 sm:p-14 md:p-16 border border-blue-500/20 shadow-[0_0_80px_rgba(59,130,246,0.12)] relative overflow-hidden backdrop-blur-3xl"
+          className="glass-card p-8 sm:p-12 md:p-14 rounded-3xl border border-white/10 shadow-2xl relative overflow-hidden backdrop-blur-2xl"
         >
-          {/* Oświetlenie tła w sekcji */}
-          <div className="absolute -top-24 -right-24 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
-          
-          <div className="flex flex-col md:flex-row items-start justify-between gap-6 mb-12">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10 border-b border-white/5 pb-6">
             <div>
-              <span className="text-xs font-mono uppercase tracking-widest text-blue-400 font-bold">O mnie & Profil</span>
-              <h2 className="text-4xl sm:text-6xl font-black text-white tracking-tight mt-2">
-                Kim jestem<span className="text-blue-500">?</span>
+              <div className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-blue-400 mb-1 font-medium">
+                <UserCheck className="w-4 h-4" /> Profil Operacyjny
+              </div>
+              <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
+                O mnie<span className="text-blue-500">.</span>
               </h2>
             </div>
-            <div className="px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-300 font-mono text-xs">
-              ksperix.dev // Swiss Army Knife
+            <div className="text-xs text-slate-400 font-mono bg-white/5 px-4 py-2 rounded-xl border border-white/5 self-start sm:self-auto">
+              ksperix.dev // Ops & Tech Architect
             </div>
           </div>
 
-          <div className="grid lg:grid-cols-12 gap-12 items-center">
-            {/* Tekst opisu po lewej stronie */}
-            <div className="lg:col-span-7 space-y-6 text-slate-200 text-base sm:text-lg leading-relaxed font-light">
+          <div className="grid lg:grid-cols-12 gap-10 items-center">
+            {/* Tekst opisowy */}
+            <div className="lg:col-span-7 space-y-5 text-slate-300 text-base leading-relaxed font-light">
               <p>
-                Cześć! Nazywam się <strong className="text-white font-semibold">ksperix.dev</strong>. Od ponad <span className="text-blue-400 font-semibold">7 lat</span> zajmuję się profesjonalnym zarządzaniem operacyjnym, budowaniem społeczności i architekturą procesów IT.
+                Jestem <strong className="text-white font-medium">ksperix.dev</strong>. Od <span className="text-blue-400 font-semibold">7 lat</span> łączę funkcje menedżerskie, zarządcze i technologiczne. Prowadzę i skaluję międzynarodową społeczność <strong className="text-white font-medium">BrainlyHQ</strong>, organizuję strukturę pracy zespołów i wdrażam dedykowane systemy operacyjne.
               </p>
               <p>
-                Moim flagowym obszarem jest nie tylko pisanie kodu, ale przede wszystkim tworzenie od podstaw sprawnie działających ekosystemów: od międzynarodowego serwera <strong className="text-white font-semibold">BrainlyHQ</strong>, przez automatyzacje na Slacku i Discordzie, aż po wsparcie biurowe i kampanie reklamowe.
+                Tworzę autorskie narzędzia (w tym zaawansowane boty na platformę Slack i Discord), przygotowuję spójną identyfikację graficzną, prowadzę wsparcie biurowe oraz organizuję skuteczne kampanie reklamowe.
               </p>
-              <p className="text-slate-400 text-sm sm:text-base border-l-2 border-blue-500/50 pl-4 py-1 italic">
-                Mam również 3-letnie doświadczenie w branży Adult UGC, gdzie projektuję dedykowane rozwiązania technologiczne i organizacyjne (np. VANTRX).
+              <p className="text-slate-400 text-sm border-l-2 border-blue-500/40 pl-4 py-1">
+                Wspieram również sektor <strong className="text-slate-200">Adult UGC</strong> (3-letnie doświadczenie), dostarczając dedykowaną infrastrukturę i ekosystemy zarządzania, takie jak <span className="text-blue-400 font-semibold">VANTRX</span>.
               </p>
             </div>
 
-            {/* Narzędzia po prawej stronie w formie szklanych kafelków */}
-            <div className="lg:col-span-5 grid grid-cols-2 gap-3.5">
+            {/* Siatka narzędzi po prawej */}
+            <div className="lg:col-span-5 grid grid-cols-2 gap-3">
               {tools.map((tool, idx) => {
                 const ToolIcon = tool.icon;
                 return (
                   <motion.div
                     key={idx}
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 15 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: 0.1 + idx * 0.05 }}
-                    className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-blue-500/40 hover:bg-white/[0.06] transition-all flex items-center gap-3 group"
+                    transition={{ duration: 0.3, delay: idx * 0.05 }}
+                    className="p-3.5 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-blue-500/30 hover:bg-white/[0.04] transition-all flex items-center gap-3 group"
                   >
                     <div className="p-2 rounded-xl bg-white/5 group-hover:bg-blue-500/10 transition-colors">
-                      <ToolIcon className={`w-5 h-5 ${tool.color}`} />
+                      <ToolIcon className={`w-4 h-4 ${tool.color}`} />
                     </div>
-                    <span className="text-xs font-semibold text-slate-200 tracking-tight">{tool.name}</span>
+                    <span className="text-xs font-semibold text-slate-300 tracking-tight">{tool.name}</span>
                   </motion.div>
                 );
               })}
@@ -222,7 +222,7 @@ export default function Home() {
       </section>
 
       {/* 4. SERVICES */}
-      <section id="services" className="py-20 px-6 max-w-5xl mx-auto">
+      <section id="services" className="my-32 px-6 max-w-5xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-3xl font-extrabold mb-4 text-white tracking-tight">Kompetencje</h2>
           <p className="text-slate-400 max-w-xl mx-auto text-sm">Przekształcam chaotyczne procesy w poukładany mechanizm nakierowany na skalowanie.</p>
@@ -287,7 +287,7 @@ export default function Home() {
       </section>
 
       {/* 5. ECOSYSTEMS & AUTORSKIE BOTY (SLACK BOT) */}
-      <section id="ecosystems" className="py-20 px-6 max-w-5xl mx-auto">
+      <section id="ecosystems" className="my-32 px-6 max-w-5xl mx-auto">
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -327,7 +327,7 @@ export default function Home() {
       </section>
 
       {/* 6. FEATURED PROJECT: VANTRX */}
-      <section id="vantrx" className="py-20 px-6 max-w-5xl mx-auto">
+      <section id="vantrx" className="my-32 px-6 max-w-5xl mx-auto">
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -367,7 +367,7 @@ export default function Home() {
       </section>
 
       {/* 7. CONTACT */}
-      <section id="contact" className="py-20 px-6 max-w-4xl mx-auto text-center">
+      <section id="contact" className="my-32 px-6 max-w-4xl mx-auto text-center">
         <motion.div 
           initial={{ opacity: 0, scale: 0.98 }}
           whileInView={{ opacity: 1, scale: 1 }}
