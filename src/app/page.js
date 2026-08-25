@@ -21,18 +21,13 @@ import {
   Code2,
   Terminal,
   Layout,
-  Figma,
-  Flame,
   Wrench
 } from 'lucide-react';
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState('hero');
-  const [displayedText, setDisplayedText] = useState('');
-  
-  const fullText = "Cześć! Jestem ksperix.dev — z pasją łączę 7 lat doświadczenia w zarządzaniu operacyjnym, prowadzeniu międzynarodowych społeczności i budowaniu autorskich narzędzi. Nie tworzę jedynie pasywnych projektów. Dostarczam przemyślane ekosystemy od A do Z, dbając o ich stały rozwój, organizację zespołów i automatyzację pracy biurowej.";
 
-  // 1. Wskazywanie aktywnej sekcji z dolną linią w menu
+  // Wskazywanie aktywnej sekcji dla paska nawigacji
   useEffect(() => {
     const handleScroll = () => {
       const sections = ['hero', 'about', 'services', 'ecosystems', 'vantrx', 'contact'];
@@ -55,17 +50,6 @@ export default function Home() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // 2. Efekt pisania tekstu "O mnie" po przewinięciu do sekcji
-  useEffect(() => {
-    let timeout;
-    if (activeSection === 'about' && displayedText.length < fullText.length) {
-      timeout = setTimeout(() => {
-        setDisplayedText(fullText.slice(0, displayedText.length + 1));
-      }, 20); // Szybkość wpisywania znaków
-    }
-    return () => clearTimeout(timeout);
-  }, [activeSection, displayedText]);
-
   const navItems = [
     { id: 'about', label: 'O mnie' },
     { id: 'services', label: 'Kompetencje' },
@@ -73,7 +57,6 @@ export default function Home() {
     { id: 'vantrx', label: 'VANTRX' },
   ];
 
-  // Lista narzędzi z prawej strony sekcji "O mnie"
   const tools = [
     { name: 'Discord Operations', icon: Server, color: 'text-blue-400' },
     { name: 'Slack Integrations', icon: Bot, color: 'text-emerald-400' },
@@ -175,49 +158,67 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* 3. NEW "O MNIE" SECTION WITH TYPEWRITER & ANIMATED TOOL ICONS */}
-      <section id="about" className="py-24 px-6 max-w-5xl mx-auto">
+      {/* 3. PEŁNOEKRANOWA SEKCJA "O MNIE" Z DYNAMICZNYM WEJŚCIEM I INNYM TŁEM */}
+      <section id="about" className="py-24 px-4 my-12 w-full">
         <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-12"
+          initial={{ opacity: 0, scale: 0.93, y: 40 }}
+          whileInView={{ opacity: 1, scale: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-6xl mx-auto rounded-[2.5rem] bg-gradient-to-b from-blue-950/40 via-slate-900/60 to-black/80 p-8 sm:p-14 md:p-16 border border-blue-500/20 shadow-[0_0_80px_rgba(59,130,246,0.12)] relative overflow-hidden backdrop-blur-3xl"
         >
-          <h2 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-white mb-2">
-            O mnie<span className="text-blue-500">.</span>
-          </h2>
-          <div className="w-16 h-1 bg-blue-500 rounded-full" />
+          {/* Oświetlenie tła w sekcji */}
+          <div className="absolute -top-24 -right-24 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+          
+          <div className="flex flex-col md:flex-row items-start justify-between gap-6 mb-12">
+            <div>
+              <span className="text-xs font-mono uppercase tracking-widest text-blue-400 font-bold">O mnie & Profil</span>
+              <h2 className="text-4xl sm:text-6xl font-black text-white tracking-tight mt-2">
+                Kim jestem<span className="text-blue-500">?</span>
+              </h2>
+            </div>
+            <div className="px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-300 font-mono text-xs">
+              ksperix.dev // Swiss Army Knife
+            </div>
+          </div>
+
+          <div className="grid lg:grid-cols-12 gap-12 items-center">
+            {/* Tekst opisu po lewej stronie */}
+            <div className="lg:col-span-7 space-y-6 text-slate-200 text-base sm:text-lg leading-relaxed font-light">
+              <p>
+                Cześć! Nazywam się <strong className="text-white font-semibold">ksperix.dev</strong>. Od ponad <span className="text-blue-400 font-semibold">7 lat</span> zajmuję się profesjonalnym zarządzaniem operacyjnym, budowaniem społeczności i architekturą procesów IT.
+              </p>
+              <p>
+                Moim flagowym obszarem jest nie tylko pisanie kodu, ale przede wszystkim tworzenie od podstaw sprawnie działających ekosystemów: od międzynarodowego serwera <strong className="text-white font-semibold">BrainlyHQ</strong>, przez automatyzacje na Slacku i Discordzie, aż po wsparcie biurowe i kampanie reklamowe.
+              </p>
+              <p className="text-slate-400 text-sm sm:text-base border-l-2 border-blue-500/50 pl-4 py-1 italic">
+                Mam również 3-letnie doświadczenie w branży Adult UGC, gdzie projektuję dedykowane rozwiązania technologiczne i organizacyjne (np. VANTRX).
+              </p>
+            </div>
+
+            {/* Narzędzia po prawej stronie w formie szklanych kafelków */}
+            <div className="lg:col-span-5 grid grid-cols-2 gap-3.5">
+              {tools.map((tool, idx) => {
+                const ToolIcon = tool.icon;
+                return (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: 0.1 + idx * 0.05 }}
+                    className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 hover:border-blue-500/40 hover:bg-white/[0.06] transition-all flex items-center gap-3 group"
+                  >
+                    <div className="p-2 rounded-xl bg-white/5 group-hover:bg-blue-500/10 transition-colors">
+                      <ToolIcon className={`w-5 h-5 ${tool.color}`} />
+                    </div>
+                    <span className="text-xs font-semibold text-slate-200 tracking-tight">{tool.name}</span>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
         </motion.div>
-
-        <div className="grid md:grid-cols-2 gap-10 items-start">
-          {/* LEWA STRONA: PISZĄCY SIĘ TEKST (TYPEWRITER) */}
-          <div className="glass-card p-8 rounded-3xl border border-white/10 min-h-[260px] flex flex-col justify-center relative">
-            <p className="text-slate-200 text-base sm:text-lg leading-relaxed font-mono">
-              {displayedText}
-              <span className="inline-block w-2 h-5 bg-blue-500 ml-1 animate-pulse" />
-            </p>
-          </div>
-
-          {/* PRAWA STRONA: IKONKI NARZĘDZI (STAGGERED ANIMATION) */}
-          <div className="grid grid-cols-2 gap-3">
-            {tools.map((tool, idx) => {
-              const ToolIcon = tool.icon;
-              return (
-                <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, y: 15 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.3, delay: idx * 0.08 }}
-                  className="glass-card p-4 rounded-2xl border border-white/5 flex items-center gap-3 hover:border-blue-500/30 transition-all"
-                >
-                  <ToolIcon className={`w-5 h-5 ${tool.color}`} />
-                  <span className="text-xs font-semibold text-slate-300">{tool.name}</span>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
       </section>
 
       {/* 4. SERVICES */}
@@ -251,7 +252,7 @@ export default function Home() {
             <Briefcase className="w-8 h-8 text-blue-400 mb-6" />
             <h3 className="text-xl font-bold mb-3 text-white">Zarządzanie Zespołami & Praca Biurowa</h3>
             <p className="text-slate-400 text-sm leading-relaxed">
-              Prowadzę zespoły, koordynuję przepływ informacji, rozdzielam zadania i dbam o standardy pracy. Porporządkowuję wewnętrzną dokumentację oraz narzędzia biurowe.
+              Prowadzę zespoły, koordynuję przepływ informacji, rozdzielam zadania i dbam o standardy pracy. Porządkuję wewnętrzną dokumentację oraz narzędzia biurowe.
             </p>
           </motion.div>
 
