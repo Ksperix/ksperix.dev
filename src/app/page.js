@@ -56,15 +56,28 @@ export default function Home() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // OBSŁUGA FORMULARZA PODPIĘTA POD GOOGLE APPS SCRIPT URL
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus('loading');
 
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwiHs1whihaOYLXzgvLhPJA1vd8b_wyues8BtydGk4deVIbY0eafVITraRzyteB5jvQNg/exec';
+
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1200));
+      await fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors', // Niezbędne dla Google Apps Script Web App
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
       setStatus('success');
       setFormData({ name: '', email: '', subject: '', message: '' });
+      setTimeout(() => setStatus('idle'), 5000);
     } catch (err) {
+      console.error('Błąd wysyłania formularza:', err);
       setStatus('error');
     }
   };
@@ -339,7 +352,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5. SEKCJA EKOSYSTEMY (Z UPORZĄDKOWANYMI WEJŚCIAMI KAFELKÓW) */}
+      {/* 5. SEKCJA EKOSYSTEMY */}
       <section id="ecosystems" className="my-32 px-6 max-w-5xl mx-auto">
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
@@ -392,7 +405,7 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* 6. FEATURED PROJECT: VANTRX (SEKWENCYJNY WEJŚCIE 3 KAFELKÓW) */}
+      {/* 6. FEATURED PROJECT: VANTRX */}
       <section id="vantrx" className="my-32 px-6 max-w-5xl mx-auto">
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
@@ -438,7 +451,7 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* 7. FORMULARZ KONTAKTOWY */}
+      {/* 7. FORMULARZ KONTAKTOWY PODPIĘTY POD GOOGLE APPS SCRIPT */}
       <section id="contact" className="my-32 px-6 max-w-5xl mx-auto">
         <motion.div 
           initial={{ opacity: 0, scale: 0.95, y: 30 }}
@@ -526,6 +539,10 @@ export default function Home() {
                 ) : status === 'success' ? (
                   <>
                     <CheckCircle2 className="w-4 h-4 text-emerald-300" /> Wiadomość wysłana!
+                  </>
+                ) : status === 'error' ? (
+                  <>
+                    Wystąpił błąd. Spróbuj ponownie.
                   </>
                 ) : (
                   <>
