@@ -7,13 +7,13 @@
 }
 
 body {
-  background: #0a0a0c;
-  color: #f3f4f6;
+  background: #030712;
+  color: #f8fafc;
   font-family: system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
 }
 
-/* Tło z płynnymi plamami światła dla efektu Liquid Glass */
+/* Tło z chłodnym niebiesko-stalowym poświatem */
 .liquid-bg {
   position: fixed;
   top: 0;
@@ -22,22 +22,24 @@ body {
   height: 100vh;
   z-index: -1;
   background: 
-    radial-gradient(circle at 15% 15%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
-    radial-gradient(circle at 85% 80%, rgba(168, 85, 247, 0.15) 0%, transparent 40%),
-    radial-gradient(circle at 50% 50%, rgba(236, 72, 153, 0.08) 0%, transparent 50%);
-  filter: blur(60px);
+    radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(29, 78, 216, 0.06) 0%, transparent 50%),
+    radial-gradient(circle at 50% 10%, rgba(255, 255, 255, 0.03) 0%, transparent 40%);
+  filter: blur(80px);
 }
 
-/* Klasa pomocnicza dla szklanych kart */
+/* Klasa Liquid Glass */
 .glass-card {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .glass-card:hover {
-  border-color: rgba(255, 255, 255, 0.18);
-  box-shadow: 0 8px 32px 0 rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(59, 130, 246, 0.3);
+  box-shadow: 0 12px 40px 0 rgba(59, 130, 246, 0.1);
 }
