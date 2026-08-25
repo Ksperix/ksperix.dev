@@ -24,15 +24,18 @@ import {
   Wrench,
   UserCheck,
   Send,
-  Loader2
+  Loader2,
+  ArrowUpRight,
+  SlidersHorizontal,
+  Lock,
+  BarChart3
 } from 'lucide-react';
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState('hero');
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
-  const [status, setStatus] = useState('idle'); // 'idle' | 'loading' | 'success' | 'error'
+  const [status, setStatus] = useState('idle');
 
-  // Wskazywanie aktywnej sekcji dla paska nawigacji
   useEffect(() => {
     const handleScroll = () => {
       const sections = ['hero', 'about', 'services', 'ecosystems', 'vantrx', 'contact'];
@@ -55,19 +58,12 @@ export default function Home() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Obsługa formularza (Gotowa pod Google Apps Script)
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus('loading');
 
     try {
-      // TUTAJ PODPINAMY GOOGLE APPS SCRIPT WEB APP URL
-      // const response = await fetch('TWOJ_GOOGLE_APPS_SCRIPT_URL', {
-      //   method: 'POST',
-      //   body: JSON.stringify(formData)
-      // });
-      
-      // Symulacja udanej wysyłki:
+      // Dedykowane miejsce na podpięcie Google Apps Script URL
       await new Promise((resolve) => setTimeout(resolve, 1200));
       setStatus('success');
       setFormData({ name: '', email: '', subject: '', message: '' });
@@ -92,6 +88,40 @@ export default function Home() {
     { name: 'Vercel Platform', icon: Zap, color: 'text-slate-200' },
     { name: 'UI / Visual Design', icon: Palette, color: 'text-purple-400' },
     { name: 'Workflow Tools', icon: Wrench, color: 'text-pink-400' },
+  ];
+
+  const competencies = [
+    {
+      title: "Zarządzanie Społecznościami & BrainlyHQ",
+      desc: "Kompleksowa architektura międzynarodowych serwerów. Zaawansowane struktury ról, ekonomia, zabezpieczenia i ciągła moderacja zespołów.",
+      icon: Server,
+      tag: "7+ Lat Doświadczenia"
+    },
+    {
+      title: "Zarządzanie Zespołami & Operations",
+      desc: "Przekształcanie chaosu w powtarzalne procedury. Koordynacja pracy biurowej, rozdzielanie zadań i nadzór nad efektywnością projektu.",
+      icon: Briefcase,
+      tag: "Team Leadership"
+    },
+    {
+      title: "Nowoczesne Rozwiązania Webowe",
+      desc: "Budowanie szybkich i bezpiecznych stron internetowych na Next.js i Tailwind CSS. Tworzenie interfejsów dostosowanych do złożonych narzędzi.",
+      icon: Globe,
+      tag: "Web Dev & UI"
+    },
+    {
+      title: "Grafika & Kampanie Promocyjne",
+      desc: "Projektowanie spójnej oprawy wizualnej oraz realizacja przemyślanych działań marketingowych pozyskujących zaangażowanych odbiorców.",
+      icon: Palette,
+      tag: "Branding & Ads"
+    }
+  ];
+
+  const ecosystemPillars = [
+    { title: "Scentralizowana Komunikacja", text: "Integracja komunikatorów (Slack/Discord) z narzędziami projektowymi." },
+    { title: "Automatyzacja Zadań", text: "Eliminacja rutynowej pracy za pomocą autorskich botów i skryptów." },
+    { title: "Bezpieczeństwo & Dostępność", text: "KONTROLA nad uprawnieniami, ochrona plików i bezawaryjność 24/7." },
+    { title: "Analityka i Skalowalność", text: "Śledzenie kluczowych wskaźników rozwoju i gotowość na szybki wzrost." }
   ];
 
   return (
@@ -202,9 +232,6 @@ export default function Home() {
                 O mnie<span className="text-blue-500">.</span>
               </h2>
             </div>
-            <div className="text-xs text-slate-400 font-mono bg-white/5 px-4 py-2 rounded-xl border border-white/5 self-start sm:self-auto">
-              ksperix.dev // Ops & Tech Architect
-            </div>
           </div>
 
           <div className="grid lg:grid-cols-12 gap-10 items-center">
@@ -216,7 +243,7 @@ export default function Home() {
                 Tworzę autorskie narzędzia (w tym zaawansowane boty na platformę Slack i Discord), przygotowuję spójną identyfikację graficzną, prowadzę wsparcie biurowe oraz organizuję skuteczne kampanie reklamowe.
               </p>
               <p className="text-slate-400 text-sm border-l-2 border-blue-500/40 pl-4 py-1">
-                Wspieram również sektor <strong className="text-slate-200">Adult UGC</strong> (3-letnie doświadczenie), dostarczając dedykowaną infrastrukturę i ekosystemy zarządzania, takie jak <span className="text-blue-400 font-semibold">VANTRX</span> (vantrx.pl).
+                Wspieram również sektor <strong className="text-slate-200">Adult UGC</strong> (3-letnie doświadczenie), dostarczając dedykowaną infrastrukturę i ekosystemy zarządzania, takie jak <a href="https://vantrx.pl" target="_blank" rel="noopener noreferrer" className="text-blue-400 font-semibold hover:underline inline-flex items-center gap-0.5">VANTRX <ArrowUpRight className="w-3 h-3" /></a>.
               </p>
             </div>
 
@@ -244,72 +271,56 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* 4. SERVICES */}
+      {/* 4. SEKCJA KOMPETENCJE (KOMPLETNIE ZMODERNIZOWANA) */}
       <section id="services" className="my-32 px-6 max-w-5xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl font-extrabold mb-4 text-white tracking-tight">Kompetencje</h2>
-          <p className="text-slate-400 max-w-xl mx-auto text-sm">Przekształcam chaotyczne procesy w poukładany mechanizm nakierowany na skalowanie.</p>
+        <div className="mb-12">
+          <span className="text-xs font-mono uppercase tracking-widest text-blue-400 font-bold">Obszary Działań</span>
+          <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mt-2">
+            Kompetencje<span className="text-blue-500">.</span>
+          </h2>
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="glass-card p-8 rounded-3xl border border-white/10"
-          >
-            <Server className="w-8 h-8 text-blue-400 mb-6" />
-            <h3 className="text-xl font-bold mb-3 text-white">Międzynarodowe Serwery Discord & BrainlyHQ</h3>
-            <p className="text-slate-400 text-sm leading-relaxed">
-              Zarządzam dużą, międzynarodową społecznością BrainlyHQ. Tworzę architekturę serwera od podstaw, wdrażam systemy zabezpieczeń, role, ekonomię oraz boty usprawniające interakcję użytkowników.
-            </p>
-          </motion.div>
+          {competencies.map((comp, i) => {
+            const CompIcon = comp.icon;
+            return (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 25 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="glass-card p-8 rounded-3xl border border-white/10 hover:border-blue-500/30 transition-all flex flex-col justify-between group relative overflow-hidden"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="p-3 rounded-2xl bg-blue-500/10 text-blue-400 border border-blue-500/20 group-hover:scale-110 transition-transform">
+                      <CompIcon className="w-6 h-6" />
+                    </div>
+                    <span className="text-[10px] font-mono font-semibold uppercase tracking-wider px-3 py-1 rounded-full bg-white/5 text-slate-400 border border-white/5">
+                      {comp.tag}
+                    </span>
+                  </div>
 
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="glass-card p-8 rounded-3xl border border-white/10"
-          >
-            <Briefcase className="w-8 h-8 text-blue-400 mb-6" />
-            <h3 className="text-xl font-bold mb-3 text-white">Zarządzanie Zespołami & Praca Biurowa</h3>
-            <p className="text-slate-400 text-sm leading-relaxed">
-              Prowadzę zespoły, koordynuję przepływ informacji, rozdzielam zadania i dbam o standardy pracy. Porządkuję wewnętrzną dokumentację oraz narzędzia biurowe.
-            </p>
-          </motion.div>
+                  <h3 className="text-xl font-bold text-white mb-3 tracking-tight group-hover:text-blue-300 transition-colors">
+                    {comp.title}
+                  </h3>
 
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="glass-card p-8 rounded-3xl border border-white/10"
-          >
-            <Globe className="w-8 h-8 text-blue-400 mb-6" />
-            <h3 className="text-xl font-bold mb-3 text-white">Rozwój Projektów & Nowoczesny Web</h3>
-            <p className="text-slate-400 text-sm leading-relaxed">
-              Tworzę ultra-szybkie strony internetowe w oparciu o Next.js i Tailwind. Strona to dla mnie jedynie front-end dla całego ekosystemu narzędzi, które dostarczam klientom.
-            </p>
-          </motion.div>
+                  <p className="text-slate-400 text-sm leading-relaxed font-light mb-6">
+                    {comp.desc}
+                  </p>
+                </div>
 
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3 }}
-            className="glass-card p-8 rounded-3xl border border-white/10"
-          >
-            <Palette className="w-8 h-8 text-blue-400 mb-6" />
-            <h3 className="text-xl font-bold mb-3 text-white">Identyfikacja Graficzna & Kampanie Reklamowe</h3>
-            <p className="text-slate-400 text-sm leading-relaxed">
-              Projektuję spójną wizualnie oprawę graficzną dla marek, serwerów i projektów operacyjnych. Planuję oraz wykonuję skuteczne kampanie promocyjne pozyskujące odbiorców.
-            </p>
-          </motion.div>
+                <div className="w-full bg-white/5 h-1 rounded-full overflow-hidden">
+                  <div className="bg-blue-500 h-full w-1/3 group-hover:w-full transition-all duration-500" />
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </section>
 
-      {/* 5. ECOSYSTEMS */}
+      {/* 5. ECOSYSTEMS (ROZBUDOWANE O DEFINICJĘ I DEDYROWANĄ LISTĘ FILARÓW) */}
       <section id="ecosystems" className="my-32 px-6 max-w-5xl mx-auto">
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
@@ -318,38 +329,44 @@ export default function Home() {
           className="glass-card p-8 md:p-12 rounded-3xl border border-blue-500/20 relative overflow-hidden"
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 text-blue-300 text-xs font-semibold mb-6 border border-blue-500/20">
-            <Bot className="w-4 h-4" /> Autorskie Narzędzia Operacyjne
+            <Bot className="w-4 h-4" /> Filozofia Operacyjna
           </div>
 
-          <h2 className="text-3xl md:text-4xl font-extrabold mb-6 text-white tracking-tight">
-            Budowanie Ekosystemów & Autorski Bot na Slacku
+          <h2 className="text-3xl md:text-5xl font-extrabold mb-6 text-white tracking-tight">
+            Co składa się na skuteczny Ekosystem<span className="text-blue-500">?</span>
           </h2>
 
-          <p className="text-slate-300 text-base leading-relaxed mb-8 max-w-3xl">
-            Moje podejście wykracza poza tworzenie czystego kodu. Buduję dedykowane systemy pracy dla zespołów. Przykładem jest stworzony przeze mnie autorski bot na platformę Slack, który automatyzuje zadania wewnętrzne, usprawnia komunikację w zespole i pozwala na błyskawiczne zarządzanie projektami bez opuszczania komunikatora.
+          <p className="text-slate-300 text-base sm:text-lg leading-relaxed mb-10 max-w-3xl font-light">
+            Sam kod ani pojedyncza strona nie gwarantują sukcesu. Prawdziwy ekosystem to połączony organizm, w którym narzędzia, automatyzacja i ludzie współpracują bez tarć.
           </p>
 
-          <div className="grid sm:grid-cols-3 gap-4">
-            <div className="p-4 rounded-xl bg-white/[0.02] border border-white/5">
-              <CheckCircle2 className="w-5 h-5 text-blue-400 mb-2" />
-              <h3 className="font-semibold text-sm text-white">Dedykowane Boty Slack</h3>
-              <p className="text-xs text-slate-400 mt-1">Automatyzacja powiadomień, raportów i akcji biurowych.</p>
-            </div>
-            <div className="p-4 rounded-xl bg-white/[0.02] border border-white/5">
-              <Zap className="w-5 h-5 text-blue-400 mb-2" />
-              <h3 className="font-semibold text-sm text-white">Analityka & Stały Rozwój</h3>
-              <p className="text-xs text-slate-400 mt-1">Nadzoruję wdrożenie i badam wskaźniki rozwoju projektu.</p>
-            </div>
-            <div className="p-4 rounded-xl bg-white/[0.02] border border-white/5">
-              <Layers className="w-5 h-5 text-blue-400 mb-2" />
-              <h3 className="font-semibold text-sm text-white">Identyfikacja Wizualna</h3>
-              <p className="text-xs text-slate-400 mt-1">Kompletne wsparcie graficzne dla całego ekosystemu.</p>
+          <div className="grid sm:grid-cols-2 gap-6 mb-10">
+            {ecosystemPillars.map((pillar, idx) => (
+              <div key={idx} className="p-5 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-white/10 transition-all flex items-start gap-4">
+                <div className="p-2 rounded-xl bg-blue-500/10 text-blue-400 mt-1">
+                  <SlidersHorizontal className="w-4 h-4" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-sm text-white mb-1">{pillar.title}</h3>
+                  <p className="text-xs text-slate-400 leading-relaxed">{pillar.text}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="p-6 rounded-2xl bg-blue-950/20 border border-blue-500/20 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-3">
+              <Zap className="w-6 h-6 text-blue-400" />
+              <div>
+                <h4 className="text-sm font-bold text-white">Przykład: Autorski Bot na Slacku</h4>
+                <p className="text-xs text-slate-400">Automatyzuje powiadomienia, raporty i decyzje bez wychodzenia z aplikacji.</p>
+              </div>
             </div>
           </div>
         </motion.div>
       </section>
 
-      {/* 6. FEATURED PROJECT: VANTRX (POPRAWIONO POGRUBIENIE TEXTU ADULT UGC I ADRES) */}
+      {/* 6. FEATURED PROJECT: VANTRX (PROSTO I BEZ 'VANTRX.PL' JAKO BLOCZKA) */}
       <section id="vantrx" className="my-32 px-6 max-w-5xl mx-auto">
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
@@ -361,27 +378,29 @@ export default function Home() {
             <Sparkles className="w-3.5 h-3.5 text-blue-400" /> Dedykowane Rozwiązanie • Adult UGC
           </div>
 
-          <h2 className="text-3xl md:text-4xl font-extrabold mb-6 text-white tracking-tight flex flex-wrap items-center gap-3">
-            VANTRX <a href="https://vantrx.pl" target="_blank" rel="noopener noreferrer" className="text-sm font-mono font-normal text-blue-400 hover:underline">(vantrx.pl)</a> — Infrastruktura dla branży Adult UGC
+          <h2 className="text-3xl md:text-5xl font-extrabold mb-6 text-white tracking-tight">
+            <a href="https://vantrx.pl" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition-colors inline-flex items-center gap-2">
+              VANTRX <ArrowUpRight className="w-6 h-6 text-blue-500" />
+            </a> — Infrastruktura dla branży Adult UGC
           </h2>
 
-          <p className="text-slate-300 text-base leading-relaxed mb-8 max-w-3xl">
+          <p className="text-slate-300 text-base leading-relaxed mb-8 max-w-3xl font-light">
             Posiadam 3-letnie doświadczenie w sektorze <strong className="text-white font-semibold">Adult UGC</strong>. VANTRX to autorski ekosystem stworzony do organizacji procesów, ochrony zasobów cyfrowych oraz automatyzacji codziennej obsługi administracyjnej twórców i agencji.
           </p>
 
           <div className="grid sm:grid-cols-3 gap-4">
-            <div className="p-4 rounded-xl bg-white/[0.02] border border-white/5">
-              <ShieldCheck className="w-5 h-5 text-slate-300 mb-2" />
+            <div className="p-5 rounded-2xl bg-white/[0.02] border border-white/5">
+              <ShieldCheck className="w-5 h-5 text-blue-400 mb-2" />
               <h3 className="font-semibold text-sm text-white">Ochrona & Bezpieczeństwo</h3>
               <p className="text-xs text-slate-400 mt-1">Zarządzanie dostępami i poufnymi plikami.</p>
             </div>
-            <div className="p-4 rounded-xl bg-white/[0.02] border border-white/5">
-              <Cpu className="w-5 h-5 text-slate-300 mb-2" />
+            <div className="p-5 rounded-2xl bg-white/[0.02] border border-white/5">
+              <Cpu className="w-5 h-5 text-blue-400 mb-2" />
               <h3 className="font-semibold text-sm text-white">Optymalizacja Zadań</h3>
               <p className="text-xs text-slate-400 mt-1">Redukcja czasu potrzebnego na rutynową pracę.</p>
             </div>
-            <div className="p-4 rounded-xl bg-white/[0.02] border border-white/5">
-              <Workflow className="w-5 h-5 text-slate-300 mb-2" />
+            <div className="p-5 rounded-2xl bg-white/[0.02] border border-white/5">
+              <Workflow className="w-5 h-5 text-blue-400 mb-2" />
               <h3 className="font-semibold text-sm text-white">Skalowalny Ekosystem</h3>
               <p className="text-xs text-slate-400 mt-1">Przygotowany pod dynamiczny wzrost projektu.</p>
             </div>
@@ -389,7 +408,7 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* 7. FORMULARZ KONTAKTOWY (ZSYNCHRONIZOWANY SIZEM Z RESTĄ, GOTOWY POD GOOGLE APPS SCRIPT) */}
+      {/* 7. FORMULARZ KONTAKTOWY */}
       <section id="contact" className="my-32 px-6 max-w-5xl mx-auto">
         <motion.div 
           initial={{ opacity: 0, scale: 0.95, y: 30 }}
