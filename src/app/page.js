@@ -22,11 +22,15 @@ import {
   Terminal,
   Layout,
   Wrench,
-  UserCheck
+  UserCheck,
+  Send,
+  Loader2
 } from 'lucide-react';
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState('hero');
+  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
+  const [status, setStatus] = useState('idle'); // 'idle' | 'loading' | 'success' | 'error'
 
   // Wskazywanie aktywnej sekcji dla paska nawigacji
   useEffect(() => {
@@ -50,6 +54,27 @@ export default function Home() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Obsługa formularza (Gotowa pod Google Apps Script)
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus('loading');
+
+    try {
+      // TUTAJ PODPINAMY GOOGLE APPS SCRIPT WEB APP URL
+      // const response = await fetch('TWOJ_GOOGLE_APPS_SCRIPT_URL', {
+      //   method: 'POST',
+      //   body: JSON.stringify(formData)
+      // });
+      
+      // Symulacja udanej wysyłki:
+      await new Promise((resolve) => setTimeout(resolve, 1200));
+      setStatus('success');
+      setFormData({ name: '', email: '', subject: '', message: '' });
+    } catch (err) {
+      setStatus('error');
+    }
+  };
 
   const navItems = [
     { id: 'about', label: 'O mnie' },
@@ -159,7 +184,7 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* 3. EGANCKA SEKCJA "O MNIE" Z DYNAMICZNYM POWIĘKSZANIEM PRZY PRZEWIJANIU */}
+      {/* 3. SEKCJA "O MNIE" */}
       <section id="about" className="my-32 px-6 max-w-5xl mx-auto">
         <motion.div 
           initial={{ opacity: 0, scale: 0.92, y: 30 }}
@@ -183,7 +208,6 @@ export default function Home() {
           </div>
 
           <div className="grid lg:grid-cols-12 gap-10 items-center">
-            {/* Tekst opisowy */}
             <div className="lg:col-span-7 space-y-5 text-slate-300 text-base leading-relaxed font-light">
               <p>
                 Jestem <strong className="text-white font-medium">ksperix.dev</strong>. Od <span className="text-blue-400 font-semibold">7 lat</span> łączę funkcje menedżerskie, zarządcze i technologiczne. Prowadzę i skaluję międzynarodową społeczność <strong className="text-white font-medium">BrainlyHQ</strong>, organizuję strukturę pracy zespołów i wdrażam dedykowane systemy operacyjne.
@@ -192,11 +216,10 @@ export default function Home() {
                 Tworzę autorskie narzędzia (w tym zaawansowane boty na platformę Slack i Discord), przygotowuję spójną identyfikację graficzną, prowadzę wsparcie biurowe oraz organizuję skuteczne kampanie reklamowe.
               </p>
               <p className="text-slate-400 text-sm border-l-2 border-blue-500/40 pl-4 py-1">
-                Wspieram również sektor <strong className="text-slate-200">Adult UGC</strong> (3-letnie doświadczenie), dostarczając dedykowaną infrastrukturę i ekosystemy zarządzania, takie jak <span className="text-blue-400 font-semibold">VANTRX</span>.
+                Wspieram również sektor <strong className="text-slate-200">Adult UGC</strong> (3-letnie doświadczenie), dostarczając dedykowaną infrastrukturę i ekosystemy zarządzania, takie jak <span className="text-blue-400 font-semibold">VANTRX</span> (vantrx.pl).
               </p>
             </div>
 
-            {/* Siatka narzędzi po prawej */}
             <div className="lg:col-span-5 grid grid-cols-2 gap-3">
               {tools.map((tool, idx) => {
                 const ToolIcon = tool.icon;
@@ -286,7 +309,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5. ECOSYSTEMS & AUTORSKIE BOTY (SLACK BOT) */}
+      {/* 5. ECOSYSTEMS */}
       <section id="ecosystems" className="my-32 px-6 max-w-5xl mx-auto">
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
@@ -303,7 +326,7 @@ export default function Home() {
           </h2>
 
           <p className="text-slate-300 text-base leading-relaxed mb-8 max-w-3xl">
-            Moje podejście wykracza poza tworzenie czystego kodu. Buduję dedykowane systemy pracy dla zespołów. Przykładem jest stworzony przeze mnie **autorski bot na platformę Slack**, który automatyzuje zadania wewnętrzne, usprawnia komunikację w zespole i pozwala na błyskawiczne zarządzanie projektami bez opuszczania komunikatora.
+            Moje podejście wykracza poza tworzenie czystego kodu. Buduję dedykowane systemy pracy dla zespołów. Przykładem jest stworzony przeze mnie autorski bot na platformę Slack, który automatyzuje zadania wewnętrzne, usprawnia komunikację w zespole i pozwala na błyskawiczne zarządzanie projektami bez opuszczania komunikatora.
           </p>
 
           <div className="grid sm:grid-cols-3 gap-4">
@@ -326,7 +349,7 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* 6. FEATURED PROJECT: VANTRX */}
+      {/* 6. FEATURED PROJECT: VANTRX (POPRAWIONO POGRUBIENIE TEXTU ADULT UGC I ADRES) */}
       <section id="vantrx" className="my-32 px-6 max-w-5xl mx-auto">
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
@@ -338,12 +361,12 @@ export default function Home() {
             <Sparkles className="w-3.5 h-3.5 text-blue-400" /> Dedykowane Rozwiązanie • Adult UGC
           </div>
 
-          <h2 className="text-3xl md:text-4xl font-extrabold mb-6 text-white tracking-tight">
-            VANTRX — Infrastruktura dla branży Adult UGC
+          <h2 className="text-3xl md:text-4xl font-extrabold mb-6 text-white tracking-tight flex flex-wrap items-center gap-3">
+            VANTRX <a href="https://vantrx.pl" target="_blank" rel="noopener noreferrer" className="text-sm font-mono font-normal text-blue-400 hover:underline">(vantrx.pl)</a> — Infrastruktura dla branży Adult UGC
           </h2>
 
           <p className="text-slate-300 text-base leading-relaxed mb-8 max-w-3xl">
-            Posiadam 3-letnie doświadczenie w sektorze **Adult UGC**. VANTRX to autorski ekosystem stworzony do organizacji procesów, ochrony zasobów cyfrowych oraz automatyzacji codziennej obsługi administracyjnej twórców i agencji.
+            Posiadam 3-letnie doświadczenie w sektorze <strong className="text-white font-semibold">Adult UGC</strong>. VANTRX to autorski ekosystem stworzony do organizacji procesów, ochrony zasobów cyfrowych oraz automatyzacji codziennej obsługi administracyjnej twórców i agencji.
           </p>
 
           <div className="grid sm:grid-cols-3 gap-4">
@@ -366,30 +389,103 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* 7. CONTACT */}
-      <section id="contact" className="my-32 px-6 max-w-4xl mx-auto text-center">
+      {/* 7. FORMULARZ KONTAKTOWY (ZSYNCHRONIZOWANY SIZEM Z RESTĄ, GOTOWY POD GOOGLE APPS SCRIPT) */}
+      <section id="contact" className="my-32 px-6 max-w-5xl mx-auto">
         <motion.div 
-          initial={{ opacity: 0, scale: 0.98 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          className="glass-card p-10 md:p-16 rounded-3xl border border-white/10"
+          initial={{ opacity: 0, scale: 0.95, y: 30 }}
+          whileInView={{ opacity: 1, scale: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.5 }}
+          className="glass-card p-8 sm:p-12 md:p-14 rounded-3xl border border-white/10 shadow-2xl relative overflow-hidden backdrop-blur-2xl"
         >
-          <h2 className="text-3xl md:text-5xl font-extrabold mb-6 text-white tracking-tight">Zbudujmy Twój Ekosystem</h2>
-          <p className="text-slate-400 max-w-lg mx-auto mb-10 text-sm md:text-base">
-            Szukasz kogoś, kto przejmie zarządzenie operacyjne, zoptymalizuje procesy w zespole i stworzy niezbędne narzędzia?
-          </p>
-
-          <div className="flex flex-wrap justify-center gap-4">
-            <a 
-              href="mailto:contact@ksperix.com" 
-              className="flex items-center gap-3 px-6 py-3.5 rounded-full bg-white text-black hover:bg-slate-200 transition-all text-sm font-semibold shadow-lg"
-            >
-              <Mail className="w-4 h-4" /> Wyślij wiadomość
-            </a>
-            <div className="flex items-center gap-3 px-6 py-3.5 rounded-full glass-card border border-white/10 text-sm font-semibold text-slate-300">
-              <MessageSquare className="w-4 h-4 text-blue-400" /> Discord: <span className="text-white">ksperix</span>
-            </div>
+          <div className="max-w-2xl mx-auto text-center mb-10">
+            <span className="text-xs font-mono uppercase tracking-widest text-blue-400 font-bold">Skontaktuj się</span>
+            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mt-2">
+              Zbudujmy Twój Ekosystem<span className="text-blue-500">.</span>
+            </h2>
+            <p className="text-slate-400 text-sm sm:text-base mt-3">
+              Wypełnij formularz lub napisz bezpośrednio na Discordzie / e-mailu.
+            </p>
           </div>
+
+          <form onSubmit={handleSubmit} className="space-y-4 max-w-3xl mx-auto">
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-xs font-mono text-slate-300 mb-1.5">Imię / Nick</label>
+                <input 
+                  type="text" 
+                  required
+                  placeholder="Twoje imię"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  className="w-full px-4 py-3 rounded-2xl bg-white/[0.03] border border-white/10 focus:border-blue-500 focus:outline-none text-sm text-white placeholder-slate-500 transition-colors"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-mono text-slate-300 mb-1.5">E-mail</label>
+                <input 
+                  type="email" 
+                  required
+                  placeholder="twoj@email.com"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  className="w-full px-4 py-3 rounded-2xl bg-white/[0.03] border border-white/10 focus:border-blue-500 focus:outline-none text-sm text-white placeholder-slate-500 transition-colors"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-xs font-mono text-slate-300 mb-1.5">Temat</label>
+              <input 
+                type="text" 
+                required
+                placeholder="W czym mogę pomóc?"
+                value={formData.subject}
+                onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                className="w-full px-4 py-3 rounded-2xl bg-white/[0.03] border border-white/10 focus:border-blue-500 focus:outline-none text-sm text-white placeholder-slate-500 transition-colors"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-mono text-slate-300 mb-1.5">Wiadomość</label>
+              <textarea 
+                rows="4" 
+                required
+                placeholder="Opisz swój projekt lub zapytanie..."
+                value={formData.message}
+                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                className="w-full px-4 py-3 rounded-2xl bg-white/[0.03] border border-white/10 focus:border-blue-500 focus:outline-none text-sm text-white placeholder-slate-500 transition-colors resize-none"
+              />
+            </div>
+
+            <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="flex items-center gap-4 text-xs text-slate-400">
+                <span className="flex items-center gap-1.5"><Mail className="w-4 h-4 text-blue-400" /> contact@ksperix.com</span>
+                <span className="flex items-center gap-1.5"><MessageSquare className="w-4 h-4 text-blue-400" /> Discord: ksperix</span>
+              </div>
+
+              <button 
+                type="submit" 
+                disabled={status === 'loading'}
+                className="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-all shadow-lg shadow-blue-500/20 flex items-center justify-center gap-2 disabled:opacity-50"
+              >
+                {status === 'loading' ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin" /> Wysyłanie...
+                  </>
+                ) : status === 'success' ? (
+                  <>
+                    <CheckCircle2 className="w-4 h-4 text-emerald-300" /> Wiadomość wysłana!
+                  </>
+                ) : (
+                  <>
+                    <Send className="w-4 h-4" /> Wyślij wiadomość
+                  </>
+                )}
+              </button>
+            </div>
+          </form>
         </motion.div>
       </section>
 
