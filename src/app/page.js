@@ -17,17 +17,26 @@ import {
   Workflow,
   TrendingUp,
   Zap,
-  CheckCircle2
+  CheckCircle2,
+  Code2,
+  Terminal,
+  Layout,
+  Figma,
+  Flame,
+  Wrench
 } from 'lucide-react';
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState('hero');
+  const [displayedText, setDisplayedText] = useState('');
+  
+  const fullText = "Cześć! Jestem ksperix.dev — z pasją łączę 7 lat doświadczenia w zarządzaniu operacyjnym, prowadzeniu międzynarodowych społeczności i budowaniu autorskich narzędzi. Nie tworzę jedynie pasywnych projektów. Dostarczam przemyślane ekosystemy od A do Z, dbając o ich stały rozwój, organizację zespołów i automatyzację pracy biurowej.";
 
-  // Wskazywanie aktywnej sekcji z dolną linią w menu
+  // 1. Wskazywanie aktywnej sekcji z dolną linią w menu
   useEffect(() => {
     const handleScroll = () => {
       const sections = ['hero', 'about', 'services', 'ecosystems', 'vantrx', 'contact'];
-      const scrollPosition = window.scrollY + 200;
+      const scrollPosition = window.scrollY + 250;
 
       for (const section of sections) {
         const el = document.getElementById(section);
@@ -46,11 +55,34 @@ export default function Home() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // 2. Efekt pisania tekstu "O mnie" po przewinięciu do sekcji
+  useEffect(() => {
+    let timeout;
+    if (activeSection === 'about' && displayedText.length < fullText.length) {
+      timeout = setTimeout(() => {
+        setDisplayedText(fullText.slice(0, displayedText.length + 1));
+      }, 20); // Szybkość wpisywania znaków
+    }
+    return () => clearTimeout(timeout);
+  }, [activeSection, displayedText]);
+
   const navItems = [
     { id: 'about', label: 'O mnie' },
     { id: 'services', label: 'Kompetencje' },
     { id: 'ecosystems', label: 'Ekosystemy & Slack' },
     { id: 'vantrx', label: 'VANTRX' },
+  ];
+
+  // Lista narzędzi z prawej strony sekcji "O mnie"
+  const tools = [
+    { name: 'Discord Operations', icon: Server, color: 'text-blue-400' },
+    { name: 'Slack Integrations', icon: Bot, color: 'text-emerald-400' },
+    { name: 'Next.js / React', icon: Code2, color: 'text-white' },
+    { name: 'Tailwind CSS', icon: Layout, color: 'text-cyan-400' },
+    { name: 'Python & Automation', icon: Terminal, color: 'text-yellow-400' },
+    { name: 'Vercel Platform', icon: Zap, color: 'text-slate-200' },
+    { name: 'UI / Visual Design', icon: Palette, color: 'text-purple-400' },
+    { name: 'Workflow Tools', icon: Wrench, color: 'text-pink-400' },
   ];
 
   return (
@@ -96,7 +128,6 @@ export default function Home() {
 
       {/* 2. HERO SECTION */}
       <section id="hero" className="pt-40 pb-20 px-6 max-w-5xl mx-auto text-center flex flex-col items-center justify-center min-h-[90vh]">
-        {/* STATYCZNY BADGE - BEZ ANIMACJI WEJŚCIA */}
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-card text-xs md:text-sm font-medium text-slate-300 border border-white/10 mb-8">
           <Workflow className="w-4 h-4 text-blue-400" />
           <span>7+ lat w zarządzaniu operacyjnym & budowaniu ekosystemów</span>
@@ -144,27 +175,48 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* 3. ABOUT / EXPERIENCE BAR */}
-      <section id="about" className="py-16 px-6 max-w-5xl mx-auto">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {[
-            { label: 'Zarządzanie Operacyjne', val: '7+ Lat' },
-            { label: 'Sektor Adult UGC', val: '3+ Lata' },
-            { label: 'Międzynarodowy Serwer', val: 'BrainlyHQ' },
-            { label: 'Rozwiązania Dedykowane', val: 'End-to-End' },
-          ].map((stat, i) => (
-            <motion.div 
-              key={i} 
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.1 }}
-              className="glass-card p-6 rounded-2xl text-center border border-white/5"
-            >
-              <div className="text-xl sm:text-2xl font-bold text-white mb-1">{stat.val}</div>
-              <div className="text-xs text-slate-400 font-medium">{stat.label}</div>
-            </motion.div>
-          ))}
+      {/* 3. NEW "O MNIE" SECTION WITH TYPEWRITER & ANIMATED TOOL ICONS */}
+      <section id="about" className="py-24 px-6 max-w-5xl mx-auto">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-12"
+        >
+          <h2 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-white mb-2">
+            O mnie<span className="text-blue-500">.</span>
+          </h2>
+          <div className="w-16 h-1 bg-blue-500 rounded-full" />
+        </motion.div>
+
+        <div className="grid md:grid-cols-2 gap-10 items-start">
+          {/* LEWA STRONA: PISZĄCY SIĘ TEKST (TYPEWRITER) */}
+          <div className="glass-card p-8 rounded-3xl border border-white/10 min-h-[260px] flex flex-col justify-center relative">
+            <p className="text-slate-200 text-base sm:text-lg leading-relaxed font-mono">
+              {displayedText}
+              <span className="inline-block w-2 h-5 bg-blue-500 ml-1 animate-pulse" />
+            </p>
+          </div>
+
+          {/* PRAWA STRONA: IKONKI NARZĘDZI (STAGGERED ANIMATION) */}
+          <div className="grid grid-cols-2 gap-3">
+            {tools.map((tool, idx) => {
+              const ToolIcon = tool.icon;
+              return (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 15 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.3, delay: idx * 0.08 }}
+                  className="glass-card p-4 rounded-2xl border border-white/5 flex items-center gap-3 hover:border-blue-500/30 transition-all"
+                >
+                  <ToolIcon className={`w-5 h-5 ${tool.color}`} />
+                  <span className="text-xs font-semibold text-slate-300">{tool.name}</span>
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
       </section>
 
@@ -199,7 +251,7 @@ export default function Home() {
             <Briefcase className="w-8 h-8 text-blue-400 mb-6" />
             <h3 className="text-xl font-bold mb-3 text-white">Zarządzanie Zespołami & Praca Biurowa</h3>
             <p className="text-slate-400 text-sm leading-relaxed">
-              Prowadzę zespoły, koordynuję przepływ informacji, rozdzielam zadania i dbam o standardy pracy. Porządkuję wewnętrzną dokumentację oraz narzędzia biurowe.
+              Prowadzę zespoły, koordynuję przepływ informacji, rozdzielam zadania i dbam o standardy pracy. Porporządkowuję wewnętrzną dokumentację oraz narzędzia biurowe.
             </p>
           </motion.div>
 
