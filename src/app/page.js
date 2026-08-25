@@ -26,9 +26,7 @@ import {
   Send,
   Loader2,
   ArrowUpRight,
-  SlidersHorizontal,
-  Lock,
-  BarChart3
+  SlidersHorizontal
 } from 'lucide-react';
 
 export default function Home() {
@@ -63,7 +61,6 @@ export default function Home() {
     setStatus('loading');
 
     try {
-      // Dedykowane miejsce na podpięcie Google Apps Script URL
       await new Promise((resolve) => setTimeout(resolve, 1200));
       setStatus('success');
       setFormData({ name: '', email: '', subject: '', message: '' });
@@ -120,13 +117,35 @@ export default function Home() {
   const ecosystemPillars = [
     { title: "Scentralizowana Komunikacja", text: "Integracja komunikatorów (Slack/Discord) z narzędziami projektowymi." },
     { title: "Automatyzacja Zadań", text: "Eliminacja rutynowej pracy za pomocą autorskich botów i skryptów." },
-    { title: "Bezpieczeństwo & Dostępność", text: "KONTROLA nad uprawnieniami, ochrona plików i bezawaryjność 24/7." },
+    { title: "Bezpieczeństwo & Dostępność", text: "Kontrola nad uprawnieniami, ochrona plików i bezawaryjność 24/7." },
     { title: "Analityka i Skalowalność", text: "Śledzenie kluczowych wskaźników rozwoju i gotowość na szybki wzrost." }
+  ];
+
+  const vantrxFeatures = [
+    {
+      icon: ShieldCheck,
+      title: "Ochrona & Bezpieczeństwo",
+      desc: "Zarządzanie dostępami i poufnymi plikami twórców oraz agencji."
+    },
+    {
+      icon: Cpu,
+      title: "Optymalizacja Zadań",
+      desc: "Redukcja czasu potrzebnego na rutynową pracę administracyjną."
+    },
+    {
+      icon: Workflow,
+      title: "Skalowalny Ekosystem",
+      desc: "Architektura przygotowana pod dynamiczny rozrost całego projektu."
+    }
   ];
 
   return (
     <div className="min-h-screen text-slate-100 relative selection:bg-blue-500/30 selection:text-white">
       
+      {/* TŁO: GRID PATTERN + POŚWIATA */}
+      <div className="glow-spot" />
+      <div className="liquid-bg" />
+
       {/* 1. LIQUID GLASS NAVIGATION */}
       <header className="fixed top-6 inset-x-0 z-50 flex justify-center px-4">
         <nav className="glass-card rounded-full px-6 py-3 flex items-center justify-between gap-8 max-w-4xl w-full border border-white/10 shadow-2xl">
@@ -271,7 +290,7 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* 4. SEKCJA KOMPETENCJE (KOMPLETNIE ZMODERNIZOWANA) */}
+      {/* 4. SEKCJA KOMPETENCJE */}
       <section id="services" className="my-32 px-6 max-w-5xl mx-auto">
         <div className="mb-12">
           <span className="text-xs font-mono uppercase tracking-widest text-blue-400 font-bold">Obszary Działań</span>
@@ -320,7 +339,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5. ECOSYSTEMS (ROZBUDOWANE O DEFINICJĘ I DEDYROWANĄ LISTĘ FILARÓW) */}
+      {/* 5. SEKCJA EKOSYSTEMY (Z UPORZĄDKOWANYMI WEJŚCIAMI KAFELKÓW) */}
       <section id="ecosystems" className="my-32 px-6 max-w-5xl mx-auto">
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
@@ -342,21 +361,28 @@ export default function Home() {
 
           <div className="grid sm:grid-cols-2 gap-6 mb-10">
             {ecosystemPillars.map((pillar, idx) => (
-              <div key={idx} className="p-5 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-white/10 transition-all flex items-start gap-4">
-                <div className="p-2 rounded-xl bg-blue-500/10 text-blue-400 mt-1">
+              <motion.div 
+                key={idx} 
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: idx * 0.1 }}
+                className="p-5 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-blue-500/30 transition-all flex items-start gap-4"
+              >
+                <div className="p-2 rounded-xl bg-blue-500/10 text-blue-400 mt-1 shrink-0">
                   <SlidersHorizontal className="w-4 h-4" />
                 </div>
                 <div>
                   <h3 className="font-semibold text-sm text-white mb-1">{pillar.title}</h3>
                   <p className="text-xs text-slate-400 leading-relaxed">{pillar.text}</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
 
           <div className="p-6 rounded-2xl bg-blue-950/20 border border-blue-500/20 flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <Zap className="w-6 h-6 text-blue-400" />
+              <Zap className="w-6 h-6 text-blue-400 shrink-0" />
               <div>
                 <h4 className="text-sm font-bold text-white">Przykład: Autorski Bot na Slacku</h4>
                 <p className="text-xs text-slate-400">Automatyzuje powiadomienia, raporty i decyzje bez wychodzenia z aplikacji.</p>
@@ -366,7 +392,7 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* 6. FEATURED PROJECT: VANTRX (PROSTO I BEZ 'VANTRX.PL' JAKO BLOCZKA) */}
+      {/* 6. FEATURED PROJECT: VANTRX (SEKWENCYJNY WEJŚCIE 3 KAFELKÓW) */}
       <section id="vantrx" className="my-32 px-6 max-w-5xl mx-auto">
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
@@ -389,21 +415,25 @@ export default function Home() {
           </p>
 
           <div className="grid sm:grid-cols-3 gap-4">
-            <div className="p-5 rounded-2xl bg-white/[0.02] border border-white/5">
-              <ShieldCheck className="w-5 h-5 text-blue-400 mb-2" />
-              <h3 className="font-semibold text-sm text-white">Ochrona & Bezpieczeństwo</h3>
-              <p className="text-xs text-slate-400 mt-1">Zarządzanie dostępami i poufnymi plikami.</p>
-            </div>
-            <div className="p-5 rounded-2xl bg-white/[0.02] border border-white/5">
-              <Cpu className="w-5 h-5 text-blue-400 mb-2" />
-              <h3 className="font-semibold text-sm text-white">Optymalizacja Zadań</h3>
-              <p className="text-xs text-slate-400 mt-1">Redukcja czasu potrzebnego na rutynową pracę.</p>
-            </div>
-            <div className="p-5 rounded-2xl bg-white/[0.02] border border-white/5">
-              <Workflow className="w-5 h-5 text-blue-400 mb-2" />
-              <h3 className="font-semibold text-sm text-white">Skalowalny Ekosystem</h3>
-              <p className="text-xs text-slate-400 mt-1">Przygotowany pod dynamiczny wzrost projektu.</p>
-            </div>
+            {vantrxFeatures.map((feat, idx) => {
+              const FeatIcon = feat.icon;
+              return (
+                <motion.div 
+                  key={idx}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: idx * 0.1 }}
+                  className="p-5 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-blue-500/30 transition-all flex flex-col justify-between"
+                >
+                  <div>
+                    <FeatIcon className="w-5 h-5 text-blue-400 mb-3" />
+                    <h3 className="font-semibold text-sm text-white mb-1">{feat.title}</h3>
+                    <p className="text-xs text-slate-400 leading-relaxed">{feat.desc}</p>
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
         </motion.div>
       </section>
