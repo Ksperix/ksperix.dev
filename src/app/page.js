@@ -96,15 +96,11 @@ export default function Home() {
 
       {/* 2. HERO SECTION */}
       <section id="hero" className="pt-40 pb-20 px-6 max-w-5xl mx-auto text-center flex flex-col items-center justify-center min-h-[90vh]">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-card text-xs md:text-sm font-medium text-slate-300 border border-white/10 mb-8"
-        >
+        {/* STATYCZNY BADGE - BEZ ANIMACJI WEJŚCIA */}
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-card text-xs md:text-sm font-medium text-slate-300 border border-white/10 mb-8">
           <Workflow className="w-4 h-4 text-blue-400" />
           <span>7+ lat w zarządzaniu operacyjnym & budowaniu ekosystemów</span>
-        </motion.div>
+        </div>
 
         <motion.h1 
           initial={{ opacity: 0, y: 20 }}
@@ -113,8 +109,8 @@ export default function Home() {
           className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-tight mb-6 text-white"
         >
           Nie tylko koduję. <br />
-          <span className="bg-gradient-to-r from-white via-slate-200 to-blue-400 bg-clip-text text-transparent">
-            Buduję, zarządzam i rozwijam ekosystemy.
+          <span className="text-blue-500">
+            Rozwijam ekosystemy.
           </span>
         </motion.h1>
 
@@ -175,7 +171,7 @@ export default function Home() {
       {/* 4. SERVICES */}
       <section id="services" className="py-20 px-6 max-w-5xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-3xl font-extrabold mb-4 text-white tracking-tight">Kompleksowe Zarządzanie & IT</h2>
+          <h2 className="text-3xl font-extrabold mb-4 text-white tracking-tight">Kompetencje</h2>
           <p className="text-slate-400 max-w-xl mx-auto text-sm">Przekształcam chaotyczne procesy w poukładany mechanizm nakierowany na skalowanie.</p>
         </div>
 
@@ -294,7 +290,7 @@ export default function Home() {
           </h2>
 
           <p className="text-slate-300 text-base leading-relaxed mb-8 max-w-3xl">
-            Posiadam 3-letnie Doświadczenie w sektorze **Adult UGC**. VANTRX to autorski ekosystem stworzony do organizacji procesów, ochrony zasobów cyfrowych oraz automatyzacji codziennej obsługi administracyjnej twórców i agencji.
+            Posiadam 3-letnie doświadczenie w sektorze **Adult UGC**. VANTRX to autorski ekosystem stworzony do organizacji procesów, ochrony zasobów cyfrowych oraz automatyzacji codziennej obsługi administracyjnej twórców i agencji.
           </p>
 
           <div className="grid sm:grid-cols-3 gap-4">
