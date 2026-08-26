@@ -125,7 +125,6 @@ export default function Home() {
     }
   ];
 
-  // KARTY DLA PROJEKTÓW 1920x1080 NAKŁADAJĄCE SIĘ NA SIEBIE (DODANO PARTNERSHIP I NOTIFICATIONS)
   const showcaseProjects = [
     {
       title: "BrainlyHQ Ecosystem",
@@ -390,7 +389,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5. DEDYKOWANA SEKCJA PROJEKTÓW: STACKED CARDS 1920x1080 (6 KART) */}
+      {/* 5. DEDYKOWANA SEKCJA PROJEKTÓW: PRZYCIEMNIONE STACKED CARDS */}
       <section id="showcase" className="my-32 px-6 max-w-5xl mx-auto">
         <div className="mb-12 text-center">
           <span className="text-xs font-mono uppercase tracking-widest text-blue-400 font-bold">Wizualne Portfolio</span>
@@ -412,7 +411,7 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.5, delay: idx * 0.05 }}
-                className="glass-card rounded-3xl border border-white/15 overflow-hidden shadow-2xl bg-slate-950/90 backdrop-blur-3xl p-6 sm:p-8"
+                className="rounded-3xl border border-blue-900/40 hover:border-blue-500/40 overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)] bg-[#080d1a]/95 backdrop-blur-xl p-6 sm:p-8 transition-colors duration-300"
               >
                 <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-6">
                   <div>
@@ -422,14 +421,15 @@ export default function Home() {
                   <p className="text-xs sm:text-sm text-slate-400 max-w-md font-light">{proj.desc}</p>
                 </div>
 
-                {/* KONTENER O PROPORCJACH 16:9 (1920x1080) */}
-                <div className="relative w-full aspect-video rounded-2xl overflow-hidden border border-white/10 group">
+                {/* KONTENER O PROPORCJACH 16:9 Z PRZYCIEMNIONYM OVERLAYEM */}
+                <div className="relative w-full aspect-video rounded-2xl overflow-hidden border border-white/5 bg-slate-950 group">
                   <img 
                     src={proj.image} 
                     alt={proj.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    className="w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity" />
+                  {/* Ciemny gradient osłabiający jaskrawe fragmenty screenów */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#040711] via-[#040711]/40 to-transparent opacity-80 group-hover:opacity-40 transition-opacity duration-500" />
                 </div>
               </motion.div>
             </div>
