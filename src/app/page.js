@@ -8,7 +8,6 @@ import {
   Globe, 
   Briefcase, 
   Cpu, 
-  Layers, 
   Mail, 
   MessageSquare,
   Sparkles,
@@ -22,17 +21,51 @@ import {
   Terminal,
   Layout,
   Wrench,
-  UserCheck,
   Send,
   Loader2,
   ArrowUpRight,
-  SlidersHorizontal
+  SlidersHorizontal,
+  Github
 } from 'lucide-react';
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState('hero');
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
   const [status, setStatus] = useState('idle');
+
+  // EFEKT MASZYNY DO PISANIA
+  const typewriterPhrases = [
+    'Tworzę ekosystemy.',
+    'Wizualizuję marki.',
+    'Automatyzuję procesy.',
+    'Skaluję społeczności.'
+  ];
+  const [textIndex, setTextIndex] = useState(0);
+  const [charIndex, setCharIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    const currentPhrase = typewriterPhrases[textIndex];
+    let typingSpeed = isDeleting ? 40 : 80;
+
+    if (!isDeleting && charIndex === currentPhrase.length) {
+      typingSpeed = 2000; // Pauza po wpisaniu pełnego tekstu
+    } else if (isDeleting && charIndex === 0) {
+      setIsDeleting(false);
+      setTextIndex((prev) => (prev + 1) % typewriterPhrases.length);
+      typingSpeed = 300;
+    }
+
+    const timer = setTimeout(() => {
+      if (!isDeleting && charIndex === currentPhrase.length) {
+        setIsDeleting(true);
+      } else {
+        setCharIndex((prev) => prev + (isDeleting ? -1 : 1));
+      }
+    }, typingSpeed);
+
+    return () => clearTimeout(timer);
+  }, [charIndex, isDeleting, textIndex]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -60,7 +93,6 @@ export default function Home() {
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
-      // Czyszczenie URL z # bez przeładowania strony
       if (window.history.pushState) {
         window.history.pushState(null, '', window.location.pathname);
       }
@@ -259,11 +291,12 @@ export default function Home() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-tight mb-6 text-white"
+          className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-tight mb-6 text-white min-h-[140px] sm:min-h-[180px] flex flex-col justify-center items-center"
         >
-          Nie tylko koduję. <br />
-          <span className="text-blue-500">
-            Rozwijam ekosystemy.
+          <span>Nie tylko koduję.</span>
+          <span className="text-blue-500 block">
+            {typewriterPhrases[textIndex].substring(0, charIndex)}
+            <span className="animate-pulse font-normal text-blue-400">|</span>
           </span>
         </motion.h1>
 
@@ -307,14 +340,9 @@ export default function Home() {
           className="glass-card p-8 sm:p-12 md:p-14 rounded-3xl border border-white/10 shadow-2xl relative overflow-hidden backdrop-blur-2xl"
         >
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10 border-b border-white/5 pb-6">
-            <div>
-              <div className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-blue-400 mb-1 font-medium">
-                <UserCheck className="w-4 h-4" /> Profil Operacyjny
-              </div>
-              <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
-                O mnie<span className="text-blue-500">.</span>
-              </h2>
-            </div>
+            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
+              O mnie<span className="text-blue-500">.</span>
+            </h2>
           </div>
 
           <div className="grid lg:grid-cols-12 gap-10 items-center">
@@ -357,8 +385,7 @@ export default function Home() {
       {/* 4. SEKCJA KOMPETENCJE */}
       <section id="services" className="my-32 px-6 max-w-5xl mx-auto scroll-mt-28">
         <div className="mb-12">
-          <span className="text-xs font-mono uppercase tracking-widest text-blue-400 font-bold">Obszary Działań</span>
-          <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mt-2">
+          <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
             Kompetencje<span className="text-blue-500">.</span>
           </h2>
         </div>
@@ -403,14 +430,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5. DEDYKOWANA SEKCJA PROJEKTÓW */}
+      {/* 5. SEKCJA PROJEKTÓW */}
       <section id="showcase" className="my-32 px-6 max-w-5xl mx-auto scroll-mt-28">
         <div className="mb-12 text-center">
-          <span className="text-xs font-mono uppercase tracking-widest text-blue-400 font-bold">Wizualne Portfolio</span>
-          <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mt-2">
+          <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
             Wybrane Projekty<span className="text-blue-500">.</span>
           </h2>
-          <p className="text-slate-400 text-sm mt-3">Przewijaj w dół, aby zobaczyć nakładające się karty w formacie 16:9.</p>
+          <p className="text-slate-400 text-sm mt-3 font-light">Przewijaj w dół, aby zobaczyć nakładające się karty w formacie 16:9.</p>
         </div>
 
         <div className="space-y-12 relative">
@@ -425,7 +451,7 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.5, delay: idx * 0.05 }}
-                className="glass-card rounded-3xl border border-white/15 overflow-hidden shadow-2xl p-6 sm:p-8 backdrop-blur-2xl transition-all duration-300 hover:border-blue-500/40"
+                className="glass-card rounded-3xl border border-blue-500/20 overflow-hidden shadow-2xl p-6 sm:p-8 backdrop-blur-2xl transition-all duration-300 hover:border-blue-500/40 bg-[#060b18]/90"
               >
                 <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-6">
                   <div>
@@ -435,13 +461,13 @@ export default function Home() {
                   <p className="text-xs sm:text-sm text-slate-300 max-w-md font-light">{proj.desc}</p>
                 </div>
 
-                <div className="relative w-full aspect-video rounded-2xl overflow-hidden border border-white/10 bg-slate-900 group">
+                <div className="relative w-full aspect-video rounded-2xl overflow-hidden border border-white/10 bg-slate-950 group">
                   <img 
                     src={proj.image} 
                     alt={proj.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-95"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#040711]/60 via-transparent to-transparent pointer-events-none" />
                 </div>
               </motion.div>
             </div>
@@ -457,10 +483,6 @@ export default function Home() {
           viewport={{ once: true }}
           className="glass-card p-8 md:p-12 rounded-3xl border border-blue-500/20 relative overflow-hidden"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 text-blue-300 text-xs font-semibold mb-6 border border-blue-500/20">
-            <Bot className="w-4 h-4" /> Filozofia Operacyjna
-          </div>
-
           <h2 className="text-3xl md:text-5xl font-extrabold mb-6 text-white tracking-tight">
             Co składa się na skuteczny Ekosystem<span className="text-blue-500">?</span>
           </h2>
@@ -558,8 +580,7 @@ export default function Home() {
           className="glass-card p-8 sm:p-12 md:p-14 rounded-3xl border border-white/10 shadow-2xl relative overflow-hidden backdrop-blur-2xl"
         >
           <div className="max-w-2xl mx-auto text-center mb-10">
-            <span className="text-xs font-mono uppercase tracking-widest text-blue-400 font-bold">Skontaktuj się</span>
-            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mt-2">
+            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
               Zbudujmy Twój Ekosystem<span className="text-blue-500">.</span>
             </h2>
             <p className="text-slate-400 text-sm sm:text-base mt-3">
@@ -619,9 +640,9 @@ export default function Home() {
             </div>
 
             <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
-              <div className="flex items-center gap-4 text-xs text-slate-400">
+              <div className="flex flex-wrap items-center gap-4 text-xs text-slate-400">
                 <span className="flex items-center gap-1.5"><Mail className="w-4 h-4 text-blue-400" /> contact@ksperix.com</span>
-                <span className="flex items-center gap-1.5"><MessageSquare className="w-4 h-4 text-blue-400" /> Discord: ksperix</span>
+                <span className="flex items-center gap-1.5"><MessageSquare className="w-4 h-4 text-blue-400" /> Discord: ksperix.dev</span>
               </div>
 
               <button 
@@ -652,8 +673,26 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* FOOTER */}
-      <footer className="py-8 text-center text-xs text-slate-600 border-t border-white/5">
+      {/* FOOTER Z ODNOŚNIKAMI GITHUB I DISCORD */}
+      <footer className="py-8 text-center text-xs text-slate-500 border-t border-white/5 flex flex-col items-center justify-center gap-4">
+        <div className="flex items-center gap-6">
+          <a 
+            href="https://github.com/ksperix" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="text-slate-400 hover:text-white transition-colors flex items-center gap-2 text-xs font-medium"
+          >
+            <Github className="w-4 h-4" /> GitHub
+          </a>
+          <a 
+            href="https://discord.com/users/ksperix.dev" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="text-slate-400 hover:text-blue-400 transition-colors flex items-center gap-2 text-xs font-medium"
+          >
+            <MessageSquare className="w-4 h-4" /> Discord
+          </a>
+        </div>
         <p>© {new Date().getFullYear()} ksperix.dev. All rights reserved.</p>
       </footer>
 
