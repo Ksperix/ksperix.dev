@@ -56,6 +56,17 @@ export default function Home() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const scrollToSection = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      // Czyszczenie URL z # bez przeładowania strony
+      if (window.history.pushState) {
+        window.history.pushState(null, '', window.location.pathname);
+      }
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus('loading');
@@ -199,18 +210,21 @@ export default function Home() {
       {/* 1. LIQUID GLASS NAVIGATION */}
       <header className="fixed top-6 inset-x-0 z-50 flex justify-center px-4">
         <nav className="glass-card rounded-full px-6 py-3 flex items-center justify-between gap-8 max-w-4xl w-full border border-white/10 shadow-2xl">
-          <a href="#hero" className="font-semibold text-lg tracking-tight text-white hover:opacity-80 transition-opacity">
+          <button 
+            onClick={() => scrollToSection('hero')} 
+            className="font-semibold text-lg tracking-tight text-white hover:opacity-80 transition-opacity bg-transparent border-0 cursor-pointer"
+          >
             ksperix<span className="text-blue-500 font-bold">.dev</span>
-          </a>
+          </button>
           
           <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-400">
             {navItems.map((item) => {
               const isActive = activeSection === item.id;
               return (
-                <a
+                <button
                   key={item.id}
-                  href={`#${item.id}`}
-                  className={`relative py-1 transition-colors ${isActive ? 'text-white font-semibold' : 'hover:text-slate-200'}`}
+                  onClick={() => scrollToSection(item.id)}
+                  className={`relative py-1 transition-colors bg-transparent border-0 cursor-pointer ${isActive ? 'text-white font-semibold' : 'hover:text-slate-200'}`}
                 >
                   {item.label}
                   {isActive && (
@@ -220,22 +234,22 @@ export default function Home() {
                       transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                     />
                   )}
-                </a>
+                </button>
               );
             })}
           </div>
 
-          <a 
-            href="#contact" 
-            className="text-xs md:text-sm font-semibold px-5 py-2 rounded-full bg-blue-600/20 hover:bg-blue-600/30 text-blue-300 border border-blue-500/30 transition-all shadow-lg shadow-blue-500/10"
+          <button 
+            onClick={() => scrollToSection('contact')} 
+            className="text-xs md:text-sm font-semibold px-5 py-2 rounded-full bg-blue-600/20 hover:bg-blue-600/30 text-blue-300 border border-blue-500/30 transition-all shadow-lg shadow-blue-500/10 cursor-pointer"
           >
             Kontakt
-          </a>
+          </button>
         </nav>
       </header>
 
       {/* 2. HERO SECTION */}
-      <section id="hero" className="pt-40 pb-20 px-6 max-w-5xl mx-auto text-center flex flex-col items-center justify-center min-h-[90vh]">
+      <section id="hero" className="pt-40 pb-20 px-6 max-w-5xl mx-auto text-center flex flex-col items-center justify-center min-h-[90vh] scroll-mt-28">
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-card text-xs md:text-sm font-medium text-slate-300 border border-white/10 mb-8">
           <Workflow className="w-4 h-4 text-blue-400" />
           <span>7+ lat w zarządzaniu operacyjnym & budowaniu ekosystemów</span>
@@ -268,23 +282,23 @@ export default function Home() {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="flex flex-wrap items-center justify-center gap-4"
         >
-          <a 
-            href="#ecosystems" 
-            className="px-8 py-3.5 rounded-full bg-white text-black font-semibold hover:bg-slate-200 transition-all shadow-lg flex items-center gap-2 text-sm"
+          <button 
+            onClick={() => scrollToSection('ecosystems')} 
+            className="px-8 py-3.5 rounded-full bg-white text-black font-semibold hover:bg-slate-200 transition-all shadow-lg flex items-center gap-2 text-sm cursor-pointer border-0"
           >
             <TrendingUp className="w-4 h-4" /> Zobacz jak działam
-          </a>
-          <a 
-            href="#contact" 
-            className="px-8 py-3.5 rounded-full glass-card text-white font-semibold hover:bg-white/10 transition-all border border-white/10 text-sm"
+          </button>
+          <button 
+            onClick={() => scrollToSection('contact')} 
+            className="px-8 py-3.5 rounded-full glass-card text-white font-semibold hover:bg-white/10 transition-all border border-white/10 text-sm cursor-pointer"
           >
             Nawiąż współpracę
-          </a>
+          </button>
         </motion.div>
       </section>
 
       {/* 3. SEKCJA "O MNIE" */}
-      <section id="about" className="my-32 px-6 max-w-5xl mx-auto">
+      <section id="about" className="my-32 px-6 max-w-5xl mx-auto scroll-mt-28">
         <motion.div 
           initial={{ opacity: 0, scale: 0.92, y: 30 }}
           whileInView={{ opacity: 1, scale: 1, y: 0 }}
@@ -341,7 +355,7 @@ export default function Home() {
       </section>
 
       {/* 4. SEKCJA KOMPETENCJE */}
-      <section id="services" className="my-32 px-6 max-w-5xl mx-auto">
+      <section id="services" className="my-32 px-6 max-w-5xl mx-auto scroll-mt-28">
         <div className="mb-12">
           <span className="text-xs font-mono uppercase tracking-widest text-blue-400 font-bold">Obszary Działań</span>
           <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mt-2">
@@ -389,8 +403,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5. DEDYKOWANA SEKCJA PROJEKTÓW: PRZEJRZYSTE I CZYTELNE STACKED CARDS */}
-      <section id="showcase" className="my-32 px-6 max-w-5xl mx-auto">
+      {/* 5. DEDYKOWANA SEKCJA PROJEKTÓW */}
+      <section id="showcase" className="my-32 px-6 max-w-5xl mx-auto scroll-mt-28">
         <div className="mb-12 text-center">
           <span className="text-xs font-mono uppercase tracking-widest text-blue-400 font-bold">Wizualne Portfolio</span>
           <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight mt-2">
@@ -421,14 +435,12 @@ export default function Home() {
                   <p className="text-xs sm:text-sm text-slate-300 max-w-md font-light">{proj.desc}</p>
                 </div>
 
-                {/* KONTENER O PROPORCJACH 16:9 (CZYSTE I JASNE GRAFIKI) */}
                 <div className="relative w-full aspect-video rounded-2xl overflow-hidden border border-white/10 bg-slate-900 group">
                   <img 
                     src={proj.image} 
                     alt={proj.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
-                  {/* Subtelny dolny gradient gwarantujący czytelność krawędzi */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
                 </div>
               </motion.div>
@@ -438,7 +450,7 @@ export default function Home() {
       </section>
 
       {/* 6. SEKCJA EKOSYSTEMY */}
-      <section id="ecosystems" className="my-32 px-6 max-w-5xl mx-auto">
+      <section id="ecosystems" className="my-32 px-6 max-w-5xl mx-auto scroll-mt-28">
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -491,7 +503,7 @@ export default function Home() {
       </section>
 
       {/* 7. FEATURED PROJECT: VANTRX */}
-      <section id="vantrx" className="my-32 px-6 max-w-5xl mx-auto">
+      <section id="vantrx" className="my-32 px-6 max-w-5xl mx-auto scroll-mt-28">
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -537,7 +549,7 @@ export default function Home() {
       </section>
 
       {/* 8. FORMULARZ KONTAKTOWY */}
-      <section id="contact" className="my-32 px-6 max-w-5xl mx-auto">
+      <section id="contact" className="my-32 px-6 max-w-5xl mx-auto scroll-mt-28">
         <motion.div 
           initial={{ opacity: 0, scale: 0.95, y: 30 }}
           whileInView={{ opacity: 1, scale: 1, y: 0 }}
@@ -615,7 +627,7 @@ export default function Home() {
               <button 
                 type="submit" 
                 disabled={status === 'loading'}
-                className="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-all shadow-lg shadow-blue-500/20 flex items-center justify-center gap-2 disabled:opacity-50"
+                className="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-all shadow-lg shadow-blue-500/20 flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer"
               >
                 {status === 'loading' ? (
                   <>
