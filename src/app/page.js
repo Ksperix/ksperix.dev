@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { 
   ShieldCheck, 
@@ -29,6 +29,76 @@ import {
   SlidersHorizontal
 } from 'lucide-react';
 
+// DEDYROWANA KARTA Z EFEKTEM 3D PARALLAX I DYNAMICZNYM OBRAZKIEM
+function Card3D({ children, imageSrc, imageAlt }) {
+  const cardRef = useRef(null);
+  const [rotateX, setRotateX] = useState(0);
+  const [rotateY, setRotateY] = useState(0);
+  const [imgOffset, setImgOffset] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+
+    // Obliczanie kątów obrotu 3D
+    const rX = ((mouseY - height / 2) / height) * -12;
+    const rY = ((mouseX - width / 2) / width) * 12;
+
+    // Obliczanie przesunięcia obrazka w rogu
+    const imgX = ((mouseX - width / 2) / width) * 15;
+    const imgY = ((mouseY - height / 2) / height) * 15;
+
+    setRotateX(rX);
+    setRotateY(rY);
+    setImgOffset({ x: imgX, y: imgY });
+  };
+
+  const handleMouseLeave = () => {
+    setRotateX(0);
+    setRotateY(0);
+    setImgOffset({ x: 0, y: 0 });
+  };
+
+  return (
+    <div className="perspective-1000">
+      <motion.div
+        ref={cardRef}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        animate={{ rotateX, rotateY }}
+        transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+        style={{ transformStyle: 'preserve-3d' }}
+        className="glass-card p-7 rounded-3xl border border-white/10 hover:border-blue-500/40 relative overflow-hidden group min-h-[220px] flex flex-col justify-between"
+      >
+        {/* Treść kartek */}
+        <div style={{ transform: 'translateZ(30px)' }} className="relative z-10 max-w-[70%]">
+          {children}
+        </div>
+
+        {/* Dynamiczny Obrazek 3D w prawym dolnym rogu */}
+        {imageSrc && (
+          <motion.div
+            animate={{ x: imgOffset.x, y: imgOffset.y, scale: rotateX !== 0 ? 1.1 : 1 }}
+            transition={{ type: 'spring', stiffness: 200, damping: 15 }}
+            style={{ transform: 'translateZ(50px)' }}
+            className="absolute -bottom-4 -right-4 w-28 h-28 sm:w-36 sm:h-36 pointer-events-none opacity-40 group-hover:opacity-100 transition-opacity duration-300"
+          >
+            <img 
+              src={imageSrc} 
+              alt={imageAlt || "Ikona kompetencji"} 
+              className="w-full h-full object-contain filter drop-shadow-[0_10px_20px_rgba(59,130,246,0.3)]"
+            />
+          </motion.div>
+        )}
+      </motion.div>
+    </div>
+  );
+}
+
 export default function Home() {
   const [activeSection, setActiveSection] = useState('hero');
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
@@ -56,7 +126,6 @@ export default function Home() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // OBSŁUGA FORMULARZA PODPIĘTA POD GOOGLE APPS SCRIPT URL
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus('loading');
@@ -66,10 +135,8 @@ export default function Home() {
     try {
       await fetch(SCRIPT_URL, {
         method: 'POST',
-        mode: 'no-cors', // Niezbędne dla Google Apps Script Web App
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
 
@@ -100,30 +167,35 @@ export default function Home() {
     { name: 'Workflow Tools', icon: Wrench, color: 'text-pink-400' },
   ];
 
+  // POPRAWIONE I WYCZYSZCZONE KOMPETENCJE Z PRZYPISANYMI OBRAZKAMI
   const competencies = [
     {
       title: "Zarządzanie Społecznościami",
-      desc: "Kompleksowa architektura międzynarodowych serwerów. Zaawansowane struktury ról, ekonomia, zabezpieczenia i ciągła moderacja zespołów.",
+      desc: "Architektura serwerów Discord, systemy ról, moderacja i autorskie mechaniki zaangażowania.",
       icon: Server,
-      tag: "BrailyHQ, Pałac Możliwości, Polish Gays Afterk Dark"
+      tag: "BrainlyHQ",
+      image: "/brainlyhq.png"
     },
     {
-      title: "Zarządzanie Zespołami & Operations",
-      desc: "Przekształcanie chaosu w powtarzalne procedury. Koordynacja pracy biurowej, rozdzielanie zadań i nadzór nad efektywnością projektu.",
+      title: "Operations & Zespoły",
+      desc: "Uporządkowanie struktur pracy, automatyzacja zadań biurowych i koordynacja projektów.",
       icon: Briefcase,
-      tag: "+7 lat doświadczenia"
+      tag: "7+ Lat Doświadczenia",
+      image: "/gamez.png"
     },
     {
-      title: "Nowoczesne Rozwiązania Webowe",
-      desc: "Budowanie szybkich i bezpiecznych stron internetowych na Next.js i Tailwind CSS. Tworzenie interfejsów dostosowanych do złożonych narzędzi.",
+      title: "Nowoczesny Web Dev",
+      desc: "Tworzenie wydajnych aplikacji i serwisów z wykorzystaniem Next.js, Tailwind CSS oraz Vercel.",
       icon: Globe,
-      tag: "CV, BrainlyHQ, Slack Translator, VANTRX"
+      tag: "Next.js • React",
+      image: "/vantrx.png"
     },
     {
-      title: "Grafika & Kampanie Promocyjne",
-      desc: "Projektowanie spójnej oprawy wizualnej oraz realizacja przemyślanych działań marketingowych pozyskujących zaangażowanych odbiorców.",
+      title: "Branding & Promocja",
+      desc: "Projektowanie spójnej identyfikacji graficznej i planowanie skutecznych kampanii reklamowych.",
       icon: Palette,
-      tag: "Les Moutons Bags, PGAD, HQ"
+      tag: "Les Moutons Bags",
+      image: "/lesmoutonsbags.png"
     }
   ];
 
@@ -303,7 +375,7 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* 4. SEKCJA KOMPETENCJE */}
+      {/* 4. SEKCJA KOMPETENCJE (Z OBRAZKAMI W 3D PARALLAX) */}
       <section id="services" className="my-32 px-6 max-w-5xl mx-auto">
         <div className="mb-12">
           <span className="text-xs font-mono uppercase tracking-widest text-blue-400 font-bold">Obszary Działań</span>
@@ -316,37 +388,24 @@ export default function Home() {
           {competencies.map((comp, i) => {
             const CompIcon = comp.icon;
             return (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 25 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="glass-card p-8 rounded-3xl border border-white/10 hover:border-blue-500/30 transition-all flex flex-col justify-between group relative overflow-hidden"
-              >
-                <div>
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="p-3 rounded-2xl bg-blue-500/10 text-blue-400 border border-blue-500/20 group-hover:scale-110 transition-transform">
-                      <CompIcon className="w-6 h-6" />
-                    </div>
-                    <span className="text-[10px] font-mono font-semibold uppercase tracking-wider px-3 py-1 rounded-full bg-white/5 text-slate-400 border border-white/5">
-                      {comp.tag}
-                    </span>
+              <Card3D key={i} imageSrc={comp.image} imageAlt={comp.title}>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="p-2.5 rounded-2xl bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                    <CompIcon className="w-5 h-5" />
                   </div>
-
-                  <h3 className="text-xl font-bold text-white mb-3 tracking-tight group-hover:text-blue-300 transition-colors">
-                    {comp.title}
-                  </h3>
-
-                  <p className="text-slate-400 text-sm leading-relaxed font-light mb-6">
-                    {comp.desc}
-                  </p>
+                  <span className="text-[10px] font-mono font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full bg-white/5 text-blue-300 border border-white/5">
+                    {comp.tag}
+                  </span>
                 </div>
 
-                <div className="w-full bg-white/5 h-1 rounded-full overflow-hidden">
-                  <div className="bg-blue-500 h-full w-1/3 group-hover:w-full transition-all duration-500" />
-                </div>
-              </motion.div>
+                <h3 className="text-lg font-bold text-white mb-2 tracking-tight group-hover:text-blue-300 transition-colors">
+                  {comp.title}
+                </h3>
+
+                <p className="text-slate-400 text-xs leading-relaxed font-light">
+                  {comp.desc}
+                </p>
+              </Card3D>
             );
           })}
         </div>
