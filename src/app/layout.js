@@ -4,7 +4,7 @@ export const metadata = {
   title: 'Ksperix — Operations, Community & Tech Lead',
   description: 'Portfolio Ksperix: 7 lat w zarządzaniu społecznościami, serwerami Discord, automatyzacją i systemami dla branży Adult UGC (VANTRX).',
   icons: {
-    icon: '/de.png',
+    icon: '/dev.png',
   },
 };
 
