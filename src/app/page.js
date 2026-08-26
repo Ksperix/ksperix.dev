@@ -102,28 +102,28 @@ export default function Home() {
 
   const competencies = [
     {
-      title: "Zarządzanie Społecznościami & BrainlyHQ",
+      title: "Zarządzanie Społecznościami",
       desc: "Kompleksowa architektura międzynarodowych serwerów. Zaawansowane struktury ról, ekonomia, zabezpieczenia i ciągła moderacja zespołów.",
       icon: Server,
-      tag: "7+ Lat Doświadczenia"
+      tag: "BrailyHQ, Pałac Możliwości, Polish Gays Afterk Dark"
     },
     {
       title: "Zarządzanie Zespołami & Operations",
       desc: "Przekształcanie chaosu w powtarzalne procedury. Koordynacja pracy biurowej, rozdzielanie zadań i nadzór nad efektywnością projektu.",
       icon: Briefcase,
-      tag: "Team Leadership"
+      tag: "+7 lat doświadczenia"
     },
     {
       title: "Nowoczesne Rozwiązania Webowe",
       desc: "Budowanie szybkich i bezpiecznych stron internetowych na Next.js i Tailwind CSS. Tworzenie interfejsów dostosowanych do złożonych narzędzi.",
       icon: Globe,
-      tag: "Web Dev & UI"
+      tag: "CV, BrainlyHQ, Slack Translator, VANTRX"
     },
     {
       title: "Grafika & Kampanie Promocyjne",
       desc: "Projektowanie spójnej oprawy wizualnej oraz realizacja przemyślanych działań marketingowych pozyskujących zaangażowanych odbiorców.",
       icon: Palette,
-      tag: "Branding & Ads"
+      tag: "Les Moutons Bags, PGAD, HQ"
     }
   ];
 
