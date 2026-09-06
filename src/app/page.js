@@ -254,7 +254,6 @@ export default function Home() {
 
   const ecosystemData = {
     brainly: {
-      tag: "Ekosystem Społecznościowy",
       title: "BrainlyHQ Infrastructure",
       subtitle: "Globalna Platforma Społecznościowa & Dystrybucja Bota",
       desc: "Zaawansowane narzędzia moderacyjne, automatyczna integracja botów, powiadomień oraz dedykowany rynek produktów dla społeczności. Zbudowany z myślą o skalowaniu na dziesiątki tysięcy użytkowników.",
@@ -266,11 +265,9 @@ export default function Home() {
       link: "https://discord.brainly.com/products",
       btnText: "Przeglądaj Produkty BrainlyHQ",
       accentBg: "bg-blue-600",
-      accentText: "text-blue-600",
-      badgeBg: "bg-blue-50 text-blue-700 border-blue-200"
+      accentText: "text-blue-600"
     },
     vantrx: {
-      tag: "Adult UGC Systems",
       title: "VANTRX Platform",
       subtitle: "Bezpieczeństwo Zasobów & Automatyzacja Agencji",
       desc: "Autorska platforma stworzona do organizacji procesów, ochrony zasobów cyfrowych oraz automatyzacji codziennej obsługi administracyjnej twórców oraz agencji w sektorze Adult UGC.",
@@ -282,15 +279,14 @@ export default function Home() {
       link: "https://vantrx.pl",
       btnText: "Przejdź do VANTRX",
       accentBg: "bg-purple-600",
-      accentText: "text-purple-600",
-      badgeBg: "bg-purple-50 text-purple-700 border-purple-200"
+      accentText: "text-purple-600"
     }
   };
 
   const pricingTiers = [
     {
       title: "Pakiet Starter",
-      price: "od 250 zł",
+      price: "od 149,99 zł",
       features: [
         "Audyt obecnej architektury komunikacji",
         "Wskazówki automatyzacji procesów",
@@ -300,8 +296,10 @@ export default function Home() {
     },
     {
       title: "Pakiet Gold",
-      price: "od 499 zł",
+      oldPrice: "319,99 zł",
+      price: "od 229,99 zł",
       popular: true,
+      includesPrevious: "+ wszystko co w pakiecie Starter",
       features: [
         "Wsparcie operacyjne i koordynacja",
         "Personalizowane szkolenie zespołu z narzędzi",
@@ -311,7 +309,8 @@ export default function Home() {
     },
     {
       title: "Pakiet Pro",
-      price: "od 2 500 zł",
+      price: "od 499,99 zł",
+      includesPrevious: "+ wszystko co w pakiecie Gold",
       features: [
         "Kompleksowy serwer Discord/Slack z botami",
         "Strona web na Next.js + panel administracyjny",
@@ -628,9 +627,6 @@ export default function Home() {
                 className="grid lg:grid-cols-12 gap-8 items-center"
               >
                 <div className="lg:col-span-7 space-y-4">
-                  <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold border ${ecosystemData[selectedEcosystem].badgeBg}`}>
-                    {ecosystemData[selectedEcosystem].tag}
-                  </div>
                   <h4 className="text-2xl sm:text-3xl font-black text-slate-900">{ecosystemData[selectedEcosystem].title}</h4>
                   <p className="text-xs sm:text-sm font-semibold text-slate-500">{ecosystemData[selectedEcosystem].subtitle}</p>
                   <p className="text-slate-600 text-sm leading-relaxed font-normal">
@@ -716,15 +712,15 @@ export default function Home() {
           <motion.div 
             initial={{ opacity: 0, y: 15 }} 
             animate={{ opacity: 1, y: 0 }} 
-            className="grid md:grid-cols-3 gap-6 items-center"
+            className="grid md:grid-cols-3 gap-6 items-stretch"
           >
             {pricingTiers.map((tier, idx) => (
               <div
                 key={idx}
-                className={`glass-card rounded-3xl p-8 border flex flex-col justify-between relative transition-all duration-300 ${
+                className={`rounded-3xl p-8 border flex flex-col justify-between relative transition-all duration-300 ${
                   tier.popular 
-                    ? 'border-2 border-blue-600 shadow-xl shadow-blue-500/15 bg-white scale-[1.03] md:-translate-y-2 z-10' 
-                    : 'border-white/80'
+                    ? 'border-2 border-blue-600 shadow-xl shadow-blue-500/20 bg-white scale-[1.03] md:-translate-y-2 z-10' 
+                    : 'glass-card border-white/80'
                 }`}
               >
                 {tier.popular && (
@@ -735,7 +731,22 @@ export default function Home() {
 
                 <div>
                   <h3 className="text-xl font-bold text-slate-900 mb-2 mt-1">{tier.title}</h3>
-                  <div className="text-2xl sm:text-3xl font-black text-blue-600 mb-6">{tier.price}</div>
+                  <div className="mb-6">
+                    {tier.oldPrice && (
+                      <span className="text-sm font-bold text-slate-400 line-through block -mb-1">
+                        {tier.oldPrice}
+                      </span>
+                    )}
+                    <div className="text-2xl sm:text-3xl font-black text-blue-600">
+                      {tier.price}
+                    </div>
+                  </div>
+
+                  {tier.includesPrevious && (
+                    <p className="text-[11px] font-semibold text-blue-600 italic -mt-4 mb-4">
+                      {tier.includesPrevious}
+                    </p>
+                  )}
 
                   <ul className="space-y-3 mb-8">
                     {tier.features.map((feat, fIdx) => (
