@@ -49,7 +49,7 @@ export default function Home() {
     let typingSpeed = isDeleting ? 40 : 80;
 
     if (!isDeleting && charIndex === currentPhrase.length) {
-      typingSpeed = 2000; // Pauza po wpisaniu pełnego tekstu
+      typingSpeed = 2000;
     } else if (isDeleting && charIndex === 0) {
       setIsDeleting(false);
       setTextIndex((prev) => (prev + 1) % typewriterPhrases.length);
@@ -131,14 +131,14 @@ export default function Home() {
   ];
 
   const tools = [
-    { name: 'Discord Operations', icon: Server, color: 'text-blue-400' },
-    { name: 'Slack Integrations', icon: Bot, color: 'text-emerald-400' },
-    { name: 'Next.js / React', icon: Code2, color: 'text-white' },
-    { name: 'Tailwind CSS', icon: Layout, color: 'text-cyan-400' },
-    { name: 'Python & Automation', icon: Terminal, color: 'text-yellow-400' },
-    { name: 'Vercel Platform', icon: Zap, color: 'text-slate-200' },
-    { name: 'UI / Visual Design', icon: Palette, color: 'text-purple-400' },
-    { name: 'Workflow Tools', icon: Wrench, color: 'text-pink-400' },
+    { name: 'Discord Operations', icon: Server, color: 'text-blue-600' },
+    { name: 'Slack Integrations', icon: Bot, color: 'text-emerald-600' },
+    { name: 'Next.js / React', icon: Code2, color: 'text-slate-800' },
+    { name: 'Tailwind CSS', icon: Layout, color: 'text-cyan-600' },
+    { name: 'Python & Automation', icon: Terminal, color: 'text-amber-600' },
+    { name: 'Vercel Platform', icon: Zap, color: 'text-slate-700' },
+    { name: 'UI / Visual Design', icon: Palette, color: 'text-purple-600' },
+    { name: 'Workflow Tools', icon: Wrench, color: 'text-pink-600' },
   ];
 
   const competencies = [
@@ -233,7 +233,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen text-slate-100 relative selection:bg-blue-500/30 selection:text-white">
+    <div className="min-h-screen text-slate-800 relative selection:bg-blue-500/20 selection:text-blue-900">
       
       {/* TŁO: GRID PATTERN + POŚWIATA */}
       <div className="glow-spot" />
@@ -241,28 +241,28 @@ export default function Home() {
 
       {/* 1. LIQUID GLASS NAVIGATION */}
       <header className="fixed top-6 inset-x-0 z-50 flex justify-center px-4">
-        <nav className="glass-card rounded-full px-6 py-3 flex items-center justify-between gap-8 max-w-4xl w-full border border-white/10 shadow-2xl">
+        <nav className="glass-card rounded-full px-6 py-3 flex items-center justify-between gap-8 max-w-4xl w-full border border-slate-200/80 shadow-lg shadow-slate-200/50">
           <button 
             onClick={() => scrollToSection('hero')} 
-            className="font-semibold text-lg tracking-tight text-white hover:opacity-80 transition-opacity bg-transparent border-0 cursor-pointer"
+            className="font-semibold text-lg tracking-tight text-slate-900 hover:opacity-80 transition-opacity bg-transparent border-0 cursor-pointer"
           >
-            ksperix<span className="text-blue-500 font-bold">.dev</span>
+            ksperix<span className="text-blue-600 font-bold">.dev</span>
           </button>
           
-          <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-400">
+          <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
             {navItems.map((item) => {
               const isActive = activeSection === item.id;
               return (
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className={`relative py-1 transition-colors bg-transparent border-0 cursor-pointer ${isActive ? 'text-white font-semibold' : 'hover:text-slate-200'}`}
+                  className={`relative py-1 transition-colors bg-transparent border-0 cursor-pointer ${isActive ? 'text-slate-900 font-semibold' : 'hover:text-slate-900'}`}
                 >
                   {item.label}
                   {isActive && (
                     <motion.div
                       layoutId="nav-line"
-                      className="absolute bottom-0 left-0 right-0 h-[2px] bg-blue-500 rounded-full"
+                      className="absolute bottom-0 left-0 right-0 h-[2px] bg-blue-600 rounded-full"
                       transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                     />
                   )}
@@ -273,7 +273,7 @@ export default function Home() {
 
           <button 
             onClick={() => scrollToSection('contact')} 
-            className="text-xs md:text-sm font-semibold px-5 py-2 rounded-full bg-blue-600/20 hover:bg-blue-600/30 text-blue-300 border border-blue-500/30 transition-all shadow-lg shadow-blue-500/10 cursor-pointer"
+            className="text-xs md:text-sm font-semibold px-5 py-2 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition-all shadow-md shadow-blue-500/20 cursor-pointer"
           >
             Kontakt
           </button>
@@ -282,8 +282,8 @@ export default function Home() {
 
       {/* 2. HERO SECTION */}
       <section id="hero" className="pt-40 pb-20 px-6 max-w-5xl mx-auto text-center flex flex-col items-center justify-center min-h-[90vh] scroll-mt-28">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-card text-xs md:text-sm font-medium text-slate-300 border border-white/10 mb-8">
-          <Workflow className="w-4 h-4 text-blue-400" />
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-card text-xs md:text-sm font-medium text-slate-700 border border-slate-200 mb-8 shadow-sm">
+          <Workflow className="w-4 h-4 text-blue-600" />
           <span>7+ lat w zarządzaniu operacyjnym & budowaniu ekosystemów</span>
         </div>
 
@@ -291,12 +291,12 @@ export default function Home() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-tight mb-6 text-white min-h-[140px] sm:min-h-[180px] flex flex-col justify-center items-center"
+          className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-tight mb-6 text-slate-900 min-h-[140px] sm:min-h-[180px] flex flex-col justify-center items-center"
         >
           <span>Nie tylko koduję.</span>
-          <span className="text-blue-500 block">
+          <span className="text-blue-600 block">
             {typewriterPhrases[textIndex].substring(0, charIndex)}
-            <span className="animate-pulse font-normal text-blue-400">|</span>
+            <span className="animate-pulse font-normal text-blue-500">|</span>
           </span>
         </motion.h1>
 
@@ -304,7 +304,7 @@ export default function Home() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-base sm:text-lg text-slate-400 max-w-2xl mb-10 leading-relaxed font-light"
+          className="text-base sm:text-lg text-slate-600 max-w-2xl mb-10 leading-relaxed font-normal"
         >
           Nie dostarczam prostej strony internetowej, z którą zostajesz sam. Projektuję pełną infrastrukturę operacyjną, automatyzuję procesy zespołowe, wprowadzam dedykowane narzędzia i wdrażam strategię stałego wzrostu.
         </motion.p>
@@ -317,13 +317,13 @@ export default function Home() {
         >
           <button 
             onClick={() => scrollToSection('ecosystems')} 
-            className="px-8 py-3.5 rounded-full bg-white text-black font-semibold hover:bg-slate-200 transition-all shadow-lg flex items-center gap-2 text-sm cursor-pointer border-0"
+            className="px-8 py-3.5 rounded-full bg-slate-900 text-white font-semibold hover:bg-slate-800 transition-all shadow-lg flex items-center gap-2 text-sm cursor-pointer border-0"
           >
             <TrendingUp className="w-4 h-4" /> Zobacz jak działam
           </button>
           <button 
             onClick={() => scrollToSection('contact')} 
-            className="px-8 py-3.5 rounded-full glass-card text-white font-semibold hover:bg-white/10 transition-all border border-white/10 text-sm cursor-pointer"
+            className="px-8 py-3.5 rounded-full glass-card text-slate-800 font-semibold hover:bg-white transition-all border border-slate-200 text-sm cursor-pointer"
           >
             Nawiąż współpracę
           </button>
@@ -337,24 +337,24 @@ export default function Home() {
           whileInView={{ opacity: 1, scale: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="glass-card p-8 sm:p-12 md:p-14 rounded-3xl border border-white/10 shadow-2xl relative overflow-hidden backdrop-blur-2xl"
+          className="glass-card p-8 sm:p-12 md:p-14 rounded-3xl border border-slate-200/80 shadow-xl relative overflow-hidden backdrop-blur-2xl"
         >
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10 border-b border-white/5 pb-6">
-            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
-              O mnie<span className="text-blue-500">.</span>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10 border-b border-slate-200 pb-6">
+            <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
+              O mnie<span className="text-blue-600">.</span>
             </h2>
           </div>
 
           <div className="grid lg:grid-cols-12 gap-10 items-center">
-            <div className="lg:col-span-7 space-y-5 text-slate-300 text-base leading-relaxed font-light">
+            <div className="lg:col-span-7 space-y-5 text-slate-600 text-base leading-relaxed font-normal">
               <p>
-                Jestem <strong className="text-white font-medium">ksperix.dev</strong>. Od <span className="text-blue-400 font-semibold">7 lat</span> łączę funkcje menedżerskie, zarządcze i technologiczne. Prowadzę i skaluję międzynarodową społeczność <strong className="text-white font-medium">BrainlyHQ</strong>, organizuję strukturę pracy zespołów i wdrażam dedykowane systemy operacyjne.
+                Jestem <strong className="text-slate-900 font-semibold">ksperix.dev</strong>. Od <span className="text-blue-600 font-semibold">7 lat</span> łączę funkcje menedżerskie, zarządcze i technologiczne. Prowadzę i skaluję międzynarodową społeczność <strong className="text-slate-900 font-semibold">BrainlyHQ</strong>, organizuję strukturę pracy zespołów i wdrażam dedykowane systemy operacyjne.
               </p>
               <p>
                 Tworzę autorskie narzędzia (w tym zaawansowane boty na platformę Slack i Discord), przygotowuję spójną identyfikację graficzną, prowadzę wsparcie biurowe oraz organizuję skuteczne kampanie reklamowe.
               </p>
-              <p className="text-slate-400 text-sm border-l-2 border-blue-500/40 pl-4 py-1">
-                Wspieram również sektor <strong className="text-slate-200">Adult UGC</strong> (3-letnie doświadczenie), dostarczając dedykowaną infrastrukturę i ekosystemy zarządzania, takie jak <a href="https://vantrx.pl" target="_blank" rel="noopener noreferrer" className="text-blue-400 font-semibold hover:underline inline-flex items-center gap-0.5">VANTRX <ArrowUpRight className="w-3 h-3" /></a>.
+              <p className="text-slate-600 text-sm border-l-2 border-blue-500 pl-4 py-1">
+                Wspieram również sektor <strong className="text-slate-900 font-medium">Adult UGC</strong> (3-letnie doświadczenie), dostarczając dedykowaną infrastrukturę i ekosystemy zarządzania, takie jak <a href="https://vantrx.pl" target="_blank" rel="noopener noreferrer" className="text-blue-600 font-semibold hover:underline inline-flex items-center gap-0.5">VANTRX <ArrowUpRight className="w-3 h-3" /></a>.
               </p>
             </div>
 
@@ -368,12 +368,12 @@ export default function Home() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.3, delay: idx * 0.05 }}
-                    className="p-3.5 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-blue-500/30 hover:bg-white/[0.04] transition-all flex items-center gap-3 group"
+                    className="p-3.5 rounded-2xl bg-white/60 border border-slate-200/80 hover:border-blue-500/40 hover:bg-white transition-all flex items-center gap-3 group shadow-sm"
                   >
-                    <div className="p-2 rounded-xl bg-white/5 group-hover:bg-blue-500/10 transition-colors">
+                    <div className="p-2 rounded-xl bg-slate-100 group-hover:bg-blue-50 transition-colors">
                       <ToolIcon className={`w-4 h-4 ${tool.color}`} />
                     </div>
-                    <span className="text-xs font-semibold text-slate-300 tracking-tight">{tool.name}</span>
+                    <span className="text-xs font-semibold text-slate-700 tracking-tight">{tool.name}</span>
                   </motion.div>
                 );
               })}
@@ -385,8 +385,8 @@ export default function Home() {
       {/* 4. SEKCJA KOMPETENCJE */}
       <section id="services" className="my-32 px-6 max-w-5xl mx-auto scroll-mt-28">
         <div className="mb-12">
-          <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
-            Kompetencje<span className="text-blue-500">.</span>
+          <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
+            Kompetencje<span className="text-blue-600">.</span>
           </h2>
         </div>
 
@@ -400,29 +400,29 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="glass-card p-8 rounded-3xl border border-white/10 hover:border-blue-500/30 transition-all flex flex-col justify-between group relative overflow-hidden"
+                className="glass-card p-8 rounded-3xl border border-slate-200/80 hover:border-blue-500/40 transition-all flex flex-col justify-between group relative overflow-hidden shadow-sm hover:shadow-md"
               >
                 <div>
                   <div className="flex items-center justify-between mb-6">
-                    <div className="p-3 rounded-2xl bg-blue-500/10 text-blue-400 border border-blue-500/20 group-hover:scale-110 transition-transform">
+                    <div className="p-3 rounded-2xl bg-blue-50 text-blue-600 border border-blue-100 group-hover:scale-110 transition-transform">
                       <CompIcon className="w-6 h-6" />
                     </div>
-                    <span className="text-[10px] font-mono font-semibold uppercase tracking-wider px-3 py-1 rounded-full bg-white/5 text-slate-400 border border-white/5">
+                    <span className="text-[10px] font-mono font-semibold uppercase tracking-wider px-3 py-1 rounded-full bg-slate-100 text-slate-600 border border-slate-200">
                       {comp.tag}
                     </span>
                   </div>
 
-                  <h3 className="text-xl font-bold text-white mb-3 tracking-tight group-hover:text-blue-300 transition-colors">
+                  <h3 className="text-xl font-bold text-slate-900 mb-3 tracking-tight group-hover:text-blue-600 transition-colors">
                     {comp.title}
                   </h3>
 
-                  <p className="text-slate-400 text-sm leading-relaxed font-light mb-6">
+                  <p className="text-slate-600 text-sm leading-relaxed font-normal mb-6">
                     {comp.desc}
                   </p>
                 </div>
 
-                <div className="w-full bg-white/5 h-1 rounded-full overflow-hidden">
-                  <div className="bg-blue-500 h-full w-1/3 group-hover:w-full transition-all duration-500" />
+                <div className="w-full bg-slate-200 h-1 rounded-full overflow-hidden">
+                  <div className="bg-blue-600 h-full w-1/3 group-hover:w-full transition-all duration-500" />
                 </div>
               </motion.div>
             );
@@ -433,10 +433,10 @@ export default function Home() {
       {/* 5. SEKCJA PROJEKTÓW */}
       <section id="showcase" className="my-32 px-6 max-w-5xl mx-auto scroll-mt-28">
         <div className="mb-12 text-center">
-          <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
-            Wybrane Projekty<span className="text-blue-500">.</span>
+          <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
+            Wybrane Projekty<span className="text-blue-600">.</span>
           </h2>
-          <p className="text-slate-400 text-sm mt-3 font-light">Przewijaj w dół, aby zobaczyć nakładające się karty w formacie 16:9.</p>
+          <p className="text-slate-600 text-sm mt-3 font-normal">Przewijaj w dół, aby zobaczyć nakładające się karty w formacie 16:9.</p>
         </div>
 
         <div className="space-y-12 relative">
@@ -451,23 +451,23 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.5, delay: idx * 0.05 }}
-                className="glass-card rounded-3xl border border-blue-500/20 overflow-hidden shadow-2xl p-6 sm:p-8 backdrop-blur-2xl transition-all duration-300 hover:border-blue-500/40 bg-[#060b18]/90"
+                className="glass-card rounded-3xl border border-slate-200/80 overflow-hidden shadow-xl p-6 sm:p-8 backdrop-blur-2xl transition-all duration-300 hover:border-blue-500/40 bg-white/80"
               >
                 <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-6">
                   <div>
-                    <span className="text-xs font-mono text-blue-400 font-semibold uppercase tracking-wider">{proj.category}</span>
-                    <h3 className="text-2xl sm:text-3xl font-extrabold text-white mt-1">{proj.title}</h3>
+                    <span className="text-xs font-mono text-blue-600 font-semibold uppercase tracking-wider">{proj.category}</span>
+                    <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mt-1">{proj.title}</h3>
                   </div>
-                  <p className="text-xs sm:text-sm text-slate-300 max-w-md font-light">{proj.desc}</p>
+                  <p className="text-xs sm:text-sm text-slate-600 max-w-md font-normal">{proj.desc}</p>
                 </div>
 
-                <div className="relative w-full aspect-video rounded-2xl overflow-hidden border border-white/10 bg-slate-950 group">
+                <div className="relative w-full aspect-video rounded-2xl overflow-hidden border border-slate-200 bg-slate-100 group shadow-inner">
                   <img 
                     src={proj.image} 
                     alt={proj.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-95"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#040711]/60 via-transparent to-transparent pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 via-transparent to-transparent pointer-events-none" />
                 </div>
               </motion.div>
             </div>
@@ -481,13 +481,13 @@ export default function Home() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="glass-card p-8 md:p-12 rounded-3xl border border-blue-500/20 relative overflow-hidden"
+          className="glass-card p-8 md:p-12 rounded-3xl border border-blue-200 relative overflow-hidden shadow-lg"
         >
-          <h2 className="text-3xl md:text-5xl font-extrabold mb-6 text-white tracking-tight">
-            Co składa się na skuteczny Ekosystem<span className="text-blue-500">?</span>
+          <h2 className="text-3xl md:text-5xl font-extrabold mb-6 text-slate-900 tracking-tight">
+            Co składa się na skuteczny Ekosystem<span className="text-blue-600">?</span>
           </h2>
 
-          <p className="text-slate-300 text-base sm:text-lg leading-relaxed mb-10 max-w-3xl font-light">
+          <p className="text-slate-600 text-base sm:text-lg leading-relaxed mb-10 max-w-3xl font-normal">
             Sam kod ani pojedyncza strona nie gwarantują sukcesu. Prawdziwy ekosystem to połączony organizm, w którym narzędzia, automatyzacja i ludzie współpracują bez tarć.
           </p>
 
@@ -499,25 +499,25 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: idx * 0.1 }}
-                className="p-5 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-blue-500/30 transition-all flex items-start gap-4"
+                className="p-5 rounded-2xl bg-white/60 border border-slate-200/80 hover:border-blue-500/30 transition-all flex items-start gap-4 shadow-sm"
               >
-                <div className="p-2 rounded-xl bg-blue-500/10 text-blue-400 mt-1 shrink-0">
+                <div className="p-2 rounded-xl bg-blue-50 text-blue-600 mt-1 shrink-0">
                   <SlidersHorizontal className="w-4 h-4" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-sm text-white mb-1">{pillar.title}</h3>
-                  <p className="text-xs text-slate-400 leading-relaxed">{pillar.text}</p>
+                  <h3 className="font-semibold text-sm text-slate-900 mb-1">{pillar.title}</h3>
+                  <p className="text-xs text-slate-600 leading-relaxed">{pillar.text}</p>
                 </div>
               </motion.div>
             ))}
           </div>
 
-          <div className="p-6 rounded-2xl bg-blue-950/20 border border-blue-500/20 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="p-6 rounded-2xl bg-blue-50/80 border border-blue-200 flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <Zap className="w-6 h-6 text-blue-400 shrink-0" />
+              <Zap className="w-6 h-6 text-blue-600 shrink-0" />
               <div>
-                <h4 className="text-sm font-bold text-white">Przykład: Autorski Bot na Slacku</h4>
-                <p className="text-xs text-slate-400">Automatyzuje powiadomienia, raporty i decyzje bez wychodzenia z aplikacji.</p>
+                <h4 className="text-sm font-bold text-slate-900">Przykład: Autorski Bot na Slacku</h4>
+                <p className="text-xs text-slate-600">Automatyzuje powiadomienia, raporty i decyzje bez wychodzenia z aplikacji.</p>
               </div>
             </div>
           </div>
@@ -530,20 +530,20 @@ export default function Home() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="glass-card rounded-3xl p-8 md:p-12 border border-white/10 relative overflow-hidden"
+          className="glass-card rounded-3xl p-8 md:p-12 border border-slate-200/80 relative overflow-hidden shadow-lg"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 text-slate-300 text-xs font-semibold mb-6 border border-white/10">
-            <Sparkles className="w-3.5 h-3.5 text-blue-400" /> Dedykowane Rozwiązanie • Adult UGC
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-semibold mb-6 border border-blue-100">
+            <Sparkles className="w-3.5 h-3.5 text-blue-600" /> Dedykowane Rozwiązanie • Adult UGC
           </div>
 
-          <h2 className="text-3xl md:text-5xl font-extrabold mb-6 text-white tracking-tight">
-            <a href="https://vantrx.pl" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition-colors inline-flex items-center gap-2">
-              VANTRX <ArrowUpRight className="w-6 h-6 text-blue-500" />
+          <h2 className="text-3xl md:text-5xl font-extrabold mb-6 text-slate-900 tracking-tight">
+            <a href="https://vantrx.pl" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600 transition-colors inline-flex items-center gap-2">
+              VANTRX <ArrowUpRight className="w-6 h-6 text-blue-600" />
             </a> — Infrastruktura dla branży Adult UGC
           </h2>
 
-          <p className="text-slate-300 text-base leading-relaxed mb-8 max-w-3xl font-light">
-            Posiadam 3-letnie doświadczenie w sektorze <strong className="text-white font-semibold">Adult UGC</strong>. VANTRX to autorski ekosystem stworzony do organizacji procesów, ochrony zasobów cyfrowych oraz automatyzacji codziennej obsługi administracyjnej twórców i agencji.
+          <p className="text-slate-600 text-base leading-relaxed mb-8 max-w-3xl font-normal">
+            Posiadam 3-letnie doświadczenie w sektorze <strong className="text-slate-900 font-semibold">Adult UGC</strong>. VANTRX to autorski ekosystem stworzony do organizacji procesów, ochrony zasobów cyfrowych oraz automatyzacji codziennej obsługi administracyjnej twórców i agencji.
           </p>
 
           <div className="grid sm:grid-cols-3 gap-4">
@@ -556,12 +556,12 @@ export default function Home() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: idx * 0.1 }}
-                  className="p-5 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-blue-500/30 transition-all flex flex-col justify-between"
+                  className="p-5 rounded-2xl bg-white/60 border border-slate-200/80 hover:border-blue-500/30 transition-all flex flex-col justify-between shadow-sm"
                 >
                   <div>
-                    <FeatIcon className="w-5 h-5 text-blue-400 mb-3" />
-                    <h3 className="font-semibold text-sm text-white mb-1">{feat.title}</h3>
-                    <p className="text-xs text-slate-400 leading-relaxed">{feat.desc}</p>
+                    <FeatIcon className="w-5 h-5 text-blue-600 mb-3" />
+                    <h3 className="font-semibold text-sm text-slate-900 mb-1">{feat.title}</h3>
+                    <p className="text-xs text-slate-600 leading-relaxed">{feat.desc}</p>
                   </div>
                 </motion.div>
               );
@@ -577,13 +577,13 @@ export default function Home() {
           whileInView={{ opacity: 1, scale: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5 }}
-          className="glass-card p-8 sm:p-12 md:p-14 rounded-3xl border border-white/10 shadow-2xl relative overflow-hidden backdrop-blur-2xl"
+          className="glass-card p-8 sm:p-12 md:p-14 rounded-3xl border border-slate-200/80 shadow-xl relative overflow-hidden backdrop-blur-2xl"
         >
           <div className="max-w-2xl mx-auto text-center mb-10">
-            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
-              Zbudujmy Twój Ekosystem<span className="text-blue-500">.</span>
+            <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
+              Zbudujmy Twój Ekosystem<span className="text-blue-600">.</span>
             </h2>
-            <p className="text-slate-400 text-sm sm:text-base mt-3">
+            <p className="text-slate-600 text-sm sm:text-base mt-3">
               Wypełnij formularz lub napisz bezpośrednio na Discordzie / e-mailu.
             </p>
           </div>
@@ -591,64 +591,64 @@ export default function Home() {
           <form onSubmit={handleSubmit} className="space-y-4 max-w-3xl mx-auto">
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-mono text-slate-300 mb-1.5">Imię / Nick</label>
+                <label className="block text-xs font-mono text-slate-700 mb-1.5 font-semibold">Imię / Nick</label>
                 <input 
                   type="text" 
                   required
                   placeholder="Twoje imię"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-4 py-3 rounded-2xl bg-white/[0.03] border border-white/10 focus:border-blue-500 focus:outline-none text-sm text-white placeholder-slate-500 transition-colors"
+                  className="w-full px-4 py-3 rounded-2xl bg-white border border-slate-200 focus:border-blue-600 focus:outline-none text-sm text-slate-900 placeholder-slate-400 transition-colors shadow-sm"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-mono text-slate-300 mb-1.5">E-mail</label>
+                <label className="block text-xs font-mono text-slate-700 mb-1.5 font-semibold">E-mail</label>
                 <input 
                   type="email" 
                   required
                   placeholder="twoj@email.com"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full px-4 py-3 rounded-2xl bg-white/[0.03] border border-white/10 focus:border-blue-500 focus:outline-none text-sm text-white placeholder-slate-500 transition-colors"
+                  className="w-full px-4 py-3 rounded-2xl bg-white border border-slate-200 focus:border-blue-600 focus:outline-none text-sm text-slate-900 placeholder-slate-400 transition-colors shadow-sm"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-mono text-slate-300 mb-1.5">Temat</label>
+              <label className="block text-xs font-mono text-slate-700 mb-1.5 font-semibold">Temat</label>
               <input 
                 type="text" 
                 required
                 placeholder="W czym mogę pomóc?"
                 value={formData.subject}
                 onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                className="w-full px-4 py-3 rounded-2xl bg-white/[0.03] border border-white/10 focus:border-blue-500 focus:outline-none text-sm text-white placeholder-slate-500 transition-colors"
+                className="w-full px-4 py-3 rounded-2xl bg-white border border-slate-200 focus:border-blue-600 focus:outline-none text-sm text-slate-900 placeholder-slate-400 transition-colors shadow-sm"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-mono text-slate-300 mb-1.5">Wiadomość</label>
+              <label className="block text-xs font-mono text-slate-700 mb-1.5 font-semibold">Wiadomość</label>
               <textarea 
                 rows="4" 
                 required
                 placeholder="Opisz swój projekt lub zapytanie..."
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                className="w-full px-4 py-3 rounded-2xl bg-white/[0.03] border border-white/10 focus:border-blue-500 focus:outline-none text-sm text-white placeholder-slate-500 transition-colors resize-none"
+                className="w-full px-4 py-3 rounded-2xl bg-white border border-slate-200 focus:border-blue-600 focus:outline-none text-sm text-slate-900 placeholder-slate-400 transition-colors resize-none shadow-sm"
               />
             </div>
 
             <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
-              <div className="flex flex-wrap items-center gap-4 text-xs text-slate-400">
-                <span className="flex items-center gap-1.5"><Mail className="w-4 h-4 text-blue-400" /> contact@ksperix.com</span>
-                <span className="flex items-center gap-1.5"><MessageSquare className="w-4 h-4 text-blue-400" /> Discord: ksperix.dev</span>
+              <div className="flex flex-wrap items-center gap-4 text-xs text-slate-600">
+                <span className="flex items-center gap-1.5"><Mail className="w-4 h-4 text-blue-600" /> contact@ksperix.com</span>
+                <span className="flex items-center gap-1.5"><MessageSquare className="w-4 h-4 text-blue-600" /> Discord: ksperix.dev</span>
               </div>
 
               <button 
                 type="submit" 
                 disabled={status === 'loading'}
-                className="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-all shadow-lg shadow-blue-500/20 flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer"
+                className="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm transition-all shadow-md shadow-blue-500/20 flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer"
               >
                 {status === 'loading' ? (
                   <>
@@ -674,13 +674,13 @@ export default function Home() {
       </section>
 
       {/* FOOTER Z ODNOŚNIKAMI GITHUB I DISCORD */}
-      <footer className="py-8 text-center text-xs text-slate-500 border-t border-white/5 flex flex-col items-center justify-center gap-4">
+      <footer className="py-8 text-center text-xs text-slate-500 border-t border-slate-200 flex flex-col items-center justify-center gap-4">
         <div className="flex items-center gap-6">
           <a 
             href="https://github.com/ksperix" 
             target="_blank" 
             rel="noopener noreferrer" 
-            className="text-slate-400 hover:text-white transition-colors flex items-center gap-2 text-xs font-medium"
+            className="text-slate-600 hover:text-slate-900 transition-colors flex items-center gap-2 text-xs font-medium"
           >
             <Github className="w-4 h-4" /> GitHub
           </a>
@@ -688,7 +688,7 @@ export default function Home() {
             href="https://discord.com/users/ksperix.dev" 
             target="_blank" 
             rel="noopener noreferrer" 
-            className="text-slate-400 hover:text-blue-400 transition-colors flex items-center gap-2 text-xs font-medium"
+            className="text-slate-600 hover:text-blue-600 transition-colors flex items-center gap-2 text-xs font-medium"
           >
             <MessageSquare className="w-4 h-4" /> Discord
           </a>
