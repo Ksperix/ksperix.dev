@@ -740,7 +740,7 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }} 
             className="space-y-6"
           >
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1fr_auto_1fr_1fr_1fr] gap-6 items-stretch">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
               
               {/* 1. PAKIET STARTER */}
               <div className="glass-card rounded-3xl p-6 border border-white/80 flex flex-col justify-between relative transition-all duration-300">
@@ -768,11 +768,6 @@ export default function Home() {
                 >
                   Wybieram Starter
                 </button>
-              </div>
-
-              {/* DEDYKOWANA LINIA ODZIELAJĄCA POMIĘDZY STARTER A GOLD */}
-              <div className="hidden lg:flex items-center justify-center -mx-3">
-                <div className="w-[1px] h-3/4 bg-slate-300/60 rounded-full" />
               </div>
 
               {/* 2. PAKIET GOLD (REKOMENDOWANY) */}
@@ -852,8 +847,8 @@ export default function Home() {
                 </button>
               </div>
 
-              {/* 4. PAKIET SPECIAL (PO PRAWEJ STRONIE, PO KRESCE) */}
-              <div className="glass-card rounded-3xl p-6 border border-white/80 flex flex-col justify-between relative transition-all duration-300 lg:border-l lg:border-l-slate-300 lg:pl-8">
+              {/* 4. PAKIET SPECIAL (ODDZIELONY SZARĄ KRESKĄ PO LEWEJ STRONIE OD PAKIETU PRO) */}
+              <div className="glass-card rounded-3xl p-6 border border-white/80 flex flex-col justify-between relative transition-all duration-300 lg:border-l lg:border-l-slate-300/80 lg:pl-8">
                 <div>
                   <h3 className="text-xl font-bold text-slate-900 mb-1">{specialTier.title}</h3>
                   <p className="text-xs font-semibold text-slate-500 mb-4">{specialTier.subtitle}</p>
