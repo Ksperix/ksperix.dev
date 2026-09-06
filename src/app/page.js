@@ -332,8 +332,8 @@ export default function Home() {
   ];
 
   const otherServices = [
-    { name: "Dokumentacja Marki", desc: "Fachowe zasady dla twojej społeczności lub marki; Regulamin (do 10 stron), Warunki Użytkowania, Szablony umów (2) i Polityka Prywatności", price: "99,99 zł" }
-    { name: "Dokumentacja Marki+", desc: "Jeszce wyższy poziom niż wcześniej! Regulamin (do 30 stron), Warunki Użytkowania Produktów (3), Szablony umów (6) i Polityki Prywatności Produktów (3)", price: "199,99 zł" }
+    { name: "Dokumentacja Marki", desc: "Fachowe zasady dla twojej społeczności lub marki; Regulamin (do 10 stron), Warunki Użytkowania, Szablony umów (2) i Polityka Prywatności", price: "99,99 zł" },
+    { name: "Dokumentacja Marki+", desc: "Jeszcze wyższy poziom niż wcześniej! Regulamin (do 30 stron), Warunki Użytkowania Produktów (3), Szablony umów (6) i Polityki Prywatności Produktów (3)", price: "199,99 zł" },
     { name: "Arkusz kalkulacyjny z automatyzacjami", desc: "Profesjonalny arkusz kalkulacyjny Google z automatyzacjami GAS oraz funkcjami logicznymi", price: "Wycena indywidualna" }
   ];
 
@@ -765,7 +765,7 @@ export default function Home() {
 
                     <ul className="space-y-3 mb-8">
                       {tier.features.map((feat, fIdx) => (
-                        <li key={fIdx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-600 leading-snug">
+                        <li key={fIdx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-600 leading-snug break-words">
                           <Check className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
                           <span>{feat}</span>
                         </li>
@@ -787,7 +787,7 @@ export default function Home() {
               ))}
             </div>
 
-            <p className="text-center text-xs text-slate-500 max-w-2xl mx-auto pt-4 leading-relaxed font-normal">
+            <p className="text-center text-xs text-slate-500 max-w-2xl mx-auto pt-4 leading-relaxed font-normal break-words">
               * Cena &quot;od&quot; oznacza, że bazowo za pakiet zapłacisz podaną kwotę, jednak może ona wzrosnąć, jeśli zdecydujesz się na implementację płatnego rozwiązania innego usługodawcy (np. gdy będziesz chciał założyć własną domenę, sklep Shoper lub Google Workspace).
             </p>
           </motion.div>
@@ -810,9 +810,9 @@ export default function Home() {
             <div className="divide-y divide-slate-100">
               {discordServices.map((item, itemIdx) => (
                 <div key={itemIdx} className="py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-blue-50/30 px-3 rounded-xl transition-colors">
-                  <div>
+                  <div className="max-w-xl break-words">
                     <h4 className="font-bold text-slate-900 text-sm sm:text-base">{item.name}</h4>
-                    <p className="text-xs text-slate-500 mt-0.5">{item.desc}</p>
+                    <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">{item.desc}</p>
                   </div>
                   <div className="flex items-center gap-4 shrink-0">
                     <span className="text-sm font-black text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-100">{item.price}</span>
@@ -846,9 +846,9 @@ export default function Home() {
             <div className="divide-y divide-slate-100">
               {localServices.map((item, itemIdx) => (
                 <div key={itemIdx} className="py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-blue-50/30 px-3 rounded-xl transition-colors">
-                  <div>
+                  <div className="max-w-xl break-words">
                     <h4 className="font-bold text-slate-900 text-sm sm:text-base">{item.name}</h4>
-                    <p className="text-xs text-slate-500 mt-0.5">{item.desc}</p>
+                    <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">{item.desc}</p>
                   </div>
                   <div className="flex items-center gap-4 shrink-0">
                     <span className="text-sm font-black text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-100">{item.price}</span>
@@ -882,9 +882,9 @@ export default function Home() {
             <div className="divide-y divide-slate-100">
               {otherServices.map((item, itemIdx) => (
                 <div key={itemIdx} className="py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-blue-50/30 px-3 rounded-xl transition-colors">
-                  <div>
+                  <div className="max-w-xl break-words">
                     <h4 className="font-bold text-slate-900 text-sm sm:text-base">{item.name}</h4>
-                    <p className="text-xs text-slate-500 mt-0.5">{item.desc}</p>
+                    <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">{item.desc}</p>
                   </div>
                   <div className="flex items-center gap-4 shrink-0">
                     <span className="text-sm font-black text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-100">{item.price}</span>
