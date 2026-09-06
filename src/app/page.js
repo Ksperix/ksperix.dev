@@ -333,19 +333,22 @@ export default function Home() {
   ];
 
   const discordServices = [
-    { name: "Konfiguracja Serwera Discord od zera", desc: "Struktura kanałów, role, uprawnienia, boty oraz zabezpieczenia", price: "od 300 zł" },
-    { name: "Autorski Bot Discord / Integracja", desc: "Dedykowany bot w Node.js/Python, powiadomienia, automatyzacja", price: "od 450 zł" },
-    { name: "Dedykowana Oprawa Graficzna Serwera", desc: "Ikona serwera, bannery kanałów, nagłówki, szablony ogłoszeń", price: "od 200 zł" }
+    { name: "Serwer Starter", desc: "Struktura kanałów (do 15), role (do 15), uprawnienia, boty (do 3), zabezpieczenia", price: "129,99 zł" },
+    { name: "Serwer Premium", desc: "WSZYSTKO CO POPRZEDNIO + Struktura kanałów (do 30), role (do 30), system ticketów, ustawienia społeczności, powitania, dokumentacja, boty (do 5)", price: "189,99 zł" },
+    { name: "Serwer Diamond", desc: "WSZYSTKO CO POPRZEDNIO + Struktura kanałów (do 45), role (do 45), ustawienia profilu serwera na top.gg/Disboard, auto-role, poradnik prowadzenia serwera, ekran powitalny", price: "239,99 zł" },
+    { name: "Serwer Enterpriser", desc: "WSZYSTKO CO POPRZEDNIO + Nielmitowana liczba kanałów, ról, system giveawayów, powiadomienia, zadania, ekonomia, user-panel, strategia marketingowa dla serwera", price: "399,99 zł" },
+    { name: "Dedykowana Oprawa Graficzna Serwera", desc: "Ikona serwera, bannery kanałów, nagłówki, szablony ogłoszeń (30 elementów)", price: "199,99 zł" }
   ];
 
   const localServices = [
     { name: "Formatowanie & Dobre ustawienia OS", desc: "Instalacja Windows/macOS, sterowników, zabezpieczenia", price: "od 99,99 zł" },
-    { name: "Konsultacja stacjonarna w Krakowie / Małopolsce", desc: "Doradztwo technologiczne na miejscu, audyt sprzętowy i sieciowy", price: "149,99 zł /h" }
+    { name: "Konsultacja stacjonarna w Krakowie / Małopolsce", desc: "Doradztwo technologiczne na miejscu, audyt sprzętowy i sieciowy", price: "149,99 zł / h" }
   ];
 
   const otherServices = [
     { name: "Dokumentacja Marki", desc: "Fachowe zasady dla twojej społeczności lub marki; Regulamin (do 10 stron), Warunki Użytkowania, Szablony umów (2) i Polityka Prywatności", price: "99,99 zł" },
     { name: "Dokumentacja Marki+", desc: "Jeszcze wyższy poziom niż wcześniej! Regulamin (do 30 stron), Warunki Użytkowania Produktów (3), Szablony umów (6) i Polityki Prywatności Produktów (3)", price: "199,99 zł" },
+    { name: "Bot na Slacku", desc: "Jakościowa aplikacja na plartformie Slack; funkcje AI, przcyiski, API i inne opcje", price: "Wycena indywidualna" },
     { name: "Arkusz kalkulacyjny z automatyzacjami", desc: "Profesjonalny arkusz kalkulacyjny Google z automatyzacjami GAS oraz funkcjami logicznymi", price: "Wycena indywidualna" }
   ];
 
@@ -968,7 +971,7 @@ export default function Home() {
               <div className="p-2.5 rounded-xl bg-blue-50 text-blue-600 border border-blue-100">
                 <Sparkles className="w-5 h-5 text-blue-600" />
               </div>
-              <h3 className="text-xl font-bold text-slate-900">Inne Usługi & Projekt Dedykowany</h3>
+              <h3 className="text-xl font-bold text-slate-900">Inne Usługi</h3>
             </div>
 
             <div className="divide-y divide-slate-100">
