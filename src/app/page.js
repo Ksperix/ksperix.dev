@@ -333,6 +333,10 @@ export default function Home() {
     { name: "Konsultacja stacjonarna w Krakowie / Małopolsce", desc: "Doradztwo technologiczne na miejscu, audyt sprzętowy i sieciowy", price: "150 zł /h" }
   ];
 
+  const otherServices = [
+    { name: "Indywidualne Projekty & Konsultacje", desc: "Audyty, wdrożenia nietypowych rozwiązań, migracje danych, skrypty na zamówienie", price: "Wycena indywidualna" }
+  ];
+
   return (
     <div className="min-h-screen text-slate-800 relative selection:bg-blue-500/20 selection:text-blue-900">
       
@@ -672,7 +676,7 @@ export default function Home() {
         </div>
 
         {/* PRZEŁĄCZNIK KATEGORII CENNIKA */}
-        <div className="flex justify-center mb-12">
+        <div className="flex justify-center mb-16">
           <div className="inline-flex p-1.5 rounded-2xl bg-white border border-slate-200 shadow-sm flex-wrap justify-center gap-1">
             <button
               onClick={() => setPricingCategory('ecosystems')}
@@ -704,6 +708,16 @@ export default function Home() {
             >
               <Compass className="w-4 h-4" /> Stacjonarne
             </button>
+            <button
+              onClick={() => setPricingCategory('other')}
+              className={`px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-2 cursor-pointer ${
+                pricingCategory === 'other' 
+                  ? 'bg-blue-600 text-white shadow-md' 
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              <Sparkles className="w-4 h-4" /> Inne
+            </button>
           </div>
         </div>
 
@@ -712,64 +726,70 @@ export default function Home() {
           <motion.div 
             initial={{ opacity: 0, y: 15 }} 
             animate={{ opacity: 1, y: 0 }} 
-            className="grid md:grid-cols-3 gap-6 items-stretch"
+            className="space-y-6"
           >
-            {pricingTiers.map((tier, idx) => (
-              <div
-                key={idx}
-                className={`rounded-3xl p-8 border flex flex-col justify-between relative transition-all duration-300 ${
-                  tier.popular 
-                    ? 'border-2 border-blue-600 shadow-xl shadow-blue-500/20 bg-white scale-[1.03] md:-translate-y-2 z-10' 
-                    : 'glass-card border-white/80'
-                }`}
-              >
-                {tier.popular && (
-                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-blue-600 text-white text-[10px] font-bold tracking-wider uppercase shadow-md flex items-center gap-1">
-                    <Sparkles className="w-3 h-3" /> REKOMENDOWANE
-                  </div>
-                )}
-
-                <div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-2 mt-1">{tier.title}</h3>
-                  <div className="mb-6">
-                    {tier.oldPrice && (
-                      <span className="text-sm font-bold text-slate-400 line-through block -mb-1">
-                        {tier.oldPrice}
-                      </span>
-                    )}
-                    <div className="text-2xl sm:text-3xl font-black text-blue-600">
-                      {tier.price}
-                    </div>
-                  </div>
-
-                  {tier.includesPrevious && (
-                    <p className="text-[11px] font-semibold text-blue-600 italic -mt-4 mb-4">
-                      {tier.includesPrevious}
-                    </p>
-                  )}
-
-                  <ul className="space-y-3 mb-8">
-                    {tier.features.map((feat, fIdx) => (
-                      <li key={fIdx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-600 leading-snug">
-                        <Check className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
-                        <span>{feat}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <button
-                  onClick={() => scrollToSection('contact')}
-                  className={`w-full py-3 rounded-2xl font-semibold text-sm transition-all cursor-pointer ${
-                    tier.popular
-                      ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-500/20'
-                      : 'bg-slate-900 hover:bg-slate-800 text-white'
+            <div className="grid md:grid-cols-3 gap-6 items-stretch">
+              {pricingTiers.map((tier, idx) => (
+                <div
+                  key={idx}
+                  className={`rounded-3xl p-8 border flex flex-col justify-between relative transition-all duration-300 ${
+                    tier.popular 
+                      ? 'border-2 border-blue-600 shadow-xl shadow-blue-500/20 bg-white scale-[1.03] md:-translate-y-2 z-10' 
+                      : 'glass-card border-white/80'
                   }`}
                 >
-                  Zapytaj o darmową wycenę
-                </button>
-              </div>
-            ))}
+                  {tier.popular && (
+                    <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-blue-600 text-white text-[10px] font-bold tracking-wider uppercase shadow-md flex items-center gap-1">
+                      <Sparkles className="w-3 h-3" /> REKOMENDOWANE
+                    </div>
+                  )}
+
+                  <div>
+                    <h3 className="text-xl font-bold text-slate-900 mb-2 mt-1">{tier.title}</h3>
+                    <div className="mb-6">
+                      {tier.oldPrice && (
+                        <span className="text-sm font-bold text-slate-400 line-through block -mb-1">
+                          {tier.oldPrice}
+                        </span>
+                      )}
+                      <div className="text-2xl sm:text-3xl font-black text-blue-600">
+                        {tier.price}
+                      </div>
+                    </div>
+
+                    {tier.includesPrevious && (
+                      <p className="text-[11px] font-semibold text-blue-600 italic -mt-4 mb-4">
+                        {tier.includesPrevious}
+                      </p>
+                    )}
+
+                    <ul className="space-y-3 mb-8">
+                      {tier.features.map((feat, fIdx) => (
+                        <li key={fIdx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-600 leading-snug">
+                          <Check className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
+                          <span>{feat}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <button
+                    onClick={() => scrollToSection('contact')}
+                    className={`w-full py-3 rounded-2xl font-semibold text-sm transition-all cursor-pointer ${
+                      tier.popular
+                        ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-500/20'
+                        : 'bg-slate-900 hover:bg-slate-800 text-white'
+                    }`}
+                  >
+                    Zapytaj o darmową wycenę
+                  </button>
+                </div>
+              ))}
+            </div>
+
+            <p className="text-center text-xs text-slate-500 max-w-2xl mx-auto pt-4 leading-relaxed font-normal">
+              * Cena &quot;od&quot; oznacza, że bazowo za pakiet zapłacisz podaną kwotę, jednak może ona wzrosnąć, jeśli zdecydujesz się na implementację płatnego rozwiązania innego usługodawcy (np. gdy będziesz chciał założyć własną domenę, sklep Shoper lub Google Workspace).
+            </p>
           </motion.div>
         )}
 
@@ -825,6 +845,42 @@ export default function Home() {
 
             <div className="divide-y divide-slate-100">
               {localServices.map((item, itemIdx) => (
+                <div key={itemIdx} className="py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-blue-50/30 px-3 rounded-xl transition-colors">
+                  <div>
+                    <h4 className="font-bold text-slate-900 text-sm sm:text-base">{item.name}</h4>
+                    <p className="text-xs text-slate-500 mt-0.5">{item.desc}</p>
+                  </div>
+                  <div className="flex items-center gap-4 shrink-0">
+                    <span className="text-sm font-black text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-100">{item.price}</span>
+                    <button 
+                      onClick={() => scrollToSection('contact')}
+                      className="p-2 rounded-full bg-slate-100 hover:bg-blue-600 hover:text-white text-slate-600 transition-colors cursor-pointer"
+                    >
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        )}
+
+        {/* WARIANT 4: INNE USŁUGI */}
+        {pricingCategory === 'other' && (
+          <motion.div 
+            initial={{ opacity: 0, y: 15 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            className="glass-card rounded-3xl p-6 sm:p-8 border border-white/80 shadow-md"
+          >
+            <div className="flex items-center gap-3 mb-6 border-b border-slate-200/60 pb-4">
+              <div className="p-2.5 rounded-xl bg-blue-50 text-blue-600 border border-blue-100">
+                <Sparkles className="w-5 h-5 text-blue-600" />
+              </div>
+              <h3 className="text-xl font-bold text-slate-900">Inne Usługi & Projekt Dedykowany</h3>
+            </div>
+
+            <div className="divide-y divide-slate-100">
+              {otherServices.map((item, itemIdx) => (
                 <div key={itemIdx} className="py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-blue-50/30 px-3 rounded-xl transition-colors">
                   <div>
                     <h4 className="font-bold text-slate-900 text-sm sm:text-base">{item.name}</h4>
