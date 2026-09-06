@@ -289,10 +289,10 @@ export default function Home() {
     price: "70,00 zł / h",
     subtitle: "Konsultacje na bieżąco & Rozwój Marki",
     features: [
-      "Brak płatności jednorazowej – elastyczny rozliczany czas pracy godzinowej",
+      "Brak płatności jednorazowej – elastyczny czas pracy godzinowej",
       "Spotkania stacjonarne na terenie Krakowa lub konsultacje online",
-      "Praca nad marką, rozmowy strategiczne, stopniowe wprowadzanie zmian",
-      "Elastyczne ustalanie wspólnych terminów dostosowanych do Twojego kalendarza"
+      "Praca nad marką, rozmowy strategiczne, wprowadzanie zmian",
+      "Elastyczne ustalanie wspólnych terminów dostosowanych do Ciebie"
     ]
   };
 
@@ -304,7 +304,7 @@ export default function Home() {
         "Audyt obecnej infrastruktury",
         "Wskazówki dot. dalszego rozwoju wraz z raportem",
         "Implementacja pierwszy ustalonych zmian",
-        "Ustalenie grupy targetowej i analiza identyfikacji wizualnej marki"
+        "Ustalenie grupy targetowej i analiza identyfikacji marki"
       ]
     },
     {
@@ -315,7 +315,7 @@ export default function Home() {
       includesPrevious: "+ wszystko co w pakiecie Starter",
       features: [
         "Poprawy w identyfikacji wizualnej marki oraz raport",
-        "Pomoc w konfiguracji narzędzi zarządzania zespołem i marką",
+        "Pomoc w konfiguracji narzędzi zarządzania zespołem",
         "Rozwój Social Mediów marki",
         "Utworzenie haseł promocyjnych i Look Book'a"
       ]
@@ -325,10 +325,10 @@ export default function Home() {
       price: "od 499,99 zł",
       includesPrevious: "+ wszystko co w pakiecie Gold",
       features: [
-        "Kompleksowy serwer Discord/Slack z botami / botem autorskim",
-        "Strona internetowa oraz własny panel linków na Social Media",
+        "Kompleksowy serwer Discord/Slack z botami autorskimi",
+        "Strona internetowa oraz własny panel linków Social Media",
         "Twoje pierwsze produkty cyfrowe i narzędzia marki",
-        "Pełne utrzymanie techniczne, wsparcie 24/7, nowe koncepcje"
+        "Pełne utrzymanie techniczne, wsparcie 24/7, koncepcje"
       ]
     }
   ];
@@ -678,7 +678,7 @@ export default function Home() {
       </section>
 
       {/* 7. SEKCJA CENNIK */}
-      <section id="pricing" className="my-32 px-6 max-w-6xl mx-auto scroll-mt-28">
+      <section id="pricing" className="my-32 px-6 max-w-7xl mx-auto scroll-mt-28">
         <div className="mb-10 text-center">
           <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
             Cennik & Oferta Usług<span className="text-blue-600">.</span>
@@ -741,28 +741,28 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }} 
             className="space-y-6"
           >
-            <div className="grid lg:grid-cols-12 gap-8 items-stretch">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
               
-              {/* LEWY BLOK: PAKIET SPECIAL */}
-              <div className="lg:col-span-4 glass-card rounded-3xl p-8 border border-blue-300/80 bg-blue-50/30 flex flex-col justify-between shadow-lg relative">
+              {/* 1. PAKIET SPECIAL (Z LEWEJ STRONY) */}
+              <div className="glass-card rounded-3xl p-6 border border-blue-300/80 bg-blue-50/30 flex flex-col justify-between shadow-lg relative lg:border-r-2 lg:border-r-blue-200/90 lg:pr-8">
                 <div>
                   <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-[10px] font-bold uppercase tracking-wider mb-4 border border-blue-200">
-                    <Users className="w-3 h-3" /> Współpraca Ciągła
+                    <Users className="w-3 h-3" /> Continuous Support
                   </div>
 
-                  <h3 className="text-2xl font-black text-slate-900 mb-2">{specialTier.title}</h3>
-                  <p className="text-xs font-semibold text-slate-500 mb-6">{specialTier.subtitle}</p>
+                  <h3 className="text-xl font-bold text-slate-900 mb-1 mt-1">{specialTier.title}</h3>
+                  <p className="text-xs font-semibold text-slate-500 mb-4">{specialTier.subtitle}</p>
 
                   <div className="mb-6">
-                    <div className="text-3xl font-black text-blue-600">
+                    <div className="text-2xl sm:text-3xl font-black text-blue-600">
                       {specialTier.price}
                     </div>
                   </div>
 
                   <ul className="space-y-3 mb-8">
                     {specialTier.features.map((feat, fIdx) => (
-                      <li key={fIdx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 leading-relaxed break-words">
-                        <Check className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
+                      <li key={fIdx} className="flex items-start gap-2 text-xs text-slate-700 leading-snug break-words">
+                        <Check className="w-3.5 h-3.5 text-blue-600 shrink-0 mt-0.5" />
                         <span>{feat}</span>
                       </li>
                     ))}
@@ -777,69 +777,109 @@ export default function Home() {
                 </button>
               </div>
 
-              {/* PIONOWA LINIA ODDZIELAJĄCA (Widoczna na komputerach) */}
-              <div className="hidden lg:block lg:col-span-1 flex justify-center items-center">
-                <div className="w-[1px] h-full bg-slate-200/80 rounded-full" />
+              {/* 2. PAKIET STARTER */}
+              <div className="glass-card rounded-3xl p-6 border border-white/80 flex flex-col justify-between relative transition-all duration-300">
+                <div>
+                  <h3 className="text-xl font-bold text-slate-900 mb-1 mt-1">{pricingTiers[0].title}</h3>
+                  <div className="mb-6">
+                    <div className="text-2xl sm:text-3xl font-black text-blue-600">
+                      {pricingTiers[0].price}
+                    </div>
+                  </div>
+
+                  <ul className="space-y-3 mb-8">
+                    {pricingTiers[0].features.map((feat, fIdx) => (
+                      <li key={fIdx} className="flex items-start gap-2 text-xs text-slate-600 leading-snug break-words">
+                        <Check className="w-3.5 h-3.5 text-blue-600 shrink-0 mt-0.5" />
+                        <span>{feat}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <button
+                  onClick={() => scrollToSection('contact')}
+                  className="w-full py-3 rounded-2xl font-semibold text-sm transition-all cursor-pointer bg-slate-900 hover:bg-slate-800 text-white"
+                >
+                  Wybieram Starter
+                </button>
               </div>
 
-              {/* PRAWY BLOK: 3 PAKIETY EKOSYSTEMÓW */}
-              <div className="lg:col-span-7 grid md:grid-cols-3 gap-4 items-stretch">
-                {pricingTiers.map((tier, idx) => (
-                  <div
-                    key={idx}
-                    className={`rounded-3xl p-6 border flex flex-col justify-between relative transition-all duration-300 ${
-                      tier.popular 
-                        ? 'border-2 border-blue-600 shadow-xl shadow-blue-500/20 bg-white scale-[1.02] z-10' 
-                        : 'glass-card border-white/80'
-                    }`}
-                  >
-                    {tier.popular && (
-                      <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-blue-600 text-white text-[9px] font-bold tracking-wider uppercase shadow-md flex items-center gap-1">
-                        <Sparkles className="w-2.5 h-2.5" /> TOP
-                      </div>
+              {/* 3. PAKIET GOLD (REKOMENDOWANY) */}
+              <div className="rounded-3xl p-6 border-2 border-blue-600 shadow-xl shadow-blue-500/20 bg-white scale-[1.02] flex flex-col justify-between relative transition-all duration-300 z-10">
+                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-blue-600 text-white text-[9px] font-bold tracking-wider uppercase shadow-md flex items-center gap-1">
+                  <Sparkles className="w-2.5 h-2.5" /> REKOMENDOWANE
+                </div>
+
+                <div>
+                  <h3 className="text-xl font-bold text-slate-900 mb-1 mt-1">{pricingTiers[1].title}</h3>
+                  <div className="mb-6">
+                    {pricingTiers[1].oldPrice && (
+                      <span className="text-xs font-bold text-slate-400 line-through block -mb-0.5">
+                        {pricingTiers[1].oldPrice}
+                      </span>
                     )}
-
-                    <div>
-                      <h3 className="text-lg font-bold text-slate-900 mb-1 mt-1">{tier.title}</h3>
-                      <div className="mb-4">
-                        {tier.oldPrice && (
-                          <span className="text-xs font-bold text-slate-400 line-through block -mb-0.5">
-                            {tier.oldPrice}
-                          </span>
-                        )}
-                        <div className="text-xl font-black text-blue-600">
-                          {tier.price}
-                        </div>
-                      </div>
-
-                      {tier.includesPrevious && (
-                        <p className="text-[10px] font-semibold text-blue-600 italic -mt-3 mb-3">
-                          {tier.includesPrevious}
-                        </p>
-                      )}
-
-                      <ul className="space-y-2.5 mb-6">
-                        {tier.features.map((feat, fIdx) => (
-                          <li key={fIdx} className="flex items-start gap-2 text-xs text-slate-600 leading-snug break-words">
-                            <Check className="w-3.5 h-3.5 text-blue-600 shrink-0 mt-0.5" />
-                            <span>{feat}</span>
-                          </li>
-                        ))}
-                      </ul>
+                    <div className="text-2xl sm:text-3xl font-black text-blue-600">
+                      {pricingTiers[1].price}
                     </div>
-
-                    <button
-                      onClick={() => scrollToSection('contact')}
-                      className={`w-full py-2.5 rounded-xl font-semibold text-xs transition-all cursor-pointer ${
-                        tier.popular
-                          ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-500/20'
-                          : 'bg-slate-900 hover:bg-slate-800 text-white'
-                      }`}
-                    >
-                      Wybieram
-                    </button>
                   </div>
-                ))}
+
+                  {pricingTiers[1].includesPrevious && (
+                    <p className="text-[10px] font-semibold text-blue-600 italic -mt-4 mb-4">
+                      {pricingTiers[1].includesPrevious}
+                    </p>
+                  )}
+
+                  <ul className="space-y-3 mb-8">
+                    {pricingTiers[1].features.map((feat, fIdx) => (
+                      <li key={fIdx} className="flex items-start gap-2 text-xs text-slate-600 leading-snug break-words">
+                        <Check className="w-3.5 h-3.5 text-blue-600 shrink-0 mt-0.5" />
+                        <span>{feat}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <button
+                  onClick={() => scrollToSection('contact')}
+                  className="w-full py-3 rounded-2xl font-semibold text-sm transition-all cursor-pointer bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-500/20"
+                >
+                  Wybieram Gold
+                </button>
+              </div>
+
+              {/* 4. PAKIET PRO */}
+              <div className="glass-card rounded-3xl p-6 border border-white/80 flex flex-col justify-between relative transition-all duration-300">
+                <div>
+                  <h3 className="text-xl font-bold text-slate-900 mb-1 mt-1">{pricingTiers[2].title}</h3>
+                  <div className="mb-6">
+                    <div className="text-2xl sm:text-3xl font-black text-blue-600">
+                      {pricingTiers[2].price}
+                    </div>
+                  </div>
+
+                  {pricingTiers[2].includesPrevious && (
+                    <p className="text-[10px] font-semibold text-blue-600 italic -mt-4 mb-4">
+                      {pricingTiers[2].includesPrevious}
+                    </p>
+                  )}
+
+                  <ul className="space-y-3 mb-8">
+                    {pricingTiers[2].features.map((feat, fIdx) => (
+                      <li key={fIdx} className="flex items-start gap-2 text-xs text-slate-600 leading-snug break-words">
+                        <Check className="w-3.5 h-3.5 text-blue-600 shrink-0 mt-0.5" />
+                        <span>{feat}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <button
+                  onClick={() => scrollToSection('contact')}
+                  className="w-full py-3 rounded-2xl font-semibold text-sm transition-all cursor-pointer bg-slate-900 hover:bg-slate-800 text-white"
+                >
+                  Wybieram Pro
+                </button>
               </div>
 
             </div>
