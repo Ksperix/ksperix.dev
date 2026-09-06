@@ -688,7 +688,7 @@ export default function Home() {
         </div>
 
         {/* PRZEŁĄCZNIK KATEGORII CENNIKA */}
-        <div className="flex justify-center mb-12">
+        <div className="flex justify-center mb-10">
           <div className="inline-flex p-1.5 rounded-2xl bg-white border border-slate-200 shadow-sm flex-wrap justify-center gap-1">
             <button
               onClick={() => setPricingCategory('ecosystems')}
@@ -738,7 +738,7 @@ export default function Home() {
           <motion.div 
             initial={{ opacity: 0, y: 15 }} 
             animate={{ opacity: 1, y: 0 }} 
-            className="space-y-10"
+            className="space-y-6"
           >
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
               
