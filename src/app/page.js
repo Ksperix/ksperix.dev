@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { 
   Server, 
   Globe, 
@@ -21,10 +21,20 @@ import {
   Send,
   Loader2,
   ArrowUpRight,
-  SlidersHorizontal,
   Github,
   Check,
-  MapPin
+  MapPin,
+  MessageSquareCode,
+  Cpu,
+  ShieldCheck,
+  BarChart3,
+  ChevronRight,
+  Smartphone,
+  HardDrive,
+  Laptop,
+  Users,
+  Compass,
+  ArrowRight
 } from 'lucide-react';
 
 function FluidBackground() {
@@ -69,6 +79,7 @@ export default function Home() {
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
   const [status, setStatus] = useState('idle');
   const [selectedEcosystem, setSelectedEcosystem] = useState('brainly');
+  const [pricingCategory, setPricingCategory] = useState('ecosystems');
 
   const typewriterPhrases = [
     'Tworzę ekosystemy.',
@@ -238,11 +249,46 @@ export default function Home() {
   ];
 
   const ecosystemPillars = [
-    { title: "Scentralizowana Komunikacja", text: "Integracja komunikatorów (Slack/Discord) z narzędziami projektowymi." },
-    { title: "Automatyzacja Zadań", text: "Eliminacja rutynowej pracy za pomocą autorskich botów i skryptów." },
-    { title: "Bezpieczeństwo & Dostępność", text: "Kontrola nad uprawnieniami, ochrona plików i bezawaryjność 24/7." },
-    { title: "Analityka i Skalowalność", text: "Śledzenie kluczowych wskaźników rozwoju i gotowość na szybki wzrost." }
+    { title: "Scentralizowana Komunikacja", text: "Integracja komunikatorów (Slack/Discord) z narzędziami projektowymi.", icon: MessageSquareCode },
+    { title: "Automatyzacja Zadań", text: "Eliminacja rutynowej pracy za pomocą autorskich botów i skryptów.", icon: Cpu },
+    { title: "Bezpieczeństwo & Dostępność", text: "Kontrola nad uprawnieniami, ochrona plików i bezawaryjność 24/7.", icon: ShieldCheck },
+    { title: "Analityka i Skalowalność", text: "Śledzenie kluczowych wskaźników rozwoju i gotowość na szybki wzrost.", icon: BarChart3 }
   ];
+
+  const ecosystemData = {
+    brainly: {
+      tag: "Ekosystem Społecznościowy",
+      title: "BrainlyHQ Infrastructure",
+      subtitle: "Globalna Platforma Społecznościowa & Dystrybucja Bota",
+      desc: "Zaawansowane narzędzia moderacyjne, automatyczna integracja botów, powiadomień oraz dedykowany rynek produktów dla społeczności. Zbudowany z myślą o skalowaniu na dziesiątki tysięcy użytkowników.",
+      metrics: [
+        { label: "Liczba Społeczności", value: "Multi-Server" },
+        { label: "Integracje", value: "Slack & Discord API" },
+        { label: "Utrzymanie", value: "99.9% Uptime" }
+      ],
+      link: "https://discord.brainly.com/products",
+      btnText: "Przeglądaj Produkty BrainlyHQ",
+      accentBg: "bg-blue-600",
+      accentText: "text-blue-600",
+      badgeBg: "bg-blue-50 text-blue-700 border-blue-200"
+    },
+    vantrx: {
+      tag: "Adult UGC Systems",
+      title: "VANTRX Platform",
+      subtitle: "Bezpieczeństwo Zasobów & Automatyzacja Agencji",
+      desc: "Autorska platforma stworzona do organizacji procesów, ochrony zasobów cyfrowych oraz automatyzacji codziennej obsługi administracyjnej twórców oraz agencji w sektorze Adult UGC.",
+      metrics: [
+        { label: "Doświadczenie Branżowe", value: "3+ Lata" },
+        { label: "Ochrona Danych", value: "Private Vault" },
+        { label: "Wydajność", value: "Automatyczna Biurokracja" }
+      ],
+      link: "https://vantrx.pl",
+      btnText: "Przejdź do VANTRX",
+      accentBg: "bg-purple-600",
+      accentText: "text-purple-600",
+      badgeBg: "bg-purple-50 text-purple-700 border-purple-200"
+    }
+  };
 
   const pricingTiers = [
     {
@@ -280,6 +326,27 @@ export default function Home() {
         "Strona web na Next.js + panel administracyjny",
         "Integracje API, płatności i powiadomienia 24/7",
         "Pełne utrzymanie techniczne i wsparcie"
+      ]
+    }
+  ];
+
+  const localServices = [
+    {
+      category: "Serwis urządzeń & IT",
+      icon: Laptop,
+      items: [
+        { name: "Czyszczenie i konserwacja PC / Laptopa", desc: "Wymiana pasty termoprzewodzącej, odpylanie, optymalizacja temp.", price: "od 120 zł" },
+        { name: "Serwis smartfona / Wymiana szybki", desc: "Wymiana ekranu, baterii, czyszczenie gniazd i głośników", price: "od 150 zł" },
+        { name: "Formatowanie & Dobre ustawienia OS", desc: "Instalacja Windows/macOS, sterowników, zabezpieczenia", price: "od 100 zł" }
+      ]
+    },
+    {
+      category: "Tożsamość Marki & Dedykowane Usługi",
+      icon: Users,
+      items: [
+        { name: "Konfiguracja Serwera Discord od zera", desc: "Zabezpieczenia, boty, autorskie role, oprawa graficzna", price: "od 400 zł" },
+        { name: "Strategia i rozwój nowej marki", desc: "Pozycjonowanie, branding, przygotowanie szablonów reklamowych", price: "od 600 zł" },
+        { name: "Konsultacja indywidualna 1-on-1", desc: "Doradztwo technologiczne, wybór oprogramowania, audyt", price: "150 zł /h" }
       ]
     }
   ];
@@ -360,12 +427,17 @@ export default function Home() {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="flex flex-wrap items-center justify-center gap-4"
         >
+          {/* PRZYCISK Z ANIMACJĄ ZMIANY KOLORU STYLE WHATSAPP LOG-IN */}
           <button 
             onClick={() => scrollToSection('ecosystems')} 
-            className="px-8 py-3.5 rounded-full bg-slate-900 text-white font-semibold hover:bg-slate-800 transition-all shadow-lg flex items-center gap-2 text-sm cursor-pointer border-0"
+            className="group relative px-8 py-3.5 rounded-full bg-slate-900 text-white font-semibold shadow-lg flex items-center gap-2 text-sm cursor-pointer border border-slate-900 overflow-hidden transition-all duration-300"
           >
-            <TrendingUp className="w-4 h-4" /> Zobacz jak działam
+            <span className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out rounded-full" />
+            <span className="relative z-10 flex items-center gap-2 group-hover:text-slate-900 transition-colors duration-300 font-semibold">
+              <TrendingUp className="w-4 h-4 group-hover:text-slate-900 transition-colors duration-300" /> Zobacz jak działam
+            </span>
           </button>
+
           <button 
             onClick={() => scrollToSection('contact')} 
             className="px-8 py-3.5 rounded-full glass-card text-slate-800 font-semibold hover:bg-white transition-all border border-white/80 text-sm cursor-pointer"
@@ -377,13 +449,7 @@ export default function Home() {
 
       {/* 3. SEKCJA "O MNIE" */}
       <section id="about" className="my-32 px-6 max-w-5xl mx-auto scroll-mt-28">
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.95, y: 20 }}
-          whileInView={{ opacity: 1, scale: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.5 }}
-          className="glass-card p-8 sm:p-12 md:p-14 rounded-3xl border border-white/80 shadow-xl relative overflow-hidden backdrop-blur-2xl"
-        >
+        <div className="glass-card p-8 sm:p-12 md:p-14 rounded-3xl border border-white/80 shadow-xl relative overflow-hidden backdrop-blur-2xl">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10 border-b border-slate-200/60 pb-6">
             <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
               O mnie<span className="text-blue-600">.</span>
@@ -407,24 +473,20 @@ export default function Home() {
               {tools.map((tool, idx) => {
                 const ToolIcon = tool.icon;
                 return (
-                  <motion.div
+                  <div
                     key={idx}
-                    initial={{ opacity: 0, y: 15 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: idx * 0.05 }}
                     className="p-3.5 rounded-2xl bg-white/70 border border-white/80 hover:border-blue-500/40 hover:bg-white transition-all flex items-center gap-3 group shadow-sm"
                   >
                     <div className="p-2 rounded-xl bg-slate-100 group-hover:bg-blue-50 transition-colors">
                       <ToolIcon className={`w-4 h-4 ${tool.color}`} />
                     </div>
                     <span className="text-xs font-semibold text-slate-700 tracking-tight">{tool.name}</span>
-                  </motion.div>
+                  </div>
                 );
               })}
             </div>
           </div>
-        </motion.div>
+        </div>
       </section>
 
       {/* 4. SEKCJA KOMPETENCJE */}
@@ -439,12 +501,8 @@ export default function Home() {
           {competencies.map((comp, i) => {
             const CompIcon = comp.icon;
             return (
-              <motion.div
+              <div
                 key={i}
-                initial={{ opacity: 0, y: 25 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
                 className="glass-card p-8 rounded-3xl border border-white/80 hover:border-blue-500/40 transition-all flex flex-col justify-between group relative overflow-hidden shadow-sm hover:shadow-md"
               >
                 <div>
@@ -469,13 +527,13 @@ export default function Home() {
                 <div className="w-full bg-slate-200/80 h-1 rounded-full overflow-hidden">
                   <div className="bg-blue-600 h-full w-1/3 group-hover:w-full transition-all duration-500" />
                 </div>
-              </motion.div>
+              </div>
             );
           })}
         </div>
       </section>
 
-      {/* 5. SEKCJA PROJEKTÓW (FIX GLITCHOWANIA) */}
+      {/* 5. SEKCJA PROJEKTÓW (CAŁKOWITY FIX GLITCHOWANIA I PODWÓJNYCH ELEMENTÓW) */}
       <section id="showcase" className="my-32 px-6 max-w-5xl mx-auto scroll-mt-28">
         <div className="mb-12 text-center">
           <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
@@ -486,11 +544,11 @@ export default function Home() {
         <div className="space-y-12 relative">
           {showcaseProjects.map((proj, idx) => (
             <div 
-              key={idx} 
+              key={proj.title} 
               className="sticky top-28"
               style={{ zIndex: idx + 1 }}
             >
-              <div className="glass-card rounded-3xl border border-white/80 overflow-hidden shadow-xl p-6 sm:p-8 backdrop-blur-2xl transition-all duration-300 hover:border-blue-500/40 bg-white/85">
+              <div className="glass-card rounded-3xl border border-white/80 overflow-hidden shadow-xl p-6 sm:p-8 backdrop-blur-2xl transition-all duration-300 hover:border-blue-500/40 bg-white/90">
                 <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-6">
                   <div>
                     <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900">{proj.title}</h3>
@@ -512,7 +570,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 6. WYRÓŻNIONA SEKCJA EKOSYSTEMY (PEŁNA SZEROKOŚĆ STRONY) */}
+      {/* 6. WYRÓŻNIONA SEKCJA EKOSYSTEMY (Z RÓŻNYMI IKONAMI I BARDZO INTERAKTYWNYM CASE STUDY SLIDEREM) */}
       <section id="ecosystems" className="my-32 w-full bg-blue-50/60 border-y border-blue-100 py-20 px-6 scroll-mt-28 backdrop-blur-xl">
         <div className="max-w-5xl mx-auto">
           <div className="mb-12">
@@ -524,159 +582,255 @@ export default function Home() {
             </p>
           </div>
 
+          {/* RÓŻNE IKONKI DLA KAŻDEGO FILARU */}
           <div className="grid sm:grid-cols-2 gap-6 mb-12">
-            {ecosystemPillars.map((pillar, idx) => (
-              <div 
-                key={idx} 
-                className="p-6 rounded-2xl bg-white/80 border border-white/90 hover:border-blue-500/30 transition-all flex items-start gap-4 shadow-sm"
-              >
-                <div className="p-2.5 rounded-xl bg-blue-100/80 text-blue-600 shrink-0">
-                  <SlidersHorizontal className="w-5 h-5" />
+            {ecosystemPillars.map((pillar, idx) => {
+              const PillarIcon = pillar.icon;
+              return (
+                <div 
+                  key={idx} 
+                  className="p-6 rounded-2xl bg-white/80 border border-white/90 hover:border-blue-500/30 transition-all flex items-start gap-4 shadow-sm"
+                >
+                  <div className="p-3 rounded-2xl bg-blue-100/80 text-blue-600 shrink-0">
+                    <PillarIcon className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-base text-slate-900 mb-1">{pillar.title}</h3>
+                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">{pillar.text}</p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-semibold text-base text-slate-900 mb-1">{pillar.title}</h3>
-                  <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">{pillar.text}</p>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
-          {/* INTERAKTYWNY WYBÓR EKOSYSTEMU (BRAINLYHQ / VANTRX) */}
-          <div className="bg-white/90 rounded-3xl p-6 sm:p-8 border border-blue-200/80 shadow-md">
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-b border-slate-100 pb-6 mb-6">
-              <span className="text-sm font-semibold text-slate-700">Wybierz dedykowany ekosystem:</span>
-              <div className="inline-flex p-1.5 rounded-2xl bg-slate-100/80 border border-slate-200/60 w-full sm:w-auto">
+          {/* BARDZO ŁADNE INTERAKTYWNE CASE STUDIES Z PŁYNNYM SOWA KIEM */}
+          <div className="bg-white/90 rounded-3xl p-6 sm:p-10 border border-blue-200/80 shadow-xl relative overflow-hidden">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 border-b border-slate-100 pb-6 mb-8">
+              <div>
+                <span className="text-xs font-mono font-bold uppercase tracking-wider text-blue-600">Dedykowane Case Studies</span>
+                <h3 className="text-xl sm:text-2xl font-black text-slate-900 mt-1">Wybierz wdrożenie ekosystemowe</h3>
+              </div>
+
+              {/* DEDYKOWANY PRZEŁĄCZNIK ZE SLAJDEREM */}
+              <div className="relative inline-flex p-1.5 rounded-2xl bg-slate-100 border border-slate-200/80 w-full sm:w-auto">
                 <button
                   onClick={() => setSelectedEcosystem('brainly')}
-                  className={`flex-1 sm:flex-none px-6 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
-                    selectedEcosystem === 'brainly'
-                      ? 'bg-blue-600 text-white shadow-md'
-                      : 'text-slate-600 hover:text-slate-900'
+                  className={`relative z-10 px-6 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-colors cursor-pointer ${
+                    selectedEcosystem === 'brainly' ? 'text-white' : 'text-slate-600 hover:text-slate-900'
                   }`}
                 >
                   BrainlyHQ
                 </button>
                 <button
                   onClick={() => setSelectedEcosystem('vantrx')}
-                  className={`flex-1 sm:flex-none px-6 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
-                    selectedEcosystem === 'vantrx'
-                      ? 'bg-purple-600 text-white shadow-md'
-                      : 'text-slate-600 hover:text-slate-900'
+                  className={`relative z-10 px-6 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-colors cursor-pointer ${
+                    selectedEcosystem === 'vantrx' ? 'text-white' : 'text-slate-600 hover:text-slate-900'
                   }`}
                 >
                   VANTRX
                 </button>
+
+                {/* ANIMOWANY SUWAK PRZEŁĄCZAJĄCY */}
+                <motion.div
+                  className={`absolute top-1.5 bottom-1.5 rounded-xl ${
+                    selectedEcosystem === 'brainly' ? 'bg-blue-600 shadow-md' : 'bg-purple-600 shadow-md'
+                  }`}
+                  initial={false}
+                  animate={{
+                    left: selectedEcosystem === 'brainly' ? '6px' : '50%',
+                    width: 'calc(50% - 9px)'
+                  }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 35 }}
+                />
               </div>
             </div>
 
-            {selectedEcosystem === 'brainly' ? (
-              <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-                <div>
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-semibold mb-3 border border-blue-100">
-                    Ekosystem Społecznościowy
+            {/* DYNAMICZNY ZMIENIAJĄCY SIĘ CONTENT Z ANIMACJĄ FADE & SLIDE */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={selectedEcosystem}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.3 }}
+                className="grid lg:grid-cols-12 gap-8 items-center"
+              >
+                <div className="lg:col-span-7 space-y-4">
+                  <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold border ${ecosystemData[selectedEcosystem].badgeBg}`}>
+                    {ecosystemData[selectedEcosystem].tag}
                   </div>
-                  <h3 className="text-2xl font-bold text-slate-900 mb-2">BrainlyHQ Infrastructure</h3>
-                  <p className="text-slate-600 text-sm max-w-xl font-normal leading-relaxed">
-                    Zaawansowane narzędzia moderacyjne, automatyczna integracja botów, powiadomień oraz dedykowany rynek produktów dla społeczności.
+                  <h4 className="text-2xl sm:text-3xl font-black text-slate-900">{ecosystemData[selectedEcosystem].title}</h4>
+                  <p className="text-xs sm:text-sm font-semibold text-slate-500">{ecosystemData[selectedEcosystem].subtitle}</p>
+                  <p className="text-slate-600 text-sm leading-relaxed font-normal">
+                    {ecosystemData[selectedEcosystem].desc}
                   </p>
-                </div>
-                <a
-                  href="https://discord.brainly.com/products"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-6 py-3.5 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm transition-all shadow-md shadow-blue-500/20 inline-flex items-center gap-2 shrink-0"
-                >
-                  Zobacz Produkty <ArrowUpRight className="w-4 h-4" />
-                </a>
-              </div>
-            ) : (
-              <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-                <div>
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-50 text-purple-700 text-xs font-semibold mb-3 border border-purple-100">
-                    Adult UGC Systems
+
+                  <div className="pt-2">
+                    <a
+                      href={ecosystemData[selectedEcosystem].link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`px-6 py-3.5 rounded-2xl text-white font-semibold text-sm transition-all shadow-md inline-flex items-center gap-2 ${ecosystemData[selectedEcosystem].accentBg} hover:opacity-95`}
+                    >
+                      {ecosystemData[selectedEcosystem].btnText} <ArrowUpRight className="w-4 h-4" />
+                    </a>
                   </div>
-                  <h3 className="text-2xl font-bold text-slate-900 mb-2">VANTRX Ecosystem</h3>
-                  <p className="text-slate-600 text-sm max-w-xl font-normal leading-relaxed">
-                    Autorska platforma stworzona do organizacji procesów, ochrony zasobów cyfrowych oraz automatyzacji codziennej obsługi administracyjnej.
-                  </p>
                 </div>
-                <a
-                  href="https://vantrx.pl"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-6 py-3.5 rounded-2xl bg-purple-600 hover:bg-purple-700 text-white font-semibold text-sm transition-all shadow-md shadow-purple-500/20 inline-flex items-center gap-2 shrink-0"
-                >
-                  Odwiedź VANTRX <ArrowUpRight className="w-4 h-4" />
-                </a>
-              </div>
-            )}
+
+                <div className="lg:col-span-5 grid grid-cols-1 gap-3 bg-slate-50 p-6 rounded-2xl border border-slate-200/80">
+                  <span className="text-xs font-mono font-bold uppercase text-slate-400 mb-1">Kluczowe Wskaźniki</span>
+                  {ecosystemData[selectedEcosystem].metrics.map((m, i) => (
+                    <div key={i} className="flex items-center justify-between p-3 rounded-xl bg-white border border-slate-200/60 shadow-sm">
+                      <span className="text-xs font-semibold text-slate-600">{m.label}</span>
+                      <span className={`text-xs font-bold ${ecosystemData[selectedEcosystem].accentText}`}>{m.value}</span>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
       </section>
 
-      {/* 7. SEKCJA CENNIK & USŁUGI LOKALNE */}
+      {/* 7. DYNAMICZNA SEKCJA CENNIK Z WYBOREM KATEGORII (BUDOWA EKOSYSTEMU VS USŁUGI DODATKOWE I LOKALNE) */}
       <section id="pricing" className="my-32 px-6 max-w-5xl mx-auto scroll-mt-28">
-        <div className="mb-12 text-center">
+        <div className="mb-10 text-center">
           <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
-            Cennik & Zakres Usług<span className="text-blue-600">.</span>
+            Cennik & Oferta Usług<span className="text-blue-600">.</span>
           </h2>
           <p className="text-slate-600 text-sm sm:text-base mt-3 max-w-2xl mx-auto font-normal">
-            Realizuję projekty zdalnie na terenie całego kraju i za granicą oraz oferuję bezpośrednie wsparcie stacjonarne na terenie Małopolski.
+            Wybierz kategorię usługi, która odpowiada Twoim obecnym potrzebom.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
-          {pricingTiers.map((tier, idx) => (
-            <div
-              key={idx}
-              className={`glass-card rounded-3xl p-8 border flex flex-col justify-between relative ${
-                tier.popular 
-                  ? 'border-blue-500/50 shadow-xl bg-white/90' 
-                  : 'border-white/80'
+        {/* PRZEŁĄCZNIK KATEGORII CENNIKA */}
+        <div className="flex justify-center mb-12">
+          <div className="inline-flex p-1.5 rounded-2xl bg-white border border-slate-200 shadow-sm">
+            <button
+              onClick={() => setPricingCategory('ecosystems')}
+              className={`px-6 py-3 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-2 cursor-pointer ${
+                pricingCategory === 'ecosystems' 
+                  ? 'bg-blue-600 text-white shadow-md' 
+                  : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              {tier.popular && (
-                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-blue-600 text-white text-[10px] font-bold tracking-wider uppercase shadow-md">
-                  Rekomendowane Małopolska
-                </div>
-              )}
+              <Workflow className="w-4 h-4" /> Budowa Ekosystemów
+            </button>
+            <button
+              onClick={() => setPricingCategory('local')}
+              className={`px-6 py-3 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-2 cursor-pointer ${
+                pricingCategory === 'local' 
+                  ? 'bg-blue-600 text-white shadow-md' 
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              <Compass className="w-4 h-4" /> Serwis, Marka & Usługi Lokalne
+            </button>
+          </div>
+        </div>
 
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-xs font-mono font-semibold uppercase tracking-wider px-3 py-1 rounded-full bg-slate-100 text-slate-600 border border-slate-200">
-                    {tier.badge}
-                  </span>
-                  <span className="text-xs text-slate-500 font-medium inline-flex items-center gap-1">
-                    <MapPin className="w-3.5 h-3.5 text-blue-600" /> {tier.scope}
-                  </span>
-                </div>
-
-                <h3 className="text-xl font-bold text-slate-900 mb-2">{tier.title}</h3>
-                <div className="text-2xl sm:text-3xl font-black text-blue-600 mb-6">{tier.price}</div>
-
-                <ul className="space-y-3 mb-8">
-                  {tier.features.map((feat, fIdx) => (
-                    <li key={fIdx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-600 leading-snug">
-                      <Check className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
-                      <span>{feat}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <button
-                onClick={() => scrollToSection('contact')}
-                className={`w-full py-3 rounded-2xl font-semibold text-sm transition-all cursor-pointer ${
-                  tier.popular
-                    ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-md'
-                    : 'bg-slate-900 hover:bg-slate-800 text-white'
+        {/* WARIANT 1: PAKIETY BUDOWY EKOSYSTEMÓW */}
+        {pricingCategory === 'ecosystems' && (
+          <motion.div 
+            initial={{ opacity: 0, y: 15 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            className="grid md:grid-cols-3 gap-6"
+          >
+            {pricingTiers.map((tier, idx) => (
+              <div
+                key={idx}
+                className={`glass-card rounded-3xl p-8 border flex flex-col justify-between relative ${
+                  tier.popular 
+                    ? 'border-blue-500/50 shadow-xl bg-white/90' 
+                    : 'border-white/80'
                 }`}
               >
-                Zapytaj o darmową wycenę
-              </button>
-            </div>
-          ))}
-        </div>
+                {tier.popular && (
+                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-blue-600 text-white text-[10px] font-bold tracking-wider uppercase shadow-md">
+                    Rekomendowane Małopolska
+                  </div>
+                )}
+
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="text-xs font-mono font-semibold uppercase tracking-wider px-3 py-1 rounded-full bg-slate-100 text-slate-600 border border-slate-200">
+                      {tier.badge}
+                    </span>
+                    <span className="text-xs text-slate-500 font-medium inline-flex items-center gap-1">
+                      <MapPin className="w-3.5 h-3.5 text-blue-600" /> {tier.scope}
+                    </span>
+                  </div>
+
+                  <h3 className="text-xl font-bold text-slate-900 mb-2">{tier.title}</h3>
+                  <div className="text-2xl sm:text-3xl font-black text-blue-600 mb-6">{tier.price}</div>
+
+                  <ul className="space-y-3 mb-8">
+                    {tier.features.map((feat, fIdx) => (
+                      <li key={fIdx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-600 leading-snug">
+                        <Check className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
+                        <span>{feat}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <button
+                  onClick={() => scrollToSection('contact')}
+                  className={`w-full py-3 rounded-2xl font-semibold text-sm transition-all cursor-pointer ${
+                    tier.popular
+                      ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-md'
+                      : 'bg-slate-900 hover:bg-slate-800 text-white'
+                  }`}
+                >
+                  Zapytaj o darmową wycenę
+                </button>
+              </div>
+            ))}
+          </motion.div>
+        )}
+
+        {/* WARIANT 2: TABELA USŁUG DODATKOWYCH I LOKALNYCH */}
+        {pricingCategory === 'local' && (
+          <motion.div 
+            initial={{ opacity: 0, y: 15 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            className="space-y-8"
+          >
+            {localServices.map((cat, cIdx) => {
+              const CatIcon = cat.icon;
+              return (
+                <div key={cIdx} className="glass-card rounded-3xl p-6 sm:p-8 border border-white/80 shadow-md">
+                  <div className="flex items-center gap-3 mb-6 border-b border-slate-200/60 pb-4">
+                    <div className="p-2.5 rounded-xl bg-blue-50 text-blue-600 border border-blue-100">
+                      <CatIcon className="w-5 h-5" />
+                    </div>
+                    <h3 className="text-xl font-bold text-slate-900">{cat.category}</h3>
+                  </div>
+
+                  <div className="divide-y divide-slate-100">
+                    {cat.items.map((item, itemIdx) => (
+                      <div key={itemIdx} className="py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-blue-50/30 px-3 rounded-xl transition-colors">
+                        <div>
+                          <h4 className="font-bold text-slate-900 text-sm sm:text-base">{item.name}</h4>
+                          <p className="text-xs text-slate-500 mt-0.5">{item.desc}</p>
+                        </div>
+                        <div className="flex items-center gap-4 shrink-0">
+                          <span className="text-sm font-black text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-100">{item.price}</span>
+                          <button 
+                            onClick={() => scrollToSection('contact')}
+                            className="p-2 rounded-full bg-slate-100 hover:bg-blue-600 hover:text-white text-slate-600 transition-colors cursor-pointer"
+                          >
+                            <ArrowRight className="w-4 h-4" />
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </motion.div>
+        )}
       </section>
 
       {/* 8. FORMULARZ KONTAKTOWY */}
