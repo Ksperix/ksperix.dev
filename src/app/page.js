@@ -288,10 +288,10 @@ export default function Home() {
       title: "Pakiet Starter",
       price: "od 149,99 zł",
       features: [
-        "Audyt obecnej architektury komunikacji",
-        "Wskazówki automatyzacji procesów",
-        "Koncepcja i strategia rozwoju społeczności",
-        "Raport z zaleceniami usprawnień"
+        "Audyt obecnej infrastruktury",
+        "Wskazówki dot. dalszego rozwoju wraz z raportem",
+        "Implementacja pierwszy ustalonych zmian",
+        "Ustalenie grupy targetowej i analiza identyfikacji wizualnej marki"
       ]
     },
     {
@@ -301,10 +301,10 @@ export default function Home() {
       popular: true,
       includesPrevious: "+ wszystko co w pakiecie Starter",
       features: [
-        "Wsparcie operacyjne i koordynacja",
-        "Personalizowane szkolenie zespołu z narzędzi",
-        "Infrastruktura sprzętowa i sieciowa serwerów",
-        "Dedykowany opiekun projektu"
+        "Poprawy w identyfikacji wizualnej marki oraz raport",
+        "Pomoc w konfiguracji narzędzi zarządzania zespołem i marką",
+        "Rozwój Social Mediów marki",
+        "Utworzenie haseł promocyjnych i Look Book'a"
       ]
     },
     {
@@ -312,10 +312,10 @@ export default function Home() {
       price: "od 499,99 zł",
       includesPrevious: "+ wszystko co w pakiecie Gold",
       features: [
-        "Kompleksowy serwer Discord/Slack z botami",
-        "Strona web na Next.js + panel administracyjny",
-        "Integracje API, płatności i powiadomienia 24/7",
-        "Pełne utrzymanie techniczne i wsparcie"
+        "Kompleksowy serwer Discord/Slack z botami / botem autorskim",
+        "Strona internetowa oraz własny panel linków na Social Media",
+        "Twoje pierwsze produkty cyfrowe i narzędzia marki",
+        "Pełne utrzymanie techniczne, wsparcie 24/7, nowe koncepcje"
       ]
     }
   ];
@@ -327,14 +327,14 @@ export default function Home() {
   ];
 
   const localServices = [
-    { name: "Czyszczenie i konserwacja PC / Laptopa", desc: "Wymiana pasty termoprzewodzącej, odpylanie, optymalizacja temp.", price: "od 120 zł" },
-    { name: "Serwis smartfona / Wymiana szybki", desc: "Wymiana ekranu, baterii, czyszczenie gniazd i głośników", price: "od 150 zł" },
-    { name: "Formatowanie & Dobre ustawienia OS", desc: "Instalacja Windows/macOS, sterowników, zabezpieczenia", price: "od 100 zł" },
-    { name: "Konsultacja stacjonarna w Krakowie / Małopolsce", desc: "Doradztwo technologiczne na miejscu, audyt sprzętowy i sieciowy", price: "150 zł /h" }
+    { name: "Formatowanie & Dobre ustawienia OS", desc: "Instalacja Windows/macOS, sterowników, zabezpieczenia", price: "od 99,99 zł" },
+    { name: "Konsultacja stacjonarna w Krakowie / Małopolsce", desc: "Doradztwo technologiczne na miejscu, audyt sprzętowy i sieciowy", price: "149,99 zł /h" }
   ];
 
   const otherServices = [
-    { name: "Indywidualne Projekty & Konsultacje", desc: "Audyty, wdrożenia nietypowych rozwiązań, migracje danych, skrypty na zamówienie", price: "Wycena indywidualna" }
+    { name: "Dokumentacja Marki", desc: "Fachowe zasady dla twojej społeczności lub marki; Regulamin (do 10 stron), Warunki Użytkowania, Szablony umów (2) i Polityka Prywatności", price: "99,99 zł" }
+    { name: "Dokumentacja Marki+", desc: "Jeszce wyższy poziom niż wcześniej! Regulamin (do 30 stron), Warunki Użytkowania Produktów (3), Szablony umów (6) i Polityki Prywatności Produktów (3)", price: "199,99 zł" }
+    { name: "Arkusz kalkulacyjny z automatyzacjami", desc: "Profesjonalny arkusz kalkulacyjny Google z automatyzacjami GAS oraz funkcjami logicznymi", price: "Wycena indywidualna" }
   ];
 
   return (
