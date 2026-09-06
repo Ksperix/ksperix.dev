@@ -688,7 +688,7 @@ export default function Home() {
         </div>
 
         {/* PRZEŁĄCZNIK KATEGORII CENNIKA */}
-        <div className="flex justify-center mb-16">
+        <div className="flex justify-center mb-8">
           <div className="inline-flex p-1.5 rounded-2xl bg-white border border-slate-200 shadow-sm flex-wrap justify-center gap-1">
             <button
               onClick={() => setPricingCategory('ecosystems')}
@@ -743,7 +743,7 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
               
               {/* 1. PAKIET STARTER */}
-              <div className="glass-card rounded-3xl p-6 border border-white/80 flex flex-col justify-between relative transition-all duration-300">
+              <div className="glass-card rounded-3xl p-6 border border-white/80 flex flex-col justify-between relative transition-all duration-300 lg:border-r lg:border-r-slate-200/60 lg:pr-8">
                 <div>
                   <h3 className="text-xl font-bold text-slate-900 mb-1">{pricingTiers[0].title}</h3>
                   <div className="mb-6">
@@ -771,8 +771,8 @@ export default function Home() {
               </div>
 
               {/* 2. PAKIET GOLD (REKOMENDOWANY) */}
-              <div className="rounded-3xl p-6 border-2 border-blue-600 shadow-xl shadow-blue-500/20 bg-white flex flex-col justify-between relative transition-all duration-300 z-10 overflow-hidden">
-                <div className="bg-blue-600 text-white text-[9px] font-bold tracking-wider uppercase py-1 px-3 -mx-6 -mt-6 mb-4 flex items-center justify-center gap-1">
+              <div className="rounded-3xl py-8 px-6 border-2 border-blue-600 shadow-xl shadow-blue-500/20 bg-white flex flex-col justify-between relative transition-all duration-300 z-10 overflow-hidden lg:-my-3">
+                <div className="bg-blue-600 text-white text-[9px] font-bold tracking-wider uppercase py-1 px-3 -mx-6 -mt-8 mb-4 flex items-center justify-center gap-1">
                   <Sparkles className="w-2.5 h-2.5" /> REKOMENDOWANE
                 </div>
 
