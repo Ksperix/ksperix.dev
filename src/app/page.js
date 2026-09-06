@@ -688,7 +688,7 @@ export default function Home() {
         </div>
 
         {/* PRZEŁĄCZNIK KATEGORII CENNIKA */}
-        <div className="flex justify-center mb-8">
+        <div className="flex justify-center mb-12">
           <div className="inline-flex p-1.5 rounded-2xl bg-white border border-slate-200 shadow-sm flex-wrap justify-center gap-1">
             <button
               onClick={() => setPricingCategory('ecosystems')}
@@ -752,7 +752,7 @@ export default function Home() {
                     </div>
                   </div>
 
-                  <ul className="space-y-3 mb-8">
+                  <ul className="space-y-3 mb-6">
                     {pricingTiers[0].features.map((feat, fIdx) => (
                       <li key={fIdx} className="flex items-start gap-2 text-xs text-slate-600 leading-snug break-words">
                         <Check className="w-3.5 h-3.5 text-blue-600 shrink-0 mt-0.5" />
