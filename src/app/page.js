@@ -30,8 +30,7 @@ import {
   Laptop,
   Compass,
   ArrowRight,
-  Sparkles,
-  Users
+  Sparkles
 } from 'lucide-react';
 
 function DiscordIcon({ className = "w-5 h-5" }) {
@@ -743,44 +742,10 @@ export default function Home() {
           >
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
               
-              {/* 1. PAKIET SPECIAL (Z LEWEJ STRONY) */}
-              <div className="glass-card rounded-3xl p-6 border border-blue-300/80 bg-blue-50/30 flex flex-col justify-between shadow-lg relative lg:border-r-2 lg:border-r-blue-200/90 lg:pr-8">
-                <div>
-                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-[10px] font-bold uppercase tracking-wider mb-4 border border-blue-200">
-                    <Users className="w-3 h-3" /> Continuous Support
-                  </div>
-
-                  <h3 className="text-xl font-bold text-slate-900 mb-1 mt-1">{specialTier.title}</h3>
-                  <p className="text-xs font-semibold text-slate-500 mb-4">{specialTier.subtitle}</p>
-
-                  <div className="mb-6">
-                    <div className="text-2xl sm:text-3xl font-black text-blue-600">
-                      {specialTier.price}
-                    </div>
-                  </div>
-
-                  <ul className="space-y-3 mb-8">
-                    {specialTier.features.map((feat, fIdx) => (
-                      <li key={fIdx} className="flex items-start gap-2 text-xs text-slate-700 leading-snug break-words">
-                        <Check className="w-3.5 h-3.5 text-blue-600 shrink-0 mt-0.5" />
-                        <span>{feat}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <button
-                  onClick={() => scrollToSection('contact')}
-                  className="w-full py-3 rounded-2xl font-semibold text-sm transition-all cursor-pointer bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-500/20"
-                >
-                  Umawiam konsultację
-                </button>
-              </div>
-
-              {/* 2. PAKIET STARTER */}
+              {/* 1. PAKIET STARTER */}
               <div className="glass-card rounded-3xl p-6 border border-white/80 flex flex-col justify-between relative transition-all duration-300">
                 <div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-1 mt-1">{pricingTiers[0].title}</h3>
+                  <h3 className="text-xl font-bold text-slate-900 mb-1">{pricingTiers[0].title}</h3>
                   <div className="mb-6">
                     <div className="text-2xl sm:text-3xl font-black text-blue-600">
                       {pricingTiers[0].price}
@@ -805,14 +770,14 @@ export default function Home() {
                 </button>
               </div>
 
-              {/* 3. PAKIET GOLD (REKOMENDOWANY) */}
-              <div className="rounded-3xl p-6 border-2 border-blue-600 shadow-xl shadow-blue-500/20 bg-white scale-[1.02] flex flex-col justify-between relative transition-all duration-300 z-10">
-                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-blue-600 text-white text-[9px] font-bold tracking-wider uppercase shadow-md flex items-center gap-1">
+              {/* 2. PAKIET GOLD (REKOMENDOWANY) */}
+              <div className="rounded-3xl p-6 border-2 border-blue-600 shadow-xl shadow-blue-500/20 bg-white flex flex-col justify-between relative transition-all duration-300 z-10 overflow-hidden">
+                <div className="bg-blue-600 text-white text-[9px] font-bold tracking-wider uppercase py-1 px-3 -mx-6 -mt-6 mb-4 flex items-center justify-center gap-1">
                   <Sparkles className="w-2.5 h-2.5" /> REKOMENDOWANE
                 </div>
 
                 <div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-1 mt-1">{pricingTiers[1].title}</h3>
+                  <h3 className="text-xl font-bold text-slate-900 mb-1">{pricingTiers[1].title}</h3>
                   <div className="mb-6">
                     {pricingTiers[1].oldPrice && (
                       <span className="text-xs font-bold text-slate-400 line-through block -mb-0.5">
@@ -848,10 +813,10 @@ export default function Home() {
                 </button>
               </div>
 
-              {/* 4. PAKIET PRO */}
+              {/* 3. PAKIET PRO */}
               <div className="glass-card rounded-3xl p-6 border border-white/80 flex flex-col justify-between relative transition-all duration-300">
                 <div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-1 mt-1">{pricingTiers[2].title}</h3>
+                  <h3 className="text-xl font-bold text-slate-900 mb-1">{pricingTiers[2].title}</h3>
                   <div className="mb-6">
                     <div className="text-2xl sm:text-3xl font-black text-blue-600">
                       {pricingTiers[2].price}
@@ -879,6 +844,36 @@ export default function Home() {
                   className="w-full py-3 rounded-2xl font-semibold text-sm transition-all cursor-pointer bg-slate-900 hover:bg-slate-800 text-white"
                 >
                   Wybieram Pro
+                </button>
+              </div>
+
+              {/* 4. PAKIET SPECIAL (PO PRAWEJ STRONIE, PO KRESCE) */}
+              <div className="glass-card rounded-3xl p-6 border border-white/80 flex flex-col justify-between relative transition-all duration-300 lg:border-l lg:border-l-slate-300 lg:pl-8">
+                <div>
+                  <h3 className="text-xl font-bold text-slate-900 mb-1">{specialTier.title}</h3>
+                  <p className="text-xs font-semibold text-slate-500 mb-4">{specialTier.subtitle}</p>
+
+                  <div className="mb-6">
+                    <div className="text-2xl sm:text-3xl font-black text-blue-600">
+                      {specialTier.price}
+                    </div>
+                  </div>
+
+                  <ul className="space-y-3 mb-8">
+                    {specialTier.features.map((feat, fIdx) => (
+                      <li key={fIdx} className="flex items-start gap-2 text-xs text-slate-600 leading-snug break-words">
+                        <Check className="w-3.5 h-3.5 text-blue-600 shrink-0 mt-0.5" />
+                        <span>{feat}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <button
+                  onClick={() => scrollToSection('contact')}
+                  className="w-full py-3 rounded-2xl font-semibold text-sm transition-all cursor-pointer bg-slate-900 hover:bg-slate-800 text-white"
+                >
+                  Umawiam konsultację
                 </button>
               </div>
 
