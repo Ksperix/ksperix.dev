@@ -23,18 +23,15 @@ import {
   ArrowUpRight,
   Github,
   Check,
-  MapPin,
   MessageSquareCode,
   Cpu,
   ShieldCheck,
   BarChart3,
-  ChevronRight,
-  Smartphone,
-  HardDrive,
   Laptop,
   Users,
   Compass,
-  ArrowRight
+  ArrowRight,
+  Sparkles
 } from 'lucide-react';
 
 function FluidBackground() {
@@ -292,10 +289,8 @@ export default function Home() {
 
   const pricingTiers = [
     {
-      title: "Konsultacje & Doradztwo",
+      title: "Pakiet Starter",
       price: "od 250 zł",
-      scope: "Cała Polska / Zdalnie",
-      badge: "Elastyczne",
       features: [
         "Audyt obecnej architektury komunikacji",
         "Wskazówki automatyzacji procesów",
@@ -304,23 +299,19 @@ export default function Home() {
       ]
     },
     {
-      title: "Wdrożenia Lokalne",
-      price: "Wycena Indywidualna",
-      scope: "Małopolska / Kraków",
-      badge: "Stacjonarne",
+      title: "Pakiet Gold",
+      price: "od 499 zł",
       popular: true,
       features: [
-        "Wsparcie operacyjne na miejscu w firmie/biurze",
+        "Wsparcie operacyjne i koordynacja",
         "Personalizowane szkolenie zespołu z narzędzi",
         "Infrastruktura sprzętowa i sieciowa serwerów",
         "Dedykowany opiekun projektu"
       ]
     },
     {
-      title: "Pełny Ekosystem & Systemy Custom",
+      title: "Pakiet Pro",
       price: "od 2 500 zł",
-      scope: "Polska & Zagranica",
-      badge: "Dedykowane",
       features: [
         "Kompleksowy serwer Discord/Slack z botami",
         "Strona web na Next.js + panel administracyjny",
@@ -330,25 +321,17 @@ export default function Home() {
     }
   ];
 
+  const discordServices = [
+    { name: "Konfiguracja Serwera Discord od zera", desc: "Struktura kanałów, role, uprawnienia, boty oraz zabezpieczenia", price: "od 300 zł" },
+    { name: "Autorski Bot Discord / Integracja", desc: "Dedykowany bot w Node.js/Python, powiadomienia, automatyzacja", price: "od 450 zł" },
+    { name: "Dedykowana Oprawa Graficzna Serwera", desc: "Ikona serwera, bannery kanałów, nagłówki, szablony ogłoszeń", price: "od 200 zł" }
+  ];
+
   const localServices = [
-    {
-      category: "Serwis urządzeń & IT",
-      icon: Laptop,
-      items: [
-        { name: "Czyszczenie i konserwacja PC / Laptopa", desc: "Wymiana pasty termoprzewodzącej, odpylanie, optymalizacja temp.", price: "od 120 zł" },
-        { name: "Serwis smartfona / Wymiana szybki", desc: "Wymiana ekranu, baterii, czyszczenie gniazd i głośników", price: "od 150 zł" },
-        { name: "Formatowanie & Dobre ustawienia OS", desc: "Instalacja Windows/macOS, sterowników, zabezpieczenia", price: "od 100 zł" }
-      ]
-    },
-    {
-      category: "Tożsamość Marki & Dedykowane Usługi",
-      icon: Users,
-      items: [
-        { name: "Konfiguracja Serwera Discord od zera", desc: "Zabezpieczenia, boty, autorskie role, oprawa graficzna", price: "od 400 zł" },
-        { name: "Strategia i rozwój nowej marki", desc: "Pozycjonowanie, branding, przygotowanie szablonów reklamowych", price: "od 600 zł" },
-        { name: "Konsultacja indywidualna 1-on-1", desc: "Doradztwo technologiczne, wybór oprogramowania, audyt", price: "150 zł /h" }
-      ]
-    }
+    { name: "Czyszczenie i konserwacja PC / Laptopa", desc: "Wymiana pasty termoprzewodzącej, odpylanie, optymalizacja temp.", price: "od 120 zł" },
+    { name: "Serwis smartfona / Wymiana szybki", desc: "Wymiana ekranu, baterii, czyszczenie gniazd i głośników", price: "od 150 zł" },
+    { name: "Formatowanie & Dobre ustawienia OS", desc: "Instalacja Windows/macOS, sterowników, zabezpieczenia", price: "od 100 zł" },
+    { name: "Konsultacja stacjonarna w Krakowie / Małopolsce", desc: "Doradztwo technologiczne na miejscu, audyt sprzętowy i sieciowy", price: "150 zł /h" }
   ];
 
   return (
@@ -427,7 +410,6 @@ export default function Home() {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="flex flex-wrap items-center justify-center gap-4"
         >
-          {/* PRZYCISK Z ANIMACJĄ ZMIANY KOLORU STYLE WHATSAPP LOG-IN */}
           <button 
             onClick={() => scrollToSection('ecosystems')} 
             className="group relative px-8 py-3.5 rounded-full bg-slate-900 text-white font-semibold shadow-lg flex items-center gap-2 text-sm cursor-pointer border border-slate-900 overflow-hidden transition-all duration-300"
@@ -533,7 +515,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5. SEKCJA PROJEKTÓW (CAŁKOWITY FIX GLITCHOWANIA I PODWÓJNYCH ELEMENTÓW) */}
+      {/* 5. SEKCJA PROJEKTÓW */}
       <section id="showcase" className="my-32 px-6 max-w-5xl mx-auto scroll-mt-28">
         <div className="mb-12 text-center">
           <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
@@ -570,9 +552,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 6. WYRÓŻNIONA SEKCJA EKOSYSTEMY (Z RÓŻNYMI IKONAMI I BARDZO INTERAKTYWNYM CASE STUDY SLIDEREM) */}
-      <section id="ecosystems" className="my-32 w-full bg-blue-50/60 border-y border-blue-100 py-20 px-6 scroll-mt-28 backdrop-blur-xl">
-        <div className="max-w-5xl mx-auto">
+      {/* 6. WYRÓŻNIONA SEKCJA EKOSYSTEMY (ZAKOŃCZONA POWŁOKĄ KARTY DLA OCHRONY TŁA PONIŻEJ) */}
+      <section id="ecosystems" className="my-32 px-6 max-w-5xl mx-auto scroll-mt-28">
+        <div className="glass-card rounded-3xl p-8 sm:p-12 border border-blue-200/80 shadow-xl bg-blue-50/40 backdrop-blur-xl">
           <div className="mb-12">
             <h2 className="text-3xl md:text-5xl font-extrabold mb-4 text-slate-900 tracking-tight">
               Co składa się na skuteczny Ekosystem<span className="text-blue-600">?</span>
@@ -582,7 +564,6 @@ export default function Home() {
             </p>
           </div>
 
-          {/* RÓŻNE IKONKI DLA KAŻDEGO FILARU */}
           <div className="grid sm:grid-cols-2 gap-6 mb-12">
             {ecosystemPillars.map((pillar, idx) => {
               const PillarIcon = pillar.icon;
@@ -603,19 +584,13 @@ export default function Home() {
             })}
           </div>
 
-          {/* BARDZO ŁADNE INTERAKTYWNE CASE STUDIES Z PŁYNNYM SOWA KIEM */}
-          <div className="bg-white/90 rounded-3xl p-6 sm:p-10 border border-blue-200/80 shadow-xl relative overflow-hidden">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 border-b border-slate-100 pb-6 mb-8">
-              <div>
-                <span className="text-xs font-mono font-bold uppercase tracking-wider text-blue-600">Dedykowane Case Studies</span>
-                <h3 className="text-xl sm:text-2xl font-black text-slate-900 mt-1">Wybierz wdrożenie ekosystemowe</h3>
-              </div>
-
-              {/* DEDYKOWANY PRZEŁĄCZNIK ZE SLAJDEREM */}
+          {/* INTERAKTYWNE CASE STUDY DLA BRAINLY / VANTRX (BEZ DODATKOWEGO TEKSTU) */}
+          <div className="bg-white/90 rounded-3xl p-6 sm:p-10 border border-blue-200/80 shadow-md relative overflow-hidden">
+            <div className="flex justify-center border-b border-slate-100 pb-6 mb-8">
               <div className="relative inline-flex p-1.5 rounded-2xl bg-slate-100 border border-slate-200/80 w-full sm:w-auto">
                 <button
                   onClick={() => setSelectedEcosystem('brainly')}
-                  className={`relative z-10 px-6 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-colors cursor-pointer ${
+                  className={`relative z-10 px-8 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-colors cursor-pointer ${
                     selectedEcosystem === 'brainly' ? 'text-white' : 'text-slate-600 hover:text-slate-900'
                   }`}
                 >
@@ -623,14 +598,13 @@ export default function Home() {
                 </button>
                 <button
                   onClick={() => setSelectedEcosystem('vantrx')}
-                  className={`relative z-10 px-6 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-colors cursor-pointer ${
+                  className={`relative z-10 px-8 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-colors cursor-pointer ${
                     selectedEcosystem === 'vantrx' ? 'text-white' : 'text-slate-600 hover:text-slate-900'
                   }`}
                 >
                   VANTRX
                 </button>
 
-                {/* ANIMOWANY SUWAK PRZEŁĄCZAJĄCY */}
                 <motion.div
                   className={`absolute top-1.5 bottom-1.5 rounded-xl ${
                     selectedEcosystem === 'brainly' ? 'bg-blue-600 shadow-md' : 'bg-purple-600 shadow-md'
@@ -645,7 +619,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* DYNAMICZNY ZMIENIAJĄCY SIĘ CONTENT Z ANIMACJĄ FADE & SLIDE */}
             <AnimatePresence mode="wait">
               <motion.div
                 key={selectedEcosystem}
@@ -692,7 +665,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 7. DYNAMICZNA SEKCJA CENNIK Z WYBOREM KATEGORII (BUDOWA EKOSYSTEMU VS USŁUGI DODATKOWE I LOKALNE) */}
+      {/* 7. DYNAMICZNA SEKCJA CENNIK (KATEGORIE: BUDOWANIE EKOSYSTEMÓW / USŁUGI DISCORD / STACJONARNE) */}
       <section id="pricing" className="my-32 px-6 max-w-5xl mx-auto scroll-mt-28">
         <div className="mb-10 text-center">
           <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
@@ -705,26 +678,36 @@ export default function Home() {
 
         {/* PRZEŁĄCZNIK KATEGORII CENNIKA */}
         <div className="flex justify-center mb-12">
-          <div className="inline-flex p-1.5 rounded-2xl bg-white border border-slate-200 shadow-sm">
+          <div className="inline-flex p-1.5 rounded-2xl bg-white border border-slate-200 shadow-sm flex-wrap justify-center gap-1">
             <button
               onClick={() => setPricingCategory('ecosystems')}
-              className={`px-6 py-3 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-2 cursor-pointer ${
+              className={`px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-2 cursor-pointer ${
                 pricingCategory === 'ecosystems' 
                   ? 'bg-blue-600 text-white shadow-md' 
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              <Workflow className="w-4 h-4" /> Budowa Ekosystemów
+              <Workflow className="w-4 h-4" /> Budowanie ekosystemów
+            </button>
+            <button
+              onClick={() => setPricingCategory('discord')}
+              className={`px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-2 cursor-pointer ${
+                pricingCategory === 'discord' 
+                  ? 'bg-blue-600 text-white shadow-md' 
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              <MessageSquare className="w-4 h-4" /> Usługi Discord
             </button>
             <button
               onClick={() => setPricingCategory('local')}
-              className={`px-6 py-3 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-2 cursor-pointer ${
+              className={`px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-2 cursor-pointer ${
                 pricingCategory === 'local' 
                   ? 'bg-blue-600 text-white shadow-md' 
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              <Compass className="w-4 h-4" /> Serwis, Marka & Usługi Lokalne
+              <Compass className="w-4 h-4" /> Stacjonarne
             </button>
           </div>
         </div>
@@ -741,27 +724,18 @@ export default function Home() {
                 key={idx}
                 className={`glass-card rounded-3xl p-8 border flex flex-col justify-between relative ${
                   tier.popular 
-                    ? 'border-blue-500/50 shadow-xl bg-white/90' 
+                    ? 'border-2 border-blue-600 shadow-xl shadow-blue-500/10 bg-white/95' 
                     : 'border-white/80'
                 }`}
               >
                 {tier.popular && (
-                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-blue-600 text-white text-[10px] font-bold tracking-wider uppercase shadow-md">
-                    Rekomendowane Małopolska
+                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-blue-600 text-white text-[10px] font-bold tracking-wider uppercase shadow-md flex items-center gap-1">
+                    <Sparkles className="w-3 h-3" /> REKOMENDOWANE
                   </div>
                 )}
 
                 <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="text-xs font-mono font-semibold uppercase tracking-wider px-3 py-1 rounded-full bg-slate-100 text-slate-600 border border-slate-200">
-                      {tier.badge}
-                    </span>
-                    <span className="text-xs text-slate-500 font-medium inline-flex items-center gap-1">
-                      <MapPin className="w-3.5 h-3.5 text-blue-600" /> {tier.scope}
-                    </span>
-                  </div>
-
-                  <h3 className="text-xl font-bold text-slate-900 mb-2">{tier.title}</h3>
+                  <h3 className="text-xl font-bold text-slate-900 mb-2 mt-1">{tier.title}</h3>
                   <div className="text-2xl sm:text-3xl font-black text-blue-600 mb-6">{tier.price}</div>
 
                   <ul className="space-y-3 mb-8">
@@ -789,46 +763,75 @@ export default function Home() {
           </motion.div>
         )}
 
-        {/* WARIANT 2: TABELA USŁUG DODATKOWYCH I LOKALNYCH */}
+        {/* WARIANT 2: USŁUGI DISCORD */}
+        {pricingCategory === 'discord' && (
+          <motion.div 
+            initial={{ opacity: 0, y: 15 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            className="glass-card rounded-3xl p-6 sm:p-8 border border-white/80 shadow-md"
+          >
+            <div className="flex items-center gap-3 mb-6 border-b border-slate-200/60 pb-4">
+              <div className="p-2.5 rounded-xl bg-blue-50 text-blue-600 border border-blue-100">
+                <Server className="w-5 h-5" />
+              </div>
+              <h3 className="text-xl font-bold text-slate-900">Dedykowane Usługi Discord</h3>
+            </div>
+
+            <div className="divide-y divide-slate-100">
+              {discordServices.map((item, itemIdx) => (
+                <div key={itemIdx} className="py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-blue-50/30 px-3 rounded-xl transition-colors">
+                  <div>
+                    <h4 className="font-bold text-slate-900 text-sm sm:text-base">{item.name}</h4>
+                    <p className="text-xs text-slate-500 mt-0.5">{item.desc}</p>
+                  </div>
+                  <div className="flex items-center gap-4 shrink-0">
+                    <span className="text-sm font-black text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-100">{item.price}</span>
+                    <button 
+                      onClick={() => scrollToSection('contact')}
+                      className="p-2 rounded-full bg-slate-100 hover:bg-blue-600 hover:text-white text-slate-600 transition-colors cursor-pointer"
+                    >
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        )}
+
+        {/* WARIANT 3: USŁUGI STACJONARNE */}
         {pricingCategory === 'local' && (
           <motion.div 
             initial={{ opacity: 0, y: 15 }} 
             animate={{ opacity: 1, y: 0 }} 
-            className="space-y-8"
+            className="glass-card rounded-3xl p-6 sm:p-8 border border-white/80 shadow-md"
           >
-            {localServices.map((cat, cIdx) => {
-              const CatIcon = cat.icon;
-              return (
-                <div key={cIdx} className="glass-card rounded-3xl p-6 sm:p-8 border border-white/80 shadow-md">
-                  <div className="flex items-center gap-3 mb-6 border-b border-slate-200/60 pb-4">
-                    <div className="p-2.5 rounded-xl bg-blue-50 text-blue-600 border border-blue-100">
-                      <CatIcon className="w-5 h-5" />
-                    </div>
-                    <h3 className="text-xl font-bold text-slate-900">{cat.category}</h3>
-                  </div>
+            <div className="flex items-center gap-3 mb-6 border-b border-slate-200/60 pb-4">
+              <div className="p-2.5 rounded-xl bg-blue-50 text-blue-600 border border-blue-100">
+                <Laptop className="w-5 h-5" />
+              </div>
+              <h3 className="text-xl font-bold text-slate-900">Usługi Stacjonarne & Serwisowe (Kraków / Małopolska)</h3>
+            </div>
 
-                  <div className="divide-y divide-slate-100">
-                    {cat.items.map((item, itemIdx) => (
-                      <div key={itemIdx} className="py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-blue-50/30 px-3 rounded-xl transition-colors">
-                        <div>
-                          <h4 className="font-bold text-slate-900 text-sm sm:text-base">{item.name}</h4>
-                          <p className="text-xs text-slate-500 mt-0.5">{item.desc}</p>
-                        </div>
-                        <div className="flex items-center gap-4 shrink-0">
-                          <span className="text-sm font-black text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-100">{item.price}</span>
-                          <button 
-                            onClick={() => scrollToSection('contact')}
-                            className="p-2 rounded-full bg-slate-100 hover:bg-blue-600 hover:text-white text-slate-600 transition-colors cursor-pointer"
-                          >
-                            <ArrowRight className="w-4 h-4" />
-                          </button>
-                        </div>
-                      </div>
-                    ))}
+            <div className="divide-y divide-slate-100">
+              {localServices.map((item, itemIdx) => (
+                <div key={itemIdx} className="py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-blue-50/30 px-3 rounded-xl transition-colors">
+                  <div>
+                    <h4 className="font-bold text-slate-900 text-sm sm:text-base">{item.name}</h4>
+                    <p className="text-xs text-slate-500 mt-0.5">{item.desc}</p>
+                  </div>
+                  <div className="flex items-center gap-4 shrink-0">
+                    <span className="text-sm font-black text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-100">{item.price}</span>
+                    <button 
+                      onClick={() => scrollToSection('contact')}
+                      className="p-2 rounded-full bg-slate-100 hover:bg-blue-600 hover:text-white text-slate-600 transition-colors cursor-pointer"
+                    >
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
                   </div>
                 </div>
-              );
-            })}
+              ))}
+            </div>
           </motion.div>
         )}
       </section>
