@@ -28,23 +28,27 @@ import {
   ShieldCheck,
   BarChart3,
   Laptop,
-  Users,
   Compass,
   ArrowRight,
   Sparkles
 } from 'lucide-react';
 
+function DiscordIcon({ className = "w-5 h-5" }) {
+  return (
+    <svg className={className} viewBox="0 0 127.14 96.36" fill="currentColor">
+      <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0, -3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a73.57,73.57,0,0,0,64.32,0c.87.68,1.76,1.36,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1,105.25,105.25,0,0,0,32.19-16.14c2.64-27.38-4.51-51.11-18.9-72.15ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74C48.86,40.23,54,45.92,53.88,53,53.88,60,48.8,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74C91.13,40.23,96.28,45.92,96.14,53,96.14,60,91.13,65.69,84.69,65.69Z"/>
+    </svg>
+  );
+}
+
 function FluidBackground() {
   const { scrollYProgress } = useScroll();
 
-  const spot1X = useTransform(scrollYProgress, [0, 0.25, 0.5, 0.75, 1], ['10%', '65%', '20%', '70%', '30%']);
-  const spot1Y = useTransform(scrollYProgress, [0, 0.25, 0.5, 0.75, 1], ['10%', '25%', '55%', '80%', '90%']);
+  const spot1X = useTransform(scrollYProgress, [0, 0.5, 1], ['15%', '50%', '30%']);
+  const spot1Y = useTransform(scrollYProgress, [0, 0.5, 1], ['15%', '45%', '80%']);
   
-  const spot2X = useTransform(scrollYProgress, [0, 0.25, 0.5, 0.75, 1], ['80%', '20%', '75%', '15%', '60%']);
-  const spot2Y = useTransform(scrollYProgress, [0, 0.25, 0.5, 0.75, 1], ['20%', '45%', '30%', '65%', '85%']);
-
-  const rotate = useTransform(scrollYProgress, [0, 1], [0, 360]);
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.25, 0.95]);
+  const spot2X = useTransform(scrollYProgress, [0, 0.5, 1], ['75%', '30%', '65%']);
+  const spot2Y = useTransform(scrollYProgress, [0, 0.5, 1], ['25%', '60%', '75%']);
 
   return (
     <div className="fixed inset-0 pointer-events-none z-[-1] overflow-hidden bg-[#f8fafc]">
@@ -52,20 +56,16 @@ function FluidBackground() {
         style={{
           left: spot1X,
           top: spot1Y,
-          rotate,
-          scale,
         }}
-        className="absolute w-[500px] h-[500px] sm:w-[700px] sm:h-[700px] rounded-full bg-gradient-to-tr from-blue-400/30 via-indigo-300/25 to-sky-200/40 blur-[100px] transition-all duration-700 ease-out"
+        className="absolute w-[500px] h-[500px] sm:w-[650px] sm:h-[650px] rounded-full bg-gradient-to-tr from-blue-400/25 via-indigo-300/20 to-sky-200/35 blur-[120px] transition-all duration-1000 ease-out"
       />
 
       <motion.div
         style={{
           left: spot2X,
           top: spot2Y,
-          rotate,
-          scale,
         }}
-        className="absolute w-[450px] h-[450px] sm:w-[650px] sm:h-[650px] rounded-full bg-gradient-to-br from-violet-300/25 via-purple-200/20 to-blue-300/30 blur-[110px] transition-all duration-700 ease-out"
+        className="absolute w-[450px] h-[450px] sm:w-[600px] sm:h-[600px] rounded-full bg-gradient-to-br from-violet-300/20 via-purple-200/20 to-blue-300/25 blur-[120px] transition-all duration-1000 ease-out"
       />
     </div>
   );
@@ -552,7 +552,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 6. WYRÓŻNIONA SEKCJA EKOSYSTEMY (ZAKOŃCZONA POWŁOKĄ KARTY DLA OCHRONY TŁA PONIŻEJ) */}
+      {/* 6. WYRÓŻNIONA SEKCJA EKOSYSTEMY */}
       <section id="ecosystems" className="my-32 px-6 max-w-5xl mx-auto scroll-mt-28">
         <div className="glass-card rounded-3xl p-8 sm:p-12 border border-blue-200/80 shadow-xl bg-blue-50/40 backdrop-blur-xl">
           <div className="mb-12">
@@ -584,7 +584,6 @@ export default function Home() {
             })}
           </div>
 
-          {/* INTERAKTYWNE CASE STUDY DLA BRAINLY / VANTRX (BEZ DODATKOWEGO TEKSTU) */}
           <div className="bg-white/90 rounded-3xl p-6 sm:p-10 border border-blue-200/80 shadow-md relative overflow-hidden">
             <div className="flex justify-center border-b border-slate-100 pb-6 mb-8">
               <div className="relative inline-flex p-1.5 rounded-2xl bg-slate-100 border border-slate-200/80 w-full sm:w-auto">
@@ -665,7 +664,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 7. DYNAMICZNA SEKCJA CENNIK (KATEGORIE: BUDOWANIE EKOSYSTEMÓW / USŁUGI DISCORD / STACJONARNE) */}
+      {/* 7. SEKCJA CENNIK */}
       <section id="pricing" className="my-32 px-6 max-w-5xl mx-auto scroll-mt-28">
         <div className="mb-10 text-center">
           <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
@@ -697,7 +696,7 @@ export default function Home() {
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              <MessageSquare className="w-4 h-4" /> Usługi Discord
+              <DiscordIcon className="w-4 h-4" /> Usługi Discord
             </button>
             <button
               onClick={() => setPricingCategory('local')}
@@ -717,14 +716,14 @@ export default function Home() {
           <motion.div 
             initial={{ opacity: 0, y: 15 }} 
             animate={{ opacity: 1, y: 0 }} 
-            className="grid md:grid-cols-3 gap-6"
+            className="grid md:grid-cols-3 gap-6 items-center"
           >
             {pricingTiers.map((tier, idx) => (
               <div
                 key={idx}
-                className={`glass-card rounded-3xl p-8 border flex flex-col justify-between relative ${
+                className={`glass-card rounded-3xl p-8 border flex flex-col justify-between relative transition-all duration-300 ${
                   tier.popular 
-                    ? 'border-2 border-blue-600 shadow-xl shadow-blue-500/10 bg-white/95' 
+                    ? 'border-2 border-blue-600 shadow-xl shadow-blue-500/15 bg-white scale-[1.03] md:-translate-y-2 z-10' 
                     : 'border-white/80'
                 }`}
               >
@@ -752,7 +751,7 @@ export default function Home() {
                   onClick={() => scrollToSection('contact')}
                   className={`w-full py-3 rounded-2xl font-semibold text-sm transition-all cursor-pointer ${
                     tier.popular
-                      ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-md'
+                      ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-500/20'
                       : 'bg-slate-900 hover:bg-slate-800 text-white'
                   }`}
                 >
@@ -772,7 +771,7 @@ export default function Home() {
           >
             <div className="flex items-center gap-3 mb-6 border-b border-slate-200/60 pb-4">
               <div className="p-2.5 rounded-xl bg-blue-50 text-blue-600 border border-blue-100">
-                <Server className="w-5 h-5" />
+                <DiscordIcon className="w-5 h-5 text-blue-600" />
               </div>
               <h3 className="text-xl font-bold text-slate-900">Dedykowane Usługi Discord</h3>
             </div>
