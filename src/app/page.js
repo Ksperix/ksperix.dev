@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { 
   ShieldCheck, 
   Server, 
@@ -27,6 +27,47 @@ import {
   SlidersHorizontal,
   Github
 } from 'lucide-react';
+
+// DYNAMICZNE, PŁYNNE TŁO REAGUJĄCE NA SCROLLOWANIE
+function FluidBackground() {
+  const { scrollYProgress } = useScroll();
+
+  // Przekształcenia pozycji, obrotu i skali w zależności od postępu skrolowania (0 do 1)
+  const spot1X = useTransform(scrollYProgress, [0, 0.25, 0.5, 0.75, 1], ['10%', '65%', '20%', '70%', '30%']);
+  const spot1Y = useTransform(scrollYProgress, [0, 0.25, 0.5, 0.75, 1], ['10%', '25%', '55%', '80%', '90%']);
+  
+  const spot2X = useTransform(scrollYProgress, [0, 0.25, 0.5, 0.75, 1], ['80%', '20%', '75%', '15%', '60%']);
+  const spot2Y = useTransform(scrollYProgress, [0, 0.25, 0.5, 0.75, 1], ['20%', '45%', '30%', '65%', '85%']);
+
+  const rotate = useTransform(scrollYProgress, [0, 1], [0, 360]);
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.25, 0.95]);
+
+  return (
+    <div className="fixed inset-0 pointer-events-none z-[-1] overflow-hidden bg-[#f8fafc]">
+      {/* Płynna kula światła #1 (Błękitno-Indygo) */}
+      <motion.div
+        style={{
+          left: spot1X,
+          top: spot1Y,
+          rotate,
+          scale,
+        }}
+        className="absolute w-[500px] h-[500px] sm:w-[700px] sm:h-[700px] rounded-full bg-gradient-to-tr from-blue-400/30 via-indigo-300/25 to-sky-200/40 blur-[100px] transition-all duration-700 ease-out"
+      />
+
+      {/* Płynna kula światła #2 (Fioletowo-Różana) */}
+      <motion.div
+        style={{
+          left: spot2X,
+          top: spot2Y,
+          rotate,
+          scale,
+        }}
+        className="absolute w-[450px] h-[450px] sm:w-[650px] sm:h-[650px] rounded-full bg-gradient-to-br from-violet-300/25 via-purple-200/20 to-blue-300/30 blur-[110px] transition-all duration-700 ease-out"
+      />
+    </div>
+  );
+}
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState('hero');
@@ -235,13 +276,12 @@ export default function Home() {
   return (
     <div className="min-h-screen text-slate-800 relative selection:bg-blue-500/20 selection:text-blue-900">
       
-      {/* TŁO: GRID PATTERN + POŚWIATA */}
-      <div className="glow-spot" />
-      <div className="liquid-bg" />
+      {/* ANIMOWANE PŁYNNE TŁO */}
+      <FluidBackground />
 
       {/* 1. LIQUID GLASS NAVIGATION */}
       <header className="fixed top-6 inset-x-0 z-50 flex justify-center px-4">
-        <nav className="glass-card rounded-full px-6 py-3 flex items-center justify-between gap-8 max-w-4xl w-full border border-slate-200/80 shadow-lg shadow-slate-200/50">
+        <nav className="glass-card rounded-full px-6 py-3 flex items-center justify-between gap-8 max-w-4xl w-full border border-white/60 shadow-lg shadow-slate-200/50">
           <button 
             onClick={() => scrollToSection('hero')} 
             className="font-semibold text-lg tracking-tight text-slate-900 hover:opacity-80 transition-opacity bg-transparent border-0 cursor-pointer"
@@ -282,7 +322,7 @@ export default function Home() {
 
       {/* 2. HERO SECTION */}
       <section id="hero" className="pt-40 pb-20 px-6 max-w-5xl mx-auto text-center flex flex-col items-center justify-center min-h-[90vh] scroll-mt-28">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-card text-xs md:text-sm font-medium text-slate-700 border border-slate-200 mb-8 shadow-sm">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-card text-xs md:text-sm font-medium text-slate-700 border border-white/80 mb-8 shadow-sm">
           <Workflow className="w-4 h-4 text-blue-600" />
           <span>7+ lat w zarządzaniu operacyjnym & budowaniu ekosystemów</span>
         </div>
@@ -323,7 +363,7 @@ export default function Home() {
           </button>
           <button 
             onClick={() => scrollToSection('contact')} 
-            className="px-8 py-3.5 rounded-full glass-card text-slate-800 font-semibold hover:bg-white transition-all border border-slate-200 text-sm cursor-pointer"
+            className="px-8 py-3.5 rounded-full glass-card text-slate-800 font-semibold hover:bg-white transition-all border border-white/80 text-sm cursor-pointer"
           >
             Nawiąż współpracę
           </button>
@@ -337,9 +377,9 @@ export default function Home() {
           whileInView={{ opacity: 1, scale: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="glass-card p-8 sm:p-12 md:p-14 rounded-3xl border border-slate-200/80 shadow-xl relative overflow-hidden backdrop-blur-2xl"
+          className="glass-card p-8 sm:p-12 md:p-14 rounded-3xl border border-white/80 shadow-xl relative overflow-hidden backdrop-blur-2xl"
         >
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10 border-b border-slate-200 pb-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10 border-b border-slate-200/60 pb-6">
             <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
               O mnie<span className="text-blue-600">.</span>
             </h2>
@@ -368,7 +408,7 @@ export default function Home() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.3, delay: idx * 0.05 }}
-                    className="p-3.5 rounded-2xl bg-white/60 border border-slate-200/80 hover:border-blue-500/40 hover:bg-white transition-all flex items-center gap-3 group shadow-sm"
+                    className="p-3.5 rounded-2xl bg-white/70 border border-white/80 hover:border-blue-500/40 hover:bg-white transition-all flex items-center gap-3 group shadow-sm"
                   >
                     <div className="p-2 rounded-xl bg-slate-100 group-hover:bg-blue-50 transition-colors">
                       <ToolIcon className={`w-4 h-4 ${tool.color}`} />
@@ -400,7 +440,7 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="glass-card p-8 rounded-3xl border border-slate-200/80 hover:border-blue-500/40 transition-all flex flex-col justify-between group relative overflow-hidden shadow-sm hover:shadow-md"
+                className="glass-card p-8 rounded-3xl border border-white/80 hover:border-blue-500/40 transition-all flex flex-col justify-between group relative overflow-hidden shadow-sm hover:shadow-md"
               >
                 <div>
                   <div className="flex items-center justify-between mb-6">
@@ -421,7 +461,7 @@ export default function Home() {
                   </p>
                 </div>
 
-                <div className="w-full bg-slate-200 h-1 rounded-full overflow-hidden">
+                <div className="w-full bg-slate-200/80 h-1 rounded-full overflow-hidden">
                   <div className="bg-blue-600 h-full w-1/3 group-hover:w-full transition-all duration-500" />
                 </div>
               </motion.div>
@@ -451,7 +491,7 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.5, delay: idx * 0.05 }}
-                className="glass-card rounded-3xl border border-slate-200/80 overflow-hidden shadow-xl p-6 sm:p-8 backdrop-blur-2xl transition-all duration-300 hover:border-blue-500/40 bg-white/80"
+                className="glass-card rounded-3xl border border-white/80 overflow-hidden shadow-xl p-6 sm:p-8 backdrop-blur-2xl transition-all duration-300 hover:border-blue-500/40 bg-white/85"
               >
                 <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-6">
                   <div>
@@ -461,13 +501,13 @@ export default function Home() {
                   <p className="text-xs sm:text-sm text-slate-600 max-w-md font-normal">{proj.desc}</p>
                 </div>
 
-                <div className="relative w-full aspect-video rounded-2xl overflow-hidden border border-slate-200 bg-slate-100 group shadow-inner">
+                <div className="relative w-full aspect-video rounded-2xl overflow-hidden border border-slate-200/80 bg-slate-100 group shadow-inner">
                   <img 
                     src={proj.image} 
                     alt={proj.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 via-transparent to-transparent pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/15 via-transparent to-transparent pointer-events-none" />
                 </div>
               </motion.div>
             </div>
@@ -481,7 +521,7 @@ export default function Home() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="glass-card p-8 md:p-12 rounded-3xl border border-blue-200 relative overflow-hidden shadow-lg"
+          className="glass-card p-8 md:p-12 rounded-3xl border border-blue-200/80 relative overflow-hidden shadow-lg"
         >
           <h2 className="text-3xl md:text-5xl font-extrabold mb-6 text-slate-900 tracking-tight">
             Co składa się na skuteczny Ekosystem<span className="text-blue-600">?</span>
@@ -499,7 +539,7 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: idx * 0.1 }}
-                className="p-5 rounded-2xl bg-white/60 border border-slate-200/80 hover:border-blue-500/30 transition-all flex items-start gap-4 shadow-sm"
+                className="p-5 rounded-2xl bg-white/70 border border-white/80 hover:border-blue-500/30 transition-all flex items-start gap-4 shadow-sm"
               >
                 <div className="p-2 rounded-xl bg-blue-50 text-blue-600 mt-1 shrink-0">
                   <SlidersHorizontal className="w-4 h-4" />
@@ -530,7 +570,7 @@ export default function Home() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="glass-card rounded-3xl p-8 md:p-12 border border-slate-200/80 relative overflow-hidden shadow-lg"
+          className="glass-card rounded-3xl p-8 md:p-12 border border-white/80 relative overflow-hidden shadow-lg"
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-semibold mb-6 border border-blue-100">
             <Sparkles className="w-3.5 h-3.5 text-blue-600" /> Dedykowane Rozwiązanie • Adult UGC
@@ -556,7 +596,7 @@ export default function Home() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: idx * 0.1 }}
-                  className="p-5 rounded-2xl bg-white/60 border border-slate-200/80 hover:border-blue-500/30 transition-all flex flex-col justify-between shadow-sm"
+                  className="p-5 rounded-2xl bg-white/70 border border-white/80 hover:border-blue-500/30 transition-all flex flex-col justify-between shadow-sm"
                 >
                   <div>
                     <FeatIcon className="w-5 h-5 text-blue-600 mb-3" />
@@ -577,7 +617,7 @@ export default function Home() {
           whileInView={{ opacity: 1, scale: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.5 }}
-          className="glass-card p-8 sm:p-12 md:p-14 rounded-3xl border border-slate-200/80 shadow-xl relative overflow-hidden backdrop-blur-2xl"
+          className="glass-card p-8 sm:p-12 md:p-14 rounded-3xl border border-white/80 shadow-xl relative overflow-hidden backdrop-blur-2xl"
         >
           <div className="max-w-2xl mx-auto text-center mb-10">
             <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
@@ -674,7 +714,7 @@ export default function Home() {
       </section>
 
       {/* FOOTER Z ODNOŚNIKAMI GITHUB I DISCORD */}
-      <footer className="py-8 text-center text-xs text-slate-500 border-t border-slate-200 flex flex-col items-center justify-center gap-4">
+      <footer className="py-8 text-center text-xs text-slate-500 border-t border-slate-200/80 flex flex-col items-center justify-center gap-4">
         <div className="flex items-center gap-6">
           <a 
             href="https://github.com/ksperix" 
