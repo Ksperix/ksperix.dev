@@ -33,6 +33,11 @@ import {
   Sparkles
 } from 'lucide-react';
 
+import pl from '../../messages/pl.json';
+import en from '../../messages/en.json';
+
+const translations = { pl, en };
+
 function DiscordIcon({ className = "w-5 h-5" }) {
   return (
     <svg className={className} viewBox="0 0 127.14 96.36" fill="currentColor">
@@ -72,24 +77,28 @@ function FluidBackground() {
 }
 
 export default function Home() {
+  const [lang, setLang] = useState('pl');
+  const t = translations[lang];
+
   const [activeSection, setActiveSection] = useState('hero');
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
   const [status, setStatus] = useState('idle');
   const [selectedEcosystem, setSelectedEcosystem] = useState('brainly');
   const [pricingCategory, setPricingCategory] = useState('ecosystems');
 
-  const typewriterPhrases = [
-    'Tworzę ekosystemy.',
-    'Wizualizuję marki.',
-    'Automatyzuję procesy.',
-    'Skaluję społeczności.'
-  ];
+  const typewriterPhrases = t.Typewriter;
   const [textIndex, setTextIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
-    const currentPhrase = typewriterPhrases[textIndex];
+    setTextIndex(0);
+    setCharIndex(0);
+    setIsDeleting(false);
+  }, [lang]);
+
+  useEffect(() => {
+    const currentPhrase = typewriterPhrases[textIndex] || '';
     let typingSpeed = isDeleting ? 40 : 80;
 
     if (!isDeleting && charIndex === currentPhrase.length) {
@@ -109,7 +118,7 @@ export default function Home() {
     }, typingSpeed);
 
     return () => clearTimeout(timer);
-  }, [charIndex, isDeleting, textIndex]);
+  }, [charIndex, isDeleting, textIndex, typewriterPhrases]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -167,11 +176,11 @@ export default function Home() {
   };
 
   const navItems = [
-    { id: 'about', label: 'O mnie' },
-    { id: 'services', label: 'Kompetencje' },
-    { id: 'showcase', label: 'Projekty' },
-    { id: 'ecosystems', label: 'Ekosystemy' },
-    { id: 'pricing', label: 'Cennik' },
+    { id: 'about', label: t.Nav.about },
+    { id: 'services', label: t.Nav.services },
+    { id: 'showcase', label: t.Nav.showcase },
+    { id: 'ecosystems', label: t.Nav.ecosystems },
+    { id: 'pricing', label: t.Nav.pricing },
   ];
 
   const tools = [
@@ -187,26 +196,26 @@ export default function Home() {
 
   const competencies = [
     {
-      title: "Zarządzanie Społecznościami",
-      desc: "Kompleksowa architektura międzynarodowych serwerów. Zaawansowane struktury ról, ekonomia, zabezpieczenia i ciągła moderacja zespołów.",
+      title: t.Services.c1_title,
+      desc: t.Services.c1_desc,
       icon: Server,
       tag: "BrainlyHQ"
     },
     {
-      title: "Zarządzanie Zespołami & Operations",
-      desc: "Przekształcanie chaosu w powtarzalne procedury. Koordynacja pracy biurowej, rozdzielanie zadań i nadzór nad efektywnością projektu.",
+      title: t.Services.c2_title,
+      desc: t.Services.c2_desc,
       icon: Briefcase,
-      tag: "7+ Lat Doświadczenia"
+      tag: t.Services.c2_tag
     },
     {
-      title: "Nowoczesne Rozwiązania Webowe",
-      desc: "Budowanie szybkich i bezpiecznych stron internetowych na Next.js i Tailwind CSS. Tworzenie interfejsów dostosowanych do złożonych narzędzi.",
+      title: t.Services.c3_title,
+      desc: t.Services.c3_desc,
       icon: Globe,
       tag: "Next.js • React"
     },
     {
-      title: "Grafika & Kampanie Promocyjne",
-      desc: "Projektowanie spójnej oprawy wizualnej oraz realizacja przemyślanych działań marketingowych pozyskujących zaangażowanych odbiorców.",
+      title: t.Services.c4_title,
+      desc: t.Services.c4_desc,
       icon: Palette,
       tag: "Branding & Ads"
     }
@@ -216,140 +225,137 @@ export default function Home() {
     {
       title: "BrainlyHQ Ecosystem",
       image: "/brainlyhq.png",
-      desc: "Międzynarodowa społeczność, dedykowane systemy zarządcze i rozbudowane narzędzia integracji."
+      desc: t.Showcase.p1_desc
     },
     {
       title: "VANTRX Platform",
       image: "/vantrx.png",
-      desc: "Dedykowany ekosystem wspierający automatyzację i ochronę zasobów w branży Adult UGC."
+      desc: t.Showcase.p2_desc
     },
     {
       title: "Les Moutons Bags",
       image: "/lesmoutonsbags.png",
-      desc: "Kompleksowa identyfikacja wizualna oraz projekt witryny e-commerce."
+      desc: t.Showcase.p3_desc
     },
     {
       title: "Partnership Network",
       image: "/partnership.png",
-      desc: "Dedykowany portal wspierający program partnerski, sieć powiązań oraz wymianę zasobów pomiędzy podmiotami."
+      desc: t.Showcase.p4_desc
     },
     {
       title: "Notifications System",
       image: "/notifications.png",
-      desc: "Zintegrowany system powiadomień i automatycznego przesyłu alertów do kluczowych kanałów komunikacyjnych."
+      desc: t.Showcase.p5_desc
     },
     {
       title: "Gamez & Automation",
       image: "/gamez.png",
-      desc: "Autorskie mini-gry, systemy ekonomii i zaawansowane skrypty automatyzujące."
+      desc: t.Showcase.p6_desc
     }
   ];
 
   const ecosystemPillars = [
-    { title: "Scentralizowana Komunikacja", text: "Integracja komunikatorów (Slack/Discord) z narzędziami projektowymi.", icon: MessageSquareCode },
-    { title: "Automatyzacja Zadań", text: "Eliminacja rutynowej pracy za pomocą autorskich botów i skryptów.", icon: Cpu },
-    { title: "Bezpieczeństwo & Dostępność", text: "Kontrola nad uprawnieniami, ochrona plików i bezawaryjność 24/7.", icon: ShieldCheck },
-    { title: "Analityka i Skalowalność", text: "Śledzenie kluczowych wskaźników rozwoju i gotowość na szybki wzrost.", icon: BarChart3 }
+    { title: t.Ecosystems.p1_title, text: t.Ecosystems.p1_text, icon: MessageSquareCode },
+    { title: t.Ecosystems.p2_title, text: t.Ecosystems.p2_text, icon: Cpu },
+    { title: t.Ecosystems.p3_title, text: t.Ecosystems.p3_text, icon: ShieldCheck },
+    { title: t.Ecosystems.p4_title, text: t.Ecosystems.p4_text, icon: BarChart3 }
   ];
 
   const ecosystemData = {
     brainly: {
       title: "BrainlyHQ Infrastructure",
-      subtitle: "Globalna Platforma Społecznościowa & Dystrybucja Bota",
-      desc: "Zaawansowane narzędzia moderacyjne, automatyczna integracja botów, powiadomień oraz dedykowany rynek produktów dla społeczności. Zbudowany z myślą o skalowaniu na dziesiątki tysięcy użytkowników.",
+      subtitle: t.Ecosystems.brainly_sub,
+      desc: t.Ecosystems.brainly_desc,
       metrics: [
-        { label: "Liczba Społeczności", value: "Multi-Server" },
-        { label: "Integracje", value: "Slack & Discord API" },
-        { label: "Utrzymanie", value: "99.9% Uptime" }
+        { label: t.Ecosystems.m1_label, value: "Multi-Server" },
+        { label: t.Ecosystems.m2_label, value: "Slack & Discord API" },
+        { label: t.Ecosystems.m3_label, value: "99.9% Uptime" }
       ],
       link: "https://discord.brainly.com/products",
-      btnText: "Przeglądaj Produkty BrainlyHQ",
+      btnText: t.Ecosystems.brainly_btn,
       accentBg: "bg-blue-600",
       accentText: "text-blue-600"
     },
     vantrx: {
       title: "VANTRX Platform",
-      subtitle: "Bezpieczeństwo Zasobów & Automatyzacja Agencji",
-      desc: "Autorska platforma stworzona do organizacji procesów, ochrony zasobów cyfrowych oraz automatyzacji codziennej obsługi administracyjnej twórców oraz agencji w sektorze Adult UGC.",
+      subtitle: t.Ecosystems.vantrx_sub,
+      desc: t.Ecosystems.vantrx_desc,
       metrics: [
-        { label: "Doświadczenie Branżowe", value: "3+ Lata" },
-        { label: "Ochrona Danych", value: "Private Vault" },
-        { label: "Wydajność", value: "Automatyczna Biurokracja" }
+        { label: t.Ecosystems.m4_label, value: t.Ecosystems.m4_val },
+        { label: t.Ecosystems.m5_label, value: "Private Vault" },
+        { label: t.Ecosystems.m6_label, value: t.Ecosystems.m6_val }
       ],
       link: "https://vantrx.pl",
-      btnText: "Przejdź do VANTRX",
+      btnText: t.Ecosystems.vantrx_btn,
       accentBg: "bg-purple-600",
       accentText: "text-purple-600"
     }
   };
 
   const specialTier = {
-    title: "Pakiet Special",
+    title: t.Pricing.special_title,
     price: "70,00 zł / h",
-    subtitle: "Konsultacje na bieżąco & Rozwój Marki",
+    subtitle: t.Pricing.special_sub,
     features: [
-      "Brak płatności jednorazowej – elastyczny czas pracy godzinowej",
-      "Spotkania stacjonarne na terenie Krakowa lub konsultacje online",
-      "Praca nad marką, rozmowy strategiczne, wprowadzanie zmian",
-      "Elastyczne ustalanie wspólnych terminów dostosowanych do Ciebie"
+      t.Pricing.special_f1,
+      t.Pricing.special_f2,
+      t.Pricing.special_f3,
+      t.Pricing.special_f4
     ]
   };
 
   const pricingTiers = [
     {
-      title: "Pakiet Starter",
-      price: "od 149,99 zł",
+      title: t.Pricing.starter_title,
+      price: t.Pricing.starter_price,
       features: [
-        "Audyt obecnej infrastruktury",
-        "Wskazówki dot. dalszego rozwoju wraz z raportem",
-        "Implementacja pierwszy ustalonych zmian",
-        "Ustalenie grupy targetowej i analiza identyfikacji marki"
+        t.Pricing.starter_f1,
+        t.Pricing.starter_f2,
+        t.Pricing.starter_f3,
+        t.Pricing.starter_f4
       ]
     },
     {
-      title: "Pakiet Gold",
+      title: t.Pricing.gold_title,
       oldPrice: "319,99 zł",
-      price: "od 229,99 zł",
+      price: t.Pricing.gold_price,
       popular: true,
-      includesPrevious: "+ wszystko co w pakiecie Starter",
+      includesPrevious: t.Pricing.gold_inc,
       features: [
-        "Poprawy w identyfikacji wizualnej marki oraz raport",
-        "Pomoc w konfiguracji narzędzi zarządzania zespołem",
-        "Rozwój Social Mediów marki",
-        "Utworzenie haseł promocyjnych i Look Book'a"
+        t.Pricing.gold_f1,
+        t.Pricing.gold_f2,
+        t.Pricing.gold_f3,
+        t.Pricing.gold_f4
       ]
     },
     {
-      title: "Pakiet Pro",
-      price: "od 499,99 zł",
-      includesPrevious: "+ wszystko co w pakiecie Gold",
+      title: t.Pricing.pro_title,
+      price: t.Pricing.pro_price,
+      includesPrevious: t.Pricing.pro_inc,
       features: [
-        "Kompleksowy serwer Discord/Slack z botami autorskimi",
-        "Strona internetowa oraz własny panel linków Social Media",
-        "Twoje pierwsze produkty cyfrowe i narzędzia marki",
-        "Pełne utrzymanie techniczne, wsparcie 24/7, koncepcje"
+        t.Pricing.pro_f1,
+        t.Pricing.pro_f2,
+        t.Pricing.pro_f3,
+        t.Pricing.pro_f4
       ]
     }
   ];
 
   const discordServices = [
-    { name: "Serwer Starter", desc: "Struktura kanałów (do 15), role (do 15), uprawnienia, boty (do 3), zabezpieczenia", price: "129,99 zł" },
-    { name: "Serwer Premium", desc: "WSZYSTKO CO POPRZEDNIO + Struktura kanałów (do 30), role (do 30), system ticketów, ustawienia społeczności, powitania, dokumentacja, boty (do 5)", price: "189,99 zł" },
-    { name: "Serwer Diamond", desc: "WSZYSTKO CO POPRZEDNIO + Struktura kanałów (do 45), role (do 45), ustawienia profilu serwera na top.gg/Disboard, auto-role, poradnik prowadzenia serwera, ekran powitalny", price: "239,99 zł" },
-    { name: "Serwer Enterpriser", desc: "WSZYSTKO CO POPRZEDNIO + Nielmitowana liczba kanałów, ról, system giveawayów, powiadomienia, zadania, ekonomia, user-panel, strategia marketingowa dla serwera", price: "399,99 zł" },
-    { name: "Dedykowana Oprawa Graficzna Serwera", desc: "Ikona serwera, bannery kanałów, nagłówki, szablony ogłoszeń (30 elementów)", price: "199,99 zł" }
+    { name: t.Pricing.d1_name, desc: t.Pricing.d1_desc, price: t.Pricing.d1_price },
+    { name: t.Pricing.d2_name, desc: t.Pricing.d2_desc, price: t.Pricing.d2_price },
+    { name: t.Pricing.d3_name, desc: t.Pricing.d3_desc, price: t.Pricing.d3_price }
   ];
 
   const localServices = [
-    { name: "Formatowanie & Dobre ustawienia OS", desc: "Instalacja Windows/macOS, sterowników, zabezpieczenia", price: "od 99,99 zł" },
-    { name: "Konsultacja stacjonarna w Krakowie / Małopolsce", desc: "Doradztwo technologiczne na miejscu, audyt sprzętowy i sieciowy", price: "149,99 zł / h" }
+    { name: t.Pricing.l1_name, desc: t.Pricing.l1_desc, price: t.Pricing.l1_price },
+    { name: t.Pricing.l2_name, desc: t.Pricing.l2_desc, price: t.Pricing.l2_price }
   ];
 
   const otherServices = [
-    { name: "Dokumentacja Marki", desc: "Fachowe zasady dla twojej społeczności lub marki; Regulamin (do 10 stron), Warunki Użytkowania, Szablony umów (2) i Polityka Prywatności", price: "99,99 zł" },
-    { name: "Dokumentacja Marki+", desc: "Jeszcze wyższy poziom niż wcześniej! Regulamin (do 30 stron), Warunki Użytkowania Produktów (3), Szablony umów (6) i Polityki Prywatności Produktów (3)", price: "199,99 zł" },
-    { name: "Bot na Slacku", desc: "Jakościowa aplikacja na plartformie Slack; funkcje AI, przcyiski, API i inne opcje", price: "Wycena indywidualna" },
-    { name: "Arkusz kalkulacyjny z automatyzacjami", desc: "Profesjonalny arkusz kalkulacyjny Google z automatyzacjami GAS oraz funkcjami logicznymi", price: "Wycena indywidualna" }
+    { name: t.Pricing.o1_name, desc: t.Pricing.o1_desc, price: t.Pricing.o1_price },
+    { name: t.Pricing.o2_name, desc: t.Pricing.o2_desc, price: t.Pricing.o2_price },
+    { name: t.Pricing.o3_name, desc: t.Pricing.o3_desc, price: t.Pricing.o3_price }
   ];
 
   return (
@@ -359,10 +365,10 @@ export default function Home() {
 
       {/* 1. LIQUID GLASS NAVIGATION */}
       <header className="fixed top-6 inset-x-0 z-50 flex justify-center px-4">
-        <nav className="glass-card rounded-full px-6 py-3 flex items-center justify-between gap-8 max-w-4xl w-full border border-white/60 shadow-lg shadow-slate-200/50">
+        <nav className="glass-card rounded-full px-6 py-3 flex items-center justify-between gap-4 sm:gap-8 max-w-4xl w-full border border-white/60 shadow-lg shadow-slate-200/50">
           <button 
             onClick={() => scrollToSection('hero')} 
-            className="font-semibold text-lg tracking-tight text-slate-900 hover:opacity-80 transition-opacity bg-transparent border-0 cursor-pointer"
+            className="font-semibold text-lg tracking-tight text-slate-900 hover:opacity-80 transition-opacity bg-transparent border-0 cursor-pointer shrink-0"
           >
             ksperix<span className="text-blue-600 font-bold">.dev</span>
           </button>
@@ -389,12 +395,23 @@ export default function Home() {
             })}
           </div>
 
-          <button 
-            onClick={() => scrollToSection('contact')} 
-            className="text-xs md:text-sm font-semibold px-5 py-2 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition-all shadow-md shadow-blue-500/20 cursor-pointer"
-          >
-            Kontakt
-          </button>
+          <div className="flex items-center gap-3 shrink-0">
+            {/* PRZEŁĄCZNIK JĘZYKA W KÓŁECZKU Z FLAGĄ */}
+            <button
+              onClick={() => setLang(lang === 'pl' ? 'en' : 'pl')}
+              className="w-9 h-9 rounded-full glass-card hover:bg-white border border-white/80 flex items-center justify-center text-base transition-all cursor-pointer shadow-sm active:scale-95"
+              title={lang === 'pl' ? 'Switch to English' : 'Przełącz na polski'}
+            >
+              {lang === 'pl' ? '🇵🇱' : '🇬🇧'}
+            </button>
+
+            <button 
+              onClick={() => scrollToSection('contact')} 
+              className="text-xs md:text-sm font-semibold px-5 py-2 rounded-full bg-blue-600 text-white hover:bg-blue-700 transition-all shadow-md shadow-blue-500/20 cursor-pointer"
+            >
+              {t.Nav.contact}
+            </button>
+          </div>
         </nav>
       </header>
 
@@ -406,9 +423,9 @@ export default function Home() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight leading-tight mb-6 text-slate-900 min-h-[140px] sm:min-h-[180px] flex flex-col justify-center items-center"
         >
-          <span>Nie tylko koduję.</span>
+          <span>{t.Hero.heading1}</span>
           <span className="text-blue-600 block">
-            {typewriterPhrases[textIndex].substring(0, charIndex)}
+            {(typewriterPhrases[textIndex] || '').substring(0, charIndex)}
             <span className="animate-pulse font-normal text-blue-500">|</span>
           </span>
         </motion.h1>
@@ -419,7 +436,7 @@ export default function Home() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-base sm:text-lg text-slate-600 max-w-2xl mb-10 leading-relaxed font-normal"
         >
-          Nie dostarczam prostej strony internetowej, z którą zostajesz sam. Projektuję pełną infrastrukturę operacyjną, automatyzuję procesy zespołowe, wprowadzam dedykowane narzędzia i wdrażam strategię stałego wzrostu.
+          {t.Hero.desc}
         </motion.p>
 
         <motion.div 
@@ -434,7 +451,7 @@ export default function Home() {
           >
             <span className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out rounded-full" />
             <span className="relative z-10 flex items-center gap-2 group-hover:text-slate-900 transition-colors duration-300 font-semibold">
-              <TrendingUp className="w-4 h-4 group-hover:text-slate-900 transition-colors duration-300" /> Zobacz jak działam
+              <TrendingUp className="w-4 h-4 group-hover:text-slate-900 transition-colors duration-300" /> {t.Hero.btnHow}
             </span>
           </button>
 
@@ -442,7 +459,7 @@ export default function Home() {
             onClick={() => scrollToSection('contact')} 
             className="px-8 py-3.5 rounded-full glass-card text-slate-800 font-semibold hover:bg-white transition-all border border-white/80 text-sm cursor-pointer"
           >
-            Nawiąż współpracę
+            {t.Hero.btnContact}
           </button>
         </motion.div>
       </section>
@@ -452,20 +469,20 @@ export default function Home() {
         <div className="glass-card p-8 sm:p-12 md:p-14 rounded-3xl border border-white/80 shadow-xl relative overflow-hidden backdrop-blur-2xl">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10 border-b border-slate-200/60 pb-6">
             <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
-              O mnie<span className="text-blue-600">.</span>
+              {t.About.title}<span className="text-blue-600">.</span>
             </h2>
           </div>
 
           <div className="grid lg:grid-cols-12 gap-10 items-center">
             <div className="lg:col-span-7 space-y-5 text-slate-600 text-base leading-relaxed font-normal">
               <p>
-                Jestem <strong className="text-slate-900 font-semibold">ksperix.dev</strong>. Od <span className="text-blue-600 font-semibold">7 lat</span> łączę funkcje menedżerskie, zarządcze i technologiczne. Prowadzę i skaluję międzynarodową społeczność <strong className="text-slate-900 font-semibold">BrainlyHQ</strong>, organizuję strukturę pracy zespołów i wdrażam dedykowane systemy operacyjne.
+                {t.About.p1_1}<strong className="text-slate-900 font-semibold">ksperix.dev</strong>{t.About.p1_2}<span className="text-blue-600 font-semibold">{t.About.p1_3}</span>{t.About.p1_4}<strong className="text-slate-900 font-semibold">{t.About.p1_5}</strong>{t.About.p1_6}
               </p>
               <p>
-                Tworzę autorskie narzędzia (w tym zaawansowane boty na platformę Slack i Discord), przygotowuję spójną identyfikację graficzną, prowadzę wsparcie biurowe oraz organizuję skuteczne kampanie reklamowe.
+                {t.About.p2}
               </p>
               <p className="text-slate-600 text-sm border-l-2 border-blue-500 pl-4 py-1">
-                Wspieram również sektor <strong className="text-slate-900 font-medium">Adult UGC</strong> (3-letnie doświadczenie), dostarczając dedykowaną infrastrukturę i ekosystemy zarządzania, takie jak <a href="https://vantrx.pl" target="_blank" rel="noopener noreferrer" className="text-blue-600 font-semibold hover:underline inline-flex items-center gap-0.5">VANTRX <ArrowUpRight className="w-3 h-3" /></a>.
+                {t.About.p3_1}<strong className="text-slate-900 font-medium">{t.About.p3_2}</strong>{t.About.p3_3}<a href="https://vantrx.pl" target="_blank" rel="noopener noreferrer" className="text-blue-600 font-semibold hover:underline inline-flex items-center gap-0.5">VANTRX <ArrowUpRight className="w-3 h-3" /></a>.
               </p>
             </div>
 
@@ -493,7 +510,7 @@ export default function Home() {
       <section id="services" className="my-32 px-6 max-w-5xl mx-auto scroll-mt-28">
         <div className="mb-12">
           <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
-            Kompetencje<span className="text-blue-600">.</span>
+            {t.Services.title}<span className="text-blue-600">.</span>
           </h2>
         </div>
 
@@ -537,7 +554,7 @@ export default function Home() {
       <section id="showcase" className="my-32 px-6 max-w-5xl mx-auto scroll-mt-28">
         <div className="mb-12 text-center">
           <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
-            Wybrane Projekty<span className="text-blue-600">.</span>
+            {t.Showcase.title}<span className="text-blue-600">.</span>
           </h2>
         </div>
 
@@ -575,10 +592,10 @@ export default function Home() {
         <div className="glass-card rounded-3xl p-8 sm:p-12 border border-blue-200/80 shadow-xl bg-blue-50/40 backdrop-blur-xl">
           <div className="mb-12">
             <h2 className="text-3xl md:text-5xl font-extrabold mb-4 text-slate-900 tracking-tight">
-              Co składa się na skuteczny Ekosystem<span className="text-blue-600">?</span>
+              {t.Ecosystems.title}<span className="text-blue-600">?</span>
             </h2>
             <p className="text-slate-600 text-base sm:text-lg leading-relaxed max-w-3xl font-normal">
-              Sam kod ani pojedyncza strona nie gwarantują sukcesu. Prawdziwy ekosystem to połączony organizm, w którym narzędzia, automatyzacja i ludzie współpracują bez tarć.
+              {t.Ecosystems.subtitle}
             </p>
           </div>
 
@@ -665,7 +682,7 @@ export default function Home() {
                 </div>
 
                 <div className="lg:col-span-5 grid grid-cols-1 gap-3 bg-slate-50 p-6 rounded-2xl border border-slate-200/80">
-                  <span className="text-xs font-mono font-bold uppercase text-slate-400 mb-1">Kluczowe Wskaźniki</span>
+                  <span className="text-xs font-mono font-bold uppercase text-slate-400 mb-1">{t.Ecosystems.metrics_title}</span>
                   {ecosystemData[selectedEcosystem].metrics.map((m, i) => (
                     <div key={i} className="flex items-center justify-between p-3 rounded-xl bg-white border border-slate-200/60 shadow-sm">
                       <span className="text-xs font-semibold text-slate-600">{m.label}</span>
@@ -683,10 +700,10 @@ export default function Home() {
       <section id="pricing" className="my-32 px-6 max-w-7xl mx-auto scroll-mt-28">
         <div className="mb-10 text-center">
           <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
-            Cennik & Oferta Usług<span className="text-blue-600">.</span>
+            {t.Pricing.title}<span className="text-blue-600">.</span>
           </h2>
           <p className="text-slate-600 text-sm sm:text-base mt-3 max-w-2xl mx-auto font-normal">
-            Wybierz kategorię usługi, która odpowiada Twoim obecnym potrzebom.
+            {t.Pricing.subtitle}
           </p>
         </div>
 
@@ -701,7 +718,7 @@ export default function Home() {
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              <Workflow className="w-4 h-4" /> Budowanie ekosystemów
+              <Workflow className="w-4 h-4" /> {t.Pricing.cat_ecosystems}
             </button>
             <button
               onClick={() => setPricingCategory('discord')}
@@ -711,7 +728,7 @@ export default function Home() {
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              <DiscordIcon className="w-4 h-4" /> Usługi Discord
+              <DiscordIcon className="w-4 h-4" /> {t.Pricing.cat_discord}
             </button>
             <button
               onClick={() => setPricingCategory('local')}
@@ -721,7 +738,7 @@ export default function Home() {
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              <Compass className="w-4 h-4" /> Stacjonarne
+              <Compass className="w-4 h-4" /> {t.Pricing.cat_local}
             </button>
             <button
               onClick={() => setPricingCategory('other')}
@@ -731,7 +748,7 @@ export default function Home() {
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
-              <Sparkles className="w-4 h-4" /> Inne
+              <Sparkles className="w-4 h-4" /> {t.Pricing.cat_other}
             </button>
           </div>
         </div>
@@ -769,14 +786,14 @@ export default function Home() {
                   onClick={() => scrollToSection('contact')}
                   className="w-full py-3 rounded-2xl font-semibold text-sm transition-all cursor-pointer bg-slate-900 hover:bg-slate-800 text-white"
                 >
-                  Wybieram Starter
+                  {t.Pricing.starter_btn}
                 </button>
               </div>
 
               {/* 2. PAKIET GOLD (REKOMENDOWANY) */}
               <div className="rounded-3xl py-8 px-6 border-2 border-blue-600 shadow-xl shadow-blue-500/20 bg-white flex flex-col justify-between relative transition-all duration-300 z-10 overflow-hidden lg:-my-3">
                 <div className="bg-blue-600 text-white text-[9px] font-bold tracking-wider uppercase py-1 px-3 -mx-6 -mt-8 mb-4 flex items-center justify-center gap-1">
-                  <Sparkles className="w-2.5 h-2.5" /> REKOMENDOWANE
+                  <Sparkles className="w-2.5 h-2.5" /> {t.Pricing.recommended}
                 </div>
 
                 <div>
@@ -812,7 +829,7 @@ export default function Home() {
                   onClick={() => scrollToSection('contact')}
                   className="w-full py-3 rounded-2xl font-semibold text-sm transition-all cursor-pointer bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-500/20"
                 >
-                  Wybieram Gold
+                  {t.Pricing.gold_btn}
                 </button>
               </div>
 
@@ -846,11 +863,11 @@ export default function Home() {
                   onClick={() => scrollToSection('contact')}
                   className="w-full py-3 rounded-2xl font-semibold text-sm transition-all cursor-pointer bg-slate-900 hover:bg-slate-800 text-white"
                 >
-                  Wybieram Pro
+                  {t.Pricing.pro_btn}
                 </button>
               </div>
 
-              {/* 4. PAKIET SPECIAL (ODDZIELONY SZARĄ KRESKĄ PO LEWEJ STRONIE OD PAKIETU PRO) */}
+              {/* 4. PAKIET SPECIAL */}
               <div className="glass-card rounded-3xl p-6 border border-white/80 flex flex-col justify-between relative transition-all duration-300 lg:border-l lg:border-l-slate-300/80 lg:pl-8">
                 <div>
                   <h3 className="text-xl font-bold text-slate-900 mb-1">{specialTier.title}</h3>
@@ -876,14 +893,14 @@ export default function Home() {
                   onClick={() => scrollToSection('contact')}
                   className="w-full py-3 rounded-2xl font-semibold text-sm transition-all cursor-pointer bg-slate-900 hover:bg-slate-800 text-white"
                 >
-                  Umawiam konsultację
+                  {t.Pricing.special_btn}
                 </button>
               </div>
 
             </div>
 
             <p className="text-center text-xs text-slate-500 max-w-3xl mx-auto pt-6 leading-relaxed font-normal break-words">
-              * Cena &quot;od&quot; oznacza, że bazowo za pakiet zapłacisz podaną kwotę, jednak może ona wzrosnąć, jeśli zdecydujesz się na implementację płatnego rozwiązania innego usługodawcy (np. gdy będziesz chciał założyć własną domenę, sklep Shoper lub Google Workspace).
+              {t.Pricing.note}
             </p>
           </motion.div>
         )}
@@ -899,7 +916,7 @@ export default function Home() {
               <div className="p-2.5 rounded-xl bg-blue-50 text-blue-600 border border-blue-100">
                 <DiscordIcon className="w-5 h-5 text-blue-600" />
               </div>
-              <h3 className="text-xl font-bold text-slate-900">Dedykowane Usługi Discord</h3>
+              <h3 className="text-xl font-bold text-slate-900">{t.Pricing.discord_header}</h3>
             </div>
 
             <div className="divide-y divide-slate-100">
@@ -935,7 +952,7 @@ export default function Home() {
               <div className="p-2.5 rounded-xl bg-blue-50 text-blue-600 border border-blue-100">
                 <Laptop className="w-5 h-5" />
               </div>
-              <h3 className="text-xl font-bold text-slate-900">Usługi Stacjonarne & Serwisowe (Kraków / Małopolska)</h3>
+              <h3 className="text-xl font-bold text-slate-900">{t.Pricing.local_header}</h3>
             </div>
 
             <div className="divide-y divide-slate-100">
@@ -971,7 +988,7 @@ export default function Home() {
               <div className="p-2.5 rounded-xl bg-blue-50 text-blue-600 border border-blue-100">
                 <Sparkles className="w-5 h-5 text-blue-600" />
               </div>
-              <h3 className="text-xl font-bold text-slate-900">Inne Usługi</h3>
+              <h3 className="text-xl font-bold text-slate-900">{t.Pricing.other_header}</h3>
             </div>
 
             <div className="divide-y divide-slate-100">
@@ -1002,21 +1019,21 @@ export default function Home() {
         <div className="glass-card p-8 sm:p-12 md:p-14 rounded-3xl border border-white/80 shadow-xl relative overflow-hidden backdrop-blur-2xl">
           <div className="max-w-2xl mx-auto text-center mb-10">
             <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
-              Zbudujmy Twój Ekosystem<span className="text-blue-600">.</span>
+              {t.Contact.title}<span className="text-blue-600">.</span>
             </h2>
             <p className="text-slate-600 text-sm sm:text-base mt-3">
-              Wypełnij formularz lub napisz bezpośrednio na Discordzie / e-mailu.
+              {t.Contact.subtitle}
             </p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4 max-w-3xl mx-auto">
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-mono text-slate-700 mb-1.5 font-semibold">Imię / Nick</label>
+                <label className="block text-xs font-mono text-slate-700 mb-1.5 font-semibold">{t.Contact.labelName}</label>
                 <input 
                   type="text" 
                   required
-                  placeholder="Twoje imię"
+                  placeholder={t.Contact.phName}
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   className="w-full px-4 py-3 rounded-2xl bg-white border border-slate-200 focus:border-blue-600 focus:outline-none text-sm text-slate-900 placeholder-slate-400 transition-colors shadow-sm"
@@ -1024,11 +1041,11 @@ export default function Home() {
               </div>
 
               <div>
-                <label className="block text-xs font-mono text-slate-700 mb-1.5 font-semibold">E-mail</label>
+                <label className="block text-xs font-mono text-slate-700 mb-1.5 font-semibold">{t.Contact.labelEmail}</label>
                 <input 
                   type="email" 
                   required
-                  placeholder="twoj@email.com"
+                  placeholder={t.Contact.phEmail}
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   className="w-full px-4 py-3 rounded-2xl bg-white border border-slate-200 focus:border-blue-600 focus:outline-none text-sm text-slate-900 placeholder-slate-400 transition-colors shadow-sm"
@@ -1037,11 +1054,11 @@ export default function Home() {
             </div>
 
             <div>
-              <label className="block text-xs font-mono text-slate-700 mb-1.5 font-semibold">Temat</label>
+              <label className="block text-xs font-mono text-slate-700 mb-1.5 font-semibold">{t.Contact.labelSubject}</label>
               <input 
                 type="text" 
                 required
-                placeholder="W czym mogę pomóc?"
+                placeholder={t.Contact.phSubject}
                 value={formData.subject}
                 onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                 className="w-full px-4 py-3 rounded-2xl bg-white border border-slate-200 focus:border-blue-600 focus:outline-none text-sm text-slate-900 placeholder-slate-400 transition-colors shadow-sm"
@@ -1049,11 +1066,11 @@ export default function Home() {
             </div>
 
             <div>
-              <label className="block text-xs font-mono text-slate-700 mb-1.5 font-semibold">Wiadomość</label>
+              <label className="block text-xs font-mono text-slate-700 mb-1.5 font-semibold">{t.Contact.labelMessage}</label>
               <textarea 
                 rows="4" 
                 required
-                placeholder="Opisz swój projekt lub zapytanie..."
+                placeholder={t.Contact.phMessage}
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                 className="w-full px-4 py-3 rounded-2xl bg-white border border-slate-200 focus:border-blue-600 focus:outline-none text-sm text-slate-900 placeholder-slate-400 transition-colors resize-none shadow-sm"
@@ -1073,19 +1090,19 @@ export default function Home() {
               >
                 {status === 'loading' ? (
                   <>
-                    <Loader2 className="w-4 h-4 animate-spin" /> Wysyłanie...
+                    <Loader2 className="w-4 h-4 animate-spin" /> {t.Contact.btnSending}
                   </>
                 ) : status === 'success' ? (
                   <>
-                    <CheckCircle2 className="w-4 h-4 text-emerald-300" /> Wiadomość wysłana!
+                    <CheckCircle2 className="w-4 h-4 text-emerald-300" /> {t.Contact.btnSuccess}
                   </>
                 ) : status === 'error' ? (
                   <>
-                    Wystąpił błąd. Spróbuj ponownie.
+                    {t.Contact.btnError}
                   </>
                 ) : (
                   <>
-                    <Send className="w-4 h-4" /> Wyślij wiadomość
+                    <Send className="w-4 h-4" /> {t.Contact.btnSend}
                   </>
                 )}
               </button>
