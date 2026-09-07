@@ -38,23 +38,37 @@ import en from '../../messages/en.json';
 
 const translations = { pl, en };
 
-function PolandFlag({ className = "w-5 h-3.5" }) {
+function PolandFlag({ className = "w-5 h-5" }) {
   return (
-    <svg className={`${className} rounded-[2px] shadow-sm overflow-hidden inline-block`} viewBox="0 0 640 480">
-      <rect width="640" height="240" fill="#fff" />
-      <rect y="240" width="640" height="240" fill="#dc2626" />
+    <svg className={`${className} rounded-full border border-slate-300/60 shadow-sm shrink-0 inline-block`} viewBox="0 0 480 480">
+      <defs>
+        <clipPath id="circle-pl">
+          <circle cx="240" cy="240" r="240" />
+        </clipPath>
+      </defs>
+      <g clipPath="url(#circle-pl)">
+        <rect width="480" height="240" fill="#fff" />
+        <rect y="240" width="480" height="240" fill="#dc2626" />
+      </g>
     </svg>
   );
 }
 
-function UKFlag({ className = "w-5 h-3.5" }) {
+function UKFlag({ className = "w-5 h-5" }) {
   return (
-    <svg className={`${className} rounded-[2px] shadow-sm overflow-hidden inline-block`} viewBox="0 0 640 480">
-      <path fill="#012169" d="M0 0h640v480H0z"/>
-      <path stroke="#fff" strokeWidth="60" d="m0 0 640 480M640 0 0 480"/>
-      <path stroke="#C8102E" strokeWidth="40" d="m0 0 640 480M640 0 0 480"/>
-      <path stroke="#fff" strokeWidth="100" d="M320 0v480M0 240h640"/>
-      <path stroke="#C8102E" strokeWidth="60" d="M320 0v480M0 240h640"/>
+    <svg className={`${className} rounded-full border border-slate-300/60 shadow-sm shrink-0 inline-block`} viewBox="0 0 480 480">
+      <defs>
+        <clipPath id="circle-uk">
+          <circle cx="240" cy="240" r="240" />
+        </clipPath>
+      </defs>
+      <g clipPath="url(#circle-uk)">
+        <path fill="#012169" d="M0 0h480v480H0z"/>
+        <path stroke="#fff" strokeWidth="60" d="m0 0 480 480M480 0 0 480"/>
+        <path stroke="#C8102E" strokeWidth="40" d="m0 0 480 480M480 0 0 480"/>
+        <path stroke="#fff" strokeWidth="90" d="M240 0v480M0 240h480"/>
+        <path stroke="#C8102E" strokeWidth="55" d="M240 0v480M0 240h480"/>
+      </g>
     </svg>
   );
 }
@@ -681,16 +695,18 @@ export default function Home() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.3 }}
-                className="grid lg:grid-cols-12 gap-8 items-center"
+                className="grid lg:grid-cols-12 gap-8 items-stretch"
               >
-                <div className="lg:col-span-7 space-y-4">
-                  <h4 className="text-2xl sm:text-3xl font-black text-slate-900">{ecosystemData[selectedEcosystem].title}</h4>
-                  <p className="text-xs sm:text-sm font-semibold text-slate-500">{ecosystemData[selectedEcosystem].subtitle}</p>
-                  <p className="text-slate-600 text-sm leading-relaxed font-normal">
-                    {ecosystemData[selectedEcosystem].desc}
-                  </p>
+                <div className="lg:col-span-7 flex flex-col justify-between items-start space-y-4">
+                  <div className="space-y-3">
+                    <h4 className="text-2xl sm:text-3xl font-black text-slate-900">{ecosystemData[selectedEcosystem].title}</h4>
+                    <p className="text-xs sm:text-sm font-semibold text-slate-500">{ecosystemData[selectedEcosystem].subtitle}</p>
+                    <p className="text-slate-600 text-sm leading-relaxed font-normal">
+                      {ecosystemData[selectedEcosystem].desc}
+                    </p>
+                  </div>
 
-                  <div className="pt-2">
+                  <div className="pt-4 mt-auto">
                     <a
                       href={ecosystemData[selectedEcosystem].link}
                       target="_blank"
@@ -702,8 +718,8 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div className="lg:col-span-5 grid grid-cols-1 gap-3 bg-slate-50 p-6 rounded-2xl border border-slate-200/80">
-                  <span className="text-xs font-mono font-bold uppercase text-slate-400 mb-1">{t.Ecosystems.metrics_title}</span>
+                <div className="lg:col-span-5 grid grid-cols-1 gap-3 bg-slate-50 p-6 rounded-2xl border border-slate-200/80 h-full flex flex-col justify-center">
+                  <span className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">{t.Ecosystems.metrics_title}</span>
                   {ecosystemData[selectedEcosystem].metrics.map((m, i) => (
                     <div key={i} className="flex items-center justify-between p-3 rounded-xl bg-white border border-slate-200/60 shadow-sm">
                       <span className="text-xs font-semibold text-slate-600">{m.label}</span>
@@ -1050,7 +1066,7 @@ export default function Home() {
           <form onSubmit={handleSubmit} className="space-y-4 max-w-3xl mx-auto">
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-mono text-slate-700 mb-1.5 font-semibold">{t.Contact.labelName}</label>
+                <label className="block text-xs text-slate-700 mb-1.5 font-semibold">{t.Contact.labelName}</label>
                 <input 
                   type="text" 
                   required
@@ -1062,7 +1078,7 @@ export default function Home() {
               </div>
 
               <div>
-                <label className="block text-xs font-mono text-slate-700 mb-1.5 font-semibold">{t.Contact.labelEmail}</label>
+                <label className="block text-xs text-slate-700 mb-1.5 font-semibold">{t.Contact.labelEmail}</label>
                 <input 
                   type="email" 
                   required
@@ -1075,7 +1091,7 @@ export default function Home() {
             </div>
 
             <div>
-              <label className="block text-xs font-mono text-slate-700 mb-1.5 font-semibold">{t.Contact.labelSubject}</label>
+              <label className="block text-xs text-slate-700 mb-1.5 font-semibold">{t.Contact.labelSubject}</label>
               <input 
                 type="text" 
                 required
@@ -1087,7 +1103,7 @@ export default function Home() {
             </div>
 
             <div>
-              <label className="block text-xs font-mono text-slate-700 mb-1.5 font-semibold">{t.Contact.labelMessage}</label>
+              <label className="block text-xs text-slate-700 mb-1.5 font-semibold">{t.Contact.labelMessage}</label>
               <textarea 
                 rows="4" 
                 required
