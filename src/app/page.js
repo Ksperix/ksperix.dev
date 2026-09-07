@@ -38,6 +38,27 @@ import en from '../../messages/en.json';
 
 const translations = { pl, en };
 
+function PolandFlag({ className = "w-5 h-3.5" }) {
+  return (
+    <svg className={`${className} rounded-[2px] shadow-sm overflow-hidden inline-block`} viewBox="0 0 640 480">
+      <rect width="640" height="240" fill="#fff" />
+      <rect y="240" width="640" height="240" fill="#dc2626" />
+    </svg>
+  );
+}
+
+function UKFlag({ className = "w-5 h-3.5" }) {
+  return (
+    <svg className={`${className} rounded-[2px] shadow-sm overflow-hidden inline-block`} viewBox="0 0 640 480">
+      <path fill="#012169" d="M0 0h640v480H0z"/>
+      <path stroke="#fff" strokeWidth="60" d="m0 0 640 480M640 0 0 480"/>
+      <path stroke="#C8102E" strokeWidth="40" d="m0 0 640 480M640 0 0 480"/>
+      <path stroke="#fff" strokeWidth="100" d="M320 0v480M0 240h640"/>
+      <path stroke="#C8102E" strokeWidth="60" d="M320 0v480M0 240h640"/>
+    </svg>
+  );
+}
+
 function DiscordIcon({ className = "w-5 h-5" }) {
   return (
     <svg className={className} viewBox="0 0 127.14 96.36" fill="currentColor">
@@ -396,13 +417,13 @@ export default function Home() {
           </div>
 
           <div className="flex items-center gap-3 shrink-0">
-            {/* PRZEŁĄCZNIK JĘZYKA W KÓŁECZKU Z FLAGĄ */}
+            {/* PRZEŁĄCZNIK JĘZYKA W KÓŁECZKU Z IKONKĄ FLAGI */}
             <button
               onClick={() => setLang(lang === 'pl' ? 'en' : 'pl')}
-              className="w-9 h-9 rounded-full glass-card hover:bg-white border border-white/80 flex items-center justify-center text-base transition-all cursor-pointer shadow-sm active:scale-95"
+              className="w-9 h-9 rounded-full glass-card hover:bg-white border border-white/80 flex items-center justify-center transition-all cursor-pointer shadow-sm active:scale-95 overflow-hidden"
               title={lang === 'pl' ? 'Switch to English' : 'Przełącz na polski'}
             >
-              {lang === 'pl' ? '🇵🇱' : '🇬🇧'}
+              {lang === 'pl' ? <PolandFlag /> : <UKFlag />}
             </button>
 
             <button 
@@ -763,7 +784,7 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
               
               {/* 1. PAKIET STARTER */}
-              <div className="glass-card rounded-3xl p-6 border border-white/80 flex flex-col justify-between relative transition-all duration-300">
+              <div className="glass-card rounded-3xl p-6 border border-white/80 lg:border-r lg:border-r-slate-200/80 flex flex-col justify-between relative transition-all duration-300">
                 <div>
                   <h3 className="text-xl font-bold text-slate-900 mb-1">{pricingTiers[0].title}</h3>
                   <div className="mb-6">
