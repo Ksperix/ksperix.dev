@@ -8,13 +8,13 @@
     "contact": "Kontakt"
   },
   "Typewriter": [
-    "Tworzę ekosystemy.",
-    "Wizualizuję marki.",
-    "Automatyzuję procesy.",
-    "Skaluję społeczności."
+    "Które działają.",
+    "Które rosną.",
+    "Które łączą ludzi.",
+    "Które budują marki."
   ],
   "Hero": {
-    "heading1": "Nie tylko koduję.",
+    "heading1": "Pomysły zmieniam w systemy.",
     "desc": "Nie dostarczam prostej strony internetowej, z którą zostajesz sam. Projektuję pełną infrastrukturę operacyjną, automatyzuję procesy zespołowe, wprowadzam dedykowane narzędzia i wdrażam strategię stałego wzrostu.",
     "btnHow": "Zobacz jak działam",
     "btnContact": "Nawiąż współpracę"
@@ -35,12 +35,12 @@
   "Services": {
     "title": "Kompetencje",
     "c1_title": "Zarządzanie Społecznościami",
-    "c1_desc": "Kompleksowa architektura międzynarodowych serwerów. Zaawansowane struktury ról, ekonomia, zabezpieczenia i ciągła moderacja zespołów.",
-    "c2_title": "Zarządzanie Zespołami & Operations",
-    "c2_desc": "Przekształcanie chaosu w powtarzalne procedury. Koordynacja pracy biurowej, rozdzielanie zadań i nadzór nad efektywnością projektu.",
+    "c1_desc": "Kompleksowa architektura międzynarodowych i lokalnych serwerów. Zaawansowane struktury ról, ekonomia, zabezpieczenia i ciągła moderacja.",
+    "c2_title": "Zarządzanie Zespołami i Zasobami",
+    "c2_desc": "Przekształcanie chaosu w procedury i pełną dokumentację. Koordynacja pracy biurowej, rozdzielanie zadań i nadzór nad efektywnością projektu.",
     "c2_tag": "7+ Lat Doświadczenia",
     "c3_title": "Nowoczesne Rozwiązania Webowe",
-    "c3_desc": "Budowanie szybkich i bezpiecznych stron internetowych na Next.js i Tailwind CSS. Tworzenie interfejsów dostosowanych do złożonych narzędzi.",
+    "c3_desc": "Budowanie szybkich i bezpiecznych stron internetowych na Next.js, Tailwind CSS, Angular itp. Tworzenie interfejsów dostosowanych do złożonych narzędzi.",
     "c4_title": "Grafika & Kampanie Promocyjne",
     "c4_desc": "Projektowanie spójnej oprawy wizualnej oraz realizacja przemyślanych działań marketingowych pozyskujących zaangażowanych odbiorców."
   },
