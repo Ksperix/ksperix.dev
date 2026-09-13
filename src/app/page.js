@@ -30,7 +30,9 @@ import {
   Laptop,
   Compass,
   ArrowRight,
-  Sparkles
+  Sparkles,
+  X,
+  Maximize2
 } from 'lucide-react';
 
 import pl from '../../messages/pl.json';
@@ -38,6 +40,7 @@ import en from '../../messages/en.json';
 
 import projectsPl from '../../data/projects.pl.json';
 import projectsEn from '../../data/projects.en.json';
+import announcementConfig from '../../data/announcement.json';
 
 const translations = { pl, en };
 const projectFiles = { pl: projectsPl, en: projectsEn };
@@ -124,6 +127,7 @@ export default function Home() {
   const [status, setStatus] = useState('idle');
   const [selectedEcosystem, setSelectedEcosystem] = useState('brainly');
   const [pricingCategory, setPricingCategory] = useState('ecosystems');
+  const [isEcosystemExpanded, setIsEcosystemExpanded] = useState(false);
 
   const typewriterPhrases = t.Typewriter;
   const [textIndex, setTextIndex] = useState(0);
@@ -182,6 +186,9 @@ export default function Home() {
   }, []);
 
   const scrollToSection = (id) => {
+    if (id.startsWith('#')) {
+      id = id.substring(1);
+    }
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
@@ -237,26 +244,22 @@ export default function Home() {
     {
       title: t.Services.c1_title,
       desc: t.Services.c1_desc,
-      icon: Server,
-      tag: "BrainlyHQ"
+      icon: Server
     },
     {
       title: t.Services.c2_title,
       desc: t.Services.c2_desc,
-      icon: Briefcase,
-      tag: t.Services.c2_tag
+      icon: Briefcase
     },
     {
       title: t.Services.c3_title,
       desc: t.Services.c3_desc,
-      icon: Globe,
-      tag: "Next.js • React"
+      icon: Globe
     },
     {
       title: t.Services.c4_title,
       desc: t.Services.c4_desc,
-      icon: Palette,
-      tag: "Branding & Ads"
+      icon: Palette
     }
   ];
 
@@ -404,8 +407,23 @@ export default function Home() {
       
       <FluidBackground />
 
+      {/* 0. NIEBIESKI BANER OGŁOSZENIOWY NA SAMEJ GÓRZE */}
+      {announcementConfig && announcementConfig.enabled && (
+        <div className="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 text-white text-xs sm:text-sm font-semibold py-2.5 px-4 text-center shadow-md relative z-[60] flex items-center justify-center gap-2">
+          <span>{announcementConfig.text[lang] || announcementConfig.text['pl']}</span>
+          {announcementConfig.link && (
+            <button
+              onClick={() => scrollToSection(announcementConfig.link)}
+              className="underline hover:opacity-80 transition-opacity font-bold cursor-pointer inline-flex items-center gap-1"
+            >
+              Zobacz <ArrowRight className="w-3.5 h-3.5" />
+            </button>
+          )}
+        </div>
+      )}
+
       {/* 1. LIQUID GLASS NAVIGATION */}
-      <header className="fixed top-6 inset-x-0 z-50 flex justify-center px-4">
+      <header className={`fixed inset-x-0 z-50 flex justify-center px-4 transition-all duration-300 ${announcementConfig && announcementConfig.enabled ? 'top-12' : 'top-6'}`}>
         <nav className="glass-card rounded-full px-6 py-3 flex items-center justify-between gap-4 sm:gap-8 max-w-4xl w-full border border-white/60 shadow-lg shadow-slate-200/50">
           <button 
             onClick={() => scrollToSection('hero')} 
@@ -547,7 +565,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 4. SEKCJA KOMPETENCJE */}
+      {/* 4. SEKCJA KOMPETENCJE (USUNIĘTO SZARE ZNACZNIKI/TAGI) */}
       <section id="services" className="my-32 px-6 max-w-5xl mx-auto scroll-mt-28">
         <div className="mb-12">
           <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
@@ -568,9 +586,6 @@ export default function Home() {
                     <div className="p-3 rounded-2xl bg-blue-50 text-blue-600 border border-blue-100 group-hover:scale-110 transition-transform">
                       <CompIcon className="w-6 h-6" />
                     </div>
-                    <span className="text-[10px] font-mono font-semibold uppercase tracking-wider px-3 py-1 rounded-full bg-slate-100 text-slate-600 border border-slate-200">
-                      {comp.tag}
-                    </span>
                   </div>
 
                   <h3 className="text-xl font-bold text-slate-900 mb-3 tracking-tight group-hover:text-blue-600 transition-colors">
@@ -591,7 +606,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5. SEKCJA PROJEKTÓW (NA CAŁĄ SZEROKOŚĆ - SIATKA BLOCZKÓW) */}
+      {/* 5. SEKCJA PROJEKTÓW */}
       <section id="showcase" className="my-32 px-6 max-w-7xl mx-auto scroll-mt-28">
         <div className="mb-12 text-center">
           <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
@@ -627,13 +642,46 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 6. WYRÓŻNIONA SEKCJA EKOSYSTEMY */}
-      <section id="ecosystems" className="my-32 px-6 max-w-5xl mx-auto scroll-mt-28">
-        <div className="glass-card rounded-3xl p-8 sm:p-12 border border-blue-200/80 shadow-xl bg-blue-50/40 backdrop-blur-xl">
+      {/* 6. WYRÓŻNIONA SEKCJA EKOSYSTEMY (Z ANIMACJĄ POWIĘKSZANIA NA CAŁY EKRAN PO NAJECHANIU) */}
+      <section 
+        id="ecosystems" 
+        className={`transition-all duration-500 scroll-mt-28 ${
+          isEcosystemExpanded 
+            ? 'fixed inset-0 z-50 overflow-y-auto bg-slate-900/90 backdrop-blur-3xl p-4 sm:p-12 flex items-center justify-center' 
+            : 'my-32 px-6 max-w-5xl mx-auto'
+        }`}
+        onMouseLeave={() => setIsEcosystemExpanded(false)}
+      >
+        <motion.div 
+          layout
+          transition={{ type: 'spring', stiffness: 200, damping: 25 }}
+          className={`rounded-3xl border transition-all duration-500 w-full ${
+            isEcosystemExpanded 
+              ? 'bg-white p-8 sm:p-16 max-w-6xl shadow-2xl border-blue-400 relative my-auto' 
+              : 'glass-card p-8 sm:p-12 border-blue-200/80 shadow-xl bg-blue-50/40 backdrop-blur-xl'
+          }`}
+        >
+          {isEcosystemExpanded && (
+            <button
+              onClick={() => setIsEcosystemExpanded(false)}
+              className="absolute top-6 right-6 p-3 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors cursor-pointer flex items-center gap-2 text-xs font-bold shadow-sm"
+            >
+              <X className="w-5 h-5" /> Wróć do strony
+            </button>
+          )}
+
           <div className="mb-12">
-            <h2 className="text-3xl md:text-5xl font-extrabold mb-4 text-slate-900 tracking-tight">
-              {t.Ecosystems.title}<span className="text-blue-600">?</span>
-            </h2>
+            <div 
+              className="inline-block group cursor-pointer"
+              onMouseEnter={() => setIsEcosystemExpanded(true)}
+            >
+              <h2 className="text-3xl md:text-5xl font-extrabold mb-4 text-slate-900 tracking-tight flex items-center gap-3">
+                <span>{t.Ecosystems.title}<span className="text-blue-600">?</span></span>
+                {!isEcosystemExpanded && (
+                  <Maximize2 className="w-5 h-5 text-blue-500 opacity-60 group-hover:opacity-100 group-hover:scale-125 transition-all inline-block" title="Najedź, aby powiększyć" />
+                )}
+              </h2>
+            </div>
             <p className="text-slate-600 text-base sm:text-lg leading-relaxed max-w-3xl font-normal">
               {t.Ecosystems.subtitle}
             </p>
@@ -735,7 +783,7 @@ export default function Home() {
               </motion.div>
             </AnimatePresence>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* 7. SEKCJA CENNIK */}
@@ -875,7 +923,7 @@ export default function Home() {
                 </button>
               </div>
 
-              {/* 3. PAKIET PRO (Z KRESKĄ SEPARUJĄCĄ PO PRAWEJ STRONIE NA LG) */}
+              {/* 3. PAKIET PRO */}
               <div className="glass-card rounded-3xl p-6 border border-white/80 lg:border-r lg:border-r-slate-300/70 flex flex-col justify-between relative transition-all duration-300">
                 <div>
                   <h3 className="text-xl font-bold text-slate-900 mb-1">{pricingTiers[2].title}</h3>
