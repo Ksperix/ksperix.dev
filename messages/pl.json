@@ -58,21 +58,8 @@
     "p3_text": "Kontrola nad uprawnieniami, ochrona plików i bezawaryjność 24/7 - w tym momentalne odpowiedzi na pytania klientów.",
     "p4_title": "Analityka i Skalowalność",
     "p4_text": "Śledzenie kluczowych wskaźników rozwoju i gotowość na szybki wzrost.",
-    "brainly_sub": "Globalna Platforma Społecznościowa",
-    "brainly_desc": "Zaawansowane narzędzia moderacyjne, automatyczna integracja botów, powiadomień oraz dedykowany rynek produktów dla społeczności. Zbudowany z myślą o skalowaniu na dziesiątki tysięcy użytkowników.",
-    "brainly_btn": "Przeglądaj Produkty BrainlyHQ",
-    "vantrx_sub": "Bezpieczeństwo Zasobów & Automatyzacja Agencji",
-    "vantrx_desc": "Autorska platforma stworzona do organizacji procesów, ochrony zasobów cyfrowych oraz automatyzacji codziennej obsługi administracyjnej twórców oraz agencji w sektorze Adult UGC.",
-    "vantrx_btn": "Przejdź do VANTRX",
-    "metrics_title": "Kluczowe Wskaźniki",
-    "m1_label": "Liczba Społeczności",
-    "m2_label": "Integracje",
-    "m3_label": "Utrzymanie",
-    "m4_label": "Doświadczenie Branżowe",
-    "m4_val": "3+ Lata",
-    "m5_label": "Ochrona Danych",
-    "m6_label": "Wydajność",
-    "m6_val": "Automatyczna Biurokracja"
+    "examples_note": "* Przykładami ekosystemów są VANTRX i BrainlyHQ, które możesz zobaczyć wchodząc w link.",
+    "examples_link": "Zobacz wybrane projekty"
   },
   "Pricing": {
     "title": "Cennik & Oferta Usług",
@@ -156,5 +143,8 @@
     "btnSuccess": "Wiadomość wysłana!",
     "btnError": "Wystąpił błąd. Spróbuj ponownie.",
     "btnSend": "Wyślij wiadomość"
+  },
+  "Footer": {
+    "unpopular_opinions": "Niepopularne opinie"
   }
 }
