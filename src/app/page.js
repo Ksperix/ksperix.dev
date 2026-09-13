@@ -132,6 +132,11 @@ export default function Home() {
   const [charIndex, setCharIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
 
+  // GWARANCJA NATYCHMIASTOWEJ ZMIANY TYTUŁU PRZY NAWIGACJI
+  useEffect(() => {
+    document.title = 'Ksperix.Dev - Ecosystems';
+  }, []);
+
   useEffect(() => {
     setTextIndex(0);
     setCharIndex(0);
