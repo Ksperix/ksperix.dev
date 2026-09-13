@@ -36,7 +36,11 @@ import {
 import pl from '../../messages/pl.json';
 import en from '../../messages/en.json';
 
+import projectsPl from '../../data/projects.pl.json';
+import projectsEn from '../../data/projects.en.json';
+
 const translations = { pl, en };
+const projectFiles = { pl: projectsPl, en: projectsEn };
 
 function PolandFlag({ className = "w-5 h-5" }) {
   return (
@@ -256,7 +260,7 @@ export default function Home() {
     }
   ];
 
-  const showcaseProjects = [
+  const fallbackProjects = [
     {
       title: "BrainlyHQ Ecosystem",
       image: "/brainlyhq.png",
@@ -288,6 +292,8 @@ export default function Home() {
       desc: t.Showcase.p6_desc
     }
   ];
+
+  const showcaseProjects = projectFiles[lang] || fallbackProjects;
 
   const ecosystemPillars = [
     { title: t.Ecosystems.p1_title, text: t.Ecosystems.p1_text, icon: MessageSquareCode },
@@ -585,30 +591,22 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5. SEKCJA PROJEKTÓW */}
-      <section id="showcase" className="my-32 px-6 max-w-5xl mx-auto scroll-mt-28">
+      {/* 5. SEKCJA PROJEKTÓW (NA CAŁĄ SZEROKOŚĆ - SIATKA BLOCZKÓW) */}
+      <section id="showcase" className="my-32 px-6 max-w-7xl mx-auto scroll-mt-28">
         <div className="mb-12 text-center">
           <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
             {t.Showcase.title}<span className="text-blue-600">.</span>
           </h2>
         </div>
 
-        <div className="space-y-12 relative">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {showcaseProjects.map((proj, idx) => (
             <div 
-              key={proj.title} 
-              className="sticky top-28"
-              style={{ zIndex: idx + 1 }}
+              key={proj.title || idx}
+              className="glass-card rounded-3xl border border-white/80 overflow-hidden shadow-md hover:shadow-xl p-6 flex flex-col justify-between backdrop-blur-2xl transition-all duration-300 hover:border-blue-500/40 bg-white/90 group"
             >
-              <div className="glass-card rounded-3xl border border-white/80 overflow-hidden shadow-xl p-6 sm:p-8 backdrop-blur-2xl transition-all duration-300 hover:border-blue-500/40 bg-white/90">
-                <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-6">
-                  <div>
-                    <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900">{proj.title}</h3>
-                  </div>
-                  <p className="text-xs sm:text-sm text-slate-600 max-w-md font-normal">{proj.desc}</p>
-                </div>
-
-                <div className="relative w-full aspect-video rounded-2xl overflow-hidden border border-slate-200/80 bg-slate-100 group shadow-inner">
+              <div>
+                <div className="relative w-full aspect-video rounded-2xl overflow-hidden border border-slate-200/80 bg-slate-100 mb-5 shadow-inner">
                   <img 
                     src={proj.image} 
                     alt={proj.title}
@@ -616,6 +614,13 @@ export default function Home() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-900/15 via-transparent to-transparent pointer-events-none" />
                 </div>
+
+                <h3 className="text-xl font-extrabold text-slate-900 mb-2 group-hover:text-blue-600 transition-colors">
+                  {proj.title}
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
+                  {proj.desc}
+                </p>
               </div>
             </div>
           ))}
@@ -800,7 +805,7 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
               
               {/* 1. PAKIET STARTER */}
-              <div className="glass-card rounded-3xl p-6 border border-white/80 lg:border-r lg:border-r-slate-200/80 flex flex-col justify-between relative transition-all duration-300">
+              <div className="glass-card rounded-3xl p-6 border border-white/80 flex flex-col justify-between relative transition-all duration-300">
                 <div>
                   <h3 className="text-xl font-bold text-slate-900 mb-1">{pricingTiers[0].title}</h3>
                   <div className="mb-6">
@@ -870,8 +875,8 @@ export default function Home() {
                 </button>
               </div>
 
-              {/* 3. PAKIET PRO */}
-              <div className="glass-card rounded-3xl p-6 border border-white/80 flex flex-col justify-between relative transition-all duration-300">
+              {/* 3. PAKIET PRO (Z KRESKĄ SEPARUJĄCĄ PO PRAWEJ STRONIE NA LG) */}
+              <div className="glass-card rounded-3xl p-6 border border-white/80 lg:border-r lg:border-r-slate-300/70 flex flex-col justify-between relative transition-all duration-300">
                 <div>
                   <h3 className="text-xl font-bold text-slate-900 mb-1">{pricingTiers[2].title}</h3>
                   <div className="mb-6">
@@ -905,7 +910,7 @@ export default function Home() {
               </div>
 
               {/* 4. PAKIET SPECIAL */}
-              <div className="glass-card rounded-3xl p-6 border border-white/80 flex flex-col justify-between relative transition-all duration-300 lg:border-l lg:border-l-slate-300/80 lg:pl-8">
+              <div className="glass-card rounded-3xl p-6 border border-white/80 flex flex-col justify-between relative transition-all duration-300">
                 <div>
                   <h3 className="text-xl font-bold text-slate-900 mb-1">{specialTier.title}</h3>
                   <p className="text-xs font-semibold text-slate-500 mb-4">{specialTier.subtitle}</p>
