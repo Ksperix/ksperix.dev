@@ -134,7 +134,7 @@ export default function Home() {
 
   // GWARANCJA NATYCHMIASTOWEJ ZMIANY TYTUŁU PRZY NAWIGACJI
   useEffect(() => {
-    document.title = 'Ksperix.Dev - Ecosystems';
+    document.title = 'Ksperix.Dev — Ecosystems';
   }, []);
 
   useEffect(() => {
