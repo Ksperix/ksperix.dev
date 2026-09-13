@@ -1094,7 +1094,7 @@ export default function Home() {
 
           {/* EASTER EGG: NIEPOPULARNE OPINIE */}
           <Link
-            href="/opinie"
+            href="/opinions"
             className="text-slate-500 hover:text-amber-600 transition-colors flex items-center gap-1.5 text-xs font-medium"
           >
             <Flame className="w-3.5 h-3.5 text-amber-500" /> {t.Footer.unpopular_opinions}
