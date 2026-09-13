@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { ArrowLeft, Flame } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 
 function PolandFlag({ className = "w-5 h-5" }) {
   return (
@@ -74,7 +74,6 @@ const content = {
   pl: {
     docTitle: "Niepopularne Opinie — ksperix.dev",
     back: "Wróć do strony głównej",
-    badge: "Easter Egg",
     title: "Niepopularne Opinie",
     subtitle: "Szczere przemyślenia o branży IT, technologii, sztucznej inteligencji i nowoczesnym zarządzaniu.",
     opinions: [
@@ -108,7 +107,6 @@ const content = {
   en: {
     docTitle: "Unpopular Opinions — ksperix.dev",
     back: "Back to Home",
-    badge: "Easter Egg",
     title: "Unpopular Opinions",
     subtitle: "Honest thoughts on the IT industry, technology, artificial intelligence, and modern management.",
     opinions: [
@@ -150,7 +148,7 @@ export default function OpinionsPage() {
   }, [lang, t.docTitle]);
 
   return (
-    <div className="min-h-screen text-slate-800 relative selection:bg-blue-500/20 selection:text-blue-900 pb-24">
+    <div className="min-h-screen text-slate-800 relative selection:bg-blue-500/20 selection:text-blue-900 pb-12 flex flex-col justify-between">
       
       <FluidBackground />
 
@@ -184,15 +182,10 @@ export default function OpinionsPage() {
       </header>
 
       {/* MAIN CONTAINER */}
-      <main className="pt-36 px-6 max-w-4xl mx-auto">
+      <main className="pt-36 px-6 max-w-4xl mx-auto w-full">
         
         {/* HEADER SECTION */}
-        <div className="mb-16 text-center sm:text-left">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/10 text-amber-600 border border-amber-500/20 text-xs font-bold mb-4">
-            <Flame className="w-3.5 h-3.5 fill-amber-500" />
-            <span>{t.badge}</span>
-          </div>
-
+        <div className="mb-12 text-center sm:text-left">
           <h1 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight mb-4">
             {t.title}<span className="text-blue-600">.</span>
           </h1>
@@ -202,19 +195,19 @@ export default function OpinionsPage() {
           </p>
         </div>
 
-        {/* OPINIONS LIST (CAŁA STRONA - EDYCJA Z NUMERACJĄ #1, #2...) */}
-        <div className="space-y-12">
+        {/* OPINIONS LIST */}
+        <div className="space-y-8">
           {t.opinions.map((op, idx) => (
             <article 
               key={idx}
-              className="glass-card p-8 sm:p-10 rounded-3xl border border-white/80 shadow-md backdrop-blur-xl bg-white/70 relative overflow-hidden transition-all duration-300 hover:border-blue-500/40 hover:shadow-lg"
+              className="glass-card p-6 sm:p-8 rounded-3xl border border-white/80 shadow-md backdrop-blur-xl bg-white/70 relative overflow-hidden transition-all duration-300 hover:border-blue-500/40 hover:shadow-lg"
             >
               <div className="flex items-start gap-4 sm:gap-6">
                 <span className="text-2xl sm:text-3xl font-black text-blue-600 shrink-0 font-mono pt-0.5">
                   {op.number}
                 </span>
 
-                <div className="space-y-3">
+                <div className="space-y-2">
                   <h2 className="text-xl sm:text-2xl font-bold text-slate-900 leading-snug tracking-tight">
                     {op.title}
                   </h2>
@@ -229,8 +222,8 @@ export default function OpinionsPage() {
 
       </main>
 
-      {/* FOOTER */}
-      <footer className="mt-20 py-8 text-center text-xs text-slate-500 border-t border-slate-200/80">
+      {/* KOMPAKTOWA STOPKA */}
+      <footer className="mt-12 py-4 text-center text-[11px] text-slate-400 border-t border-slate-200/60">
         <p>© {new Date().getFullYear()} ksperix.dev. All rights reserved.</p>
       </footer>
 
