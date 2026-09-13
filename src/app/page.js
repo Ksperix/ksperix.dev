@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import { 
   Server, 
@@ -30,7 +31,8 @@ import {
   Laptop,
   Compass,
   ArrowRight,
-  Sparkles
+  Sparkles,
+  Flame
 } from 'lucide-react';
 
 import pl from '../../messages/pl.json';
@@ -123,7 +125,6 @@ export default function Home() {
   const [activeSection, setActiveSection] = useState('hero');
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
   const [status, setStatus] = useState('idle');
-  const [selectedEcosystem, setSelectedEcosystem] = useState('brainly');
   const [pricingCategory, setPricingCategory] = useState('ecosystems');
 
   const typewriterPhrases = t.Typewriter;
@@ -301,37 +302,6 @@ export default function Home() {
     { title: t.Ecosystems.p3_title, text: t.Ecosystems.p3_text, icon: ShieldCheck },
     { title: t.Ecosystems.p4_title, text: t.Ecosystems.p4_text, icon: BarChart3 }
   ];
-
-  const ecosystemData = {
-    brainly: {
-      title: "BrainlyHQ Infrastructure",
-      subtitle: t.Ecosystems.brainly_sub,
-      desc: t.Ecosystems.brainly_desc,
-      metrics: [
-        { label: t.Ecosystems.m1_label, value: "Multi-Server" },
-        { label: t.Ecosystems.m2_label, value: "Slack & Discord API" },
-        { label: t.Ecosystems.m3_label, value: "99.9% Uptime" }
-      ],
-      link: "https://discord.brainly.com/products",
-      btnText: t.Ecosystems.brainly_btn,
-      accentBg: "bg-blue-600",
-      accentText: "text-blue-600"
-    },
-    vantrx: {
-      title: "VANTRX Platform",
-      subtitle: t.Ecosystems.vantrx_sub,
-      desc: t.Ecosystems.vantrx_desc,
-      metrics: [
-        { label: t.Ecosystems.m4_label, value: t.Ecosystems.m4_val },
-        { label: t.Ecosystems.m5_label, value: "Private Vault" },
-        { label: t.Ecosystems.m6_label, value: t.Ecosystems.m6_val }
-      ],
-      link: "https://vantrx.pl",
-      btnText: t.Ecosystems.vantrx_btn,
-      accentBg: "bg-purple-600",
-      accentText: "text-purple-600"
-    }
-  };
 
   const specialTier = {
     title: t.Pricing.special_title,
@@ -562,7 +532,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 4. SEKCJA KOMPETENCJE (USUNIĘTO SZARE ZNACZNIKI/TAGI) */}
+      {/* 4. SEKCJA KOMPETENCJE */}
       <section id="services" className="my-32 px-6 max-w-5xl mx-auto scroll-mt-28">
         <div className="mb-12">
           <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
@@ -603,7 +573,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5. SEKCJA PROJEKTÓW (NA CAŁĄ SZEROKOŚĆ - SIATKA BLOCZKÓW) */}
+      {/* 5. SEKCJA PROJEKTÓW */}
       <section id="showcase" className="my-32 px-6 max-w-7xl mx-auto scroll-mt-28">
         <div className="mb-12 text-center">
           <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
@@ -639,7 +609,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 6. WYRÓŻNIONA SEKCJA EKOSYSTEMY */}
+      {/* 6. WYRÓŻNIONA SEKCJA EKOSYSTEMY (BEZ INTERAKTYWNYCH KART, Z GWIAZDKĄ I PRZYCISKIEM) */}
       <section id="ecosystems" className="my-32 px-6 max-w-5xl mx-auto scroll-mt-28">
         <div className="glass-card rounded-3xl p-8 sm:p-12 border border-blue-200/80 shadow-xl bg-blue-50/40 backdrop-blur-xl">
           <div className="mb-12">
@@ -651,7 +621,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-2 gap-6 mb-12">
+          <div className="grid sm:grid-cols-2 gap-6 mb-8">
             {ecosystemPillars.map((pillar, idx) => {
               const PillarIcon = pillar.icon;
               return (
@@ -671,82 +641,19 @@ export default function Home() {
             })}
           </div>
 
-          <div className="bg-white/90 rounded-3xl p-6 sm:p-10 border border-blue-200/80 shadow-md relative overflow-hidden">
-            <div className="flex justify-center border-b border-slate-100 pb-6 mb-8">
-              <div className="relative inline-flex p-1.5 rounded-2xl bg-slate-100 border border-slate-200/80 w-full sm:w-auto">
-                <button
-                  onClick={() => setSelectedEcosystem('brainly')}
-                  className={`relative z-10 px-8 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-colors cursor-pointer ${
-                    selectedEcosystem === 'brainly' ? 'text-white' : 'text-slate-600 hover:text-slate-900'
-                  }`}
-                >
-                  BrainlyHQ
-                </button>
-                <button
-                  onClick={() => setSelectedEcosystem('vantrx')}
-                  className={`relative z-10 px-8 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-colors cursor-pointer ${
-                    selectedEcosystem === 'vantrx' ? 'text-white' : 'text-slate-600 hover:text-slate-900'
-                  }`}
-                >
-                  VANTRX
-                </button>
-
-                <motion.div
-                  className={`absolute top-1.5 bottom-1.5 rounded-xl ${
-                    selectedEcosystem === 'brainly' ? 'bg-blue-600 shadow-md' : 'bg-purple-600 shadow-md'
-                  }`}
-                  initial={false}
-                  animate={{
-                    left: selectedEcosystem === 'brainly' ? '6px' : '50%',
-                    width: 'calc(50% - 9px)'
-                  }}
-                  transition={{ type: 'spring', stiffness: 400, damping: 35 }}
-                />
-              </div>
-            </div>
-
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={selectedEcosystem}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.3 }}
-                className="grid lg:grid-cols-12 gap-8 items-stretch"
-              >
-                <div className="lg:col-span-7 flex flex-col justify-between items-start space-y-4">
-                  <div className="space-y-3">
-                    <h4 className="text-2xl sm:text-3xl font-black text-slate-900">{ecosystemData[selectedEcosystem].title}</h4>
-                    <p className="text-xs sm:text-sm font-semibold text-slate-500">{ecosystemData[selectedEcosystem].subtitle}</p>
-                    <p className="text-slate-600 text-sm leading-relaxed font-normal">
-                      {ecosystemData[selectedEcosystem].desc}
-                    </p>
-                  </div>
-
-                  <div className="pt-4 mt-auto">
-                    <a
-                      href={ecosystemData[selectedEcosystem].link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`px-6 py-3.5 rounded-2xl text-white font-semibold text-sm transition-all shadow-md inline-flex items-center gap-2 ${ecosystemData[selectedEcosystem].accentBg} hover:opacity-95`}
-                    >
-                      {ecosystemData[selectedEcosystem].btnText} <ArrowUpRight className="w-4 h-4" />
-                    </a>
-                  </div>
-                </div>
-
-                <div className="lg:col-span-5 grid grid-cols-1 gap-3 bg-slate-50 p-6 rounded-2xl border border-slate-200/80 h-full flex flex-col justify-center">
-                  <span className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">{t.Ecosystems.metrics_title}</span>
-                  {ecosystemData[selectedEcosystem].metrics.map((m, i) => (
-                    <div key={i} className="flex items-center justify-between p-3 rounded-xl bg-white border border-slate-200/60 shadow-sm">
-                      <span className="text-xs font-semibold text-slate-600">{m.label}</span>
-                      <span className={`text-xs font-bold ${ecosystemData[selectedEcosystem].accentText}`}>{m.value}</span>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
-            </AnimatePresence>
+          {/* GWIAZDKA I ZAPROSZENIE DO PROJEKTÓW */}
+          <div className="pt-4 border-t border-blue-200/60 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <p className="text-xs sm:text-sm text-slate-600 font-medium">
+              {t.Ecosystems.examples_note}
+            </p>
+            <button
+              onClick={() => scrollToSection('showcase')}
+              className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs sm:text-sm transition-all shadow-md shadow-blue-500/20 shrink-0 inline-flex items-center gap-1.5 cursor-pointer"
+            >
+              {t.Ecosystems.examples_link} <ArrowRight className="w-4 h-4" />
+            </button>
           </div>
+
         </div>
       </section>
 
@@ -887,7 +794,7 @@ export default function Home() {
                 </button>
               </div>
 
-              {/* 3. PAKIET PRO (Z KRESKĄ SEPARUJĄCĄ PO PRAWEJ STRONIE NA LG) */}
+              {/* 3. PAKIET PRO */}
               <div className="glass-card rounded-3xl p-6 border border-white/80 lg:border-r lg:border-r-slate-300/70 flex flex-col justify-between relative transition-all duration-300">
                 <div>
                   <h3 className="text-xl font-bold text-slate-900 mb-1">{pricingTiers[2].title}</h3>
@@ -1184,6 +1091,14 @@ export default function Home() {
           >
             <MessageSquare className="w-4 h-4" /> Discord
           </a>
+
+          {/* EASTER EGG: NIEPOPULARNE OPINIE */}
+          <Link
+            href="/opinie"
+            className="text-slate-500 hover:text-amber-600 transition-colors flex items-center gap-1.5 text-xs font-medium"
+          >
+            <Flame className="w-3.5 h-3.5 text-amber-500" /> {t.Footer.unpopular_opinions}
+          </Link>
         </div>
         <p>© {new Date().getFullYear()} ksperix.dev. All rights reserved.</p>
       </footer>
