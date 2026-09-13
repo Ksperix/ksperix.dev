@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { Home, ArrowLeft } from 'lucide-react';
 
 function PolandFlag({ className = "w-5 h-5" }) {
   return (
@@ -43,16 +42,12 @@ const translations = {
   pl: {
     documentTitle: "Kurczę... Coś nie działa 🐣",
     title: "Kurczę... Coś nie działa 🐣",
-    desc: "Strona, której szukasz nie istnieje.",
-    btnHome: "Strona główna",
-    btnBack: "Wróć"
+    desc: "Strona, której szukasz nie istnieje."
   },
   en: {
     documentTitle: "Oh, snap… 📸",
     title: "Oh, snap… 📸",
-    desc: "The page you are looking for does not exist.",
-    btnHome: "Home",
-    btnBack: "Go back"
+    desc: "The page you are looking for does not exist."
   }
 };
 
@@ -77,6 +72,7 @@ export default function NotFound() {
 
       const width = window.innerWidth;
       const height = window.innerHeight;
+      const pixelRatio = window.devicePixelRatio || 1;
 
       engine = Matter.Engine.create({
         gravity: { x: 0, y: 1 }
@@ -89,7 +85,8 @@ export default function NotFound() {
           width: width,
           height: height,
           wireframes: false,
-          background: 'transparent'
+          background: 'transparent',
+          pixelRatio: pixelRatio
         }
       });
 
@@ -101,41 +98,78 @@ export default function NotFound() {
 
       Matter.Composite.add(engine.world, [ground, leftWall, rightWall]);
 
-      // Kolory klocków
-      const colors = ['#2563eb', '#3b82f6', '#60a5fa', '#10b981', '#f59e0b', '#8b5cf6', '#ec4899'];
+      // Firmowa paleta kolorów ksperix.dev
+      const brandColors = [
+        '#2563eb', // Blue primary
+        '#0f172a', // Dark Slate
+        '#10b981', // Emerald
+        '#8b5cf6', // Violet
+        '#38bdf8', // Sky Blue
+        '#f59e0b'  // Amber Accent
+      ];
+
       const blocks = [];
-      const blockCount = Math.min(Math.floor(width / 45), 35);
+      const blockCount = Math.min(Math.floor(width / 40), 40);
 
       for (let i = 0; i < blockCount; i++) {
         const x = (width / (blockCount + 1)) * (i + 1) + (Math.random() * 20 - 10);
-        const y = height - 60 - Math.random() * 180;
-        const color = colors[Math.floor(Math.random() * colors.length)];
-        const isCircle = Math.random() > 0.7;
+        const y = height - 80 - Math.random() * 220;
+        const color = brandColors[Math.floor(Math.random() * brandColors.length)];
+        const shapeType = Math.floor(Math.random() * 4); // 0: Kółko, 1: Prostokąt, 2: Wielokąt/Trójkąt, 3: Pigułka
 
         let body;
-        if (isCircle) {
-          const radius = 18 + Math.random() * 18;
+        const commonRender = {
+          fillStyle: color,
+          strokeStyle: '#ffffff',
+          lineWidth: 2 * pixelRatio
+        };
+
+        if (shapeType === 0) {
+          // Kółko
+          const radius = 16 + Math.random() * 18;
           body = Matter.Bodies.circle(x, y, radius, {
-            restitution: 0.6,
+            restitution: 0.5,
             friction: 0.3,
-            render: { fillStyle: color, strokeStyle: '#ffffff', lineWidth: 2 }
+            render: commonRender
+          });
+        } else if (shapeType === 1) {
+          // Zaokrąglony prostokąt
+          const w = 40 + Math.random() * 50;
+          const h = 25 + Math.random() * 35;
+          body = Matter.Bodies.rectangle(x, y, w, h, {
+            chamfer: { radius: 10 },
+            restitution: 0.4,
+            friction: 0.4,
+            render: commonRender
+          });
+        } else if (shapeType === 2) {
+          // Wielokąt (Trójkąt / Pięciokąt / Sześciokąt)
+          const sides = 3 + Math.floor(Math.random() * 4);
+          const radius = 20 + Math.random() * 18;
+          body = Matter.Bodies.polygon(x, y, sides, radius, {
+            chamfer: { radius: 6 },
+            restitution: 0.5,
+            friction: 0.3,
+            render: commonRender
           });
         } else {
-          const w = 40 + Math.random() * 45;
-          const h = 28 + Math.random() * 35;
+          // Pigułka (Capsule)
+          const w = 60 + Math.random() * 30;
+          const h = 26;
           body = Matter.Bodies.rectangle(x, y, w, h, {
-            chamfer: { radius: 8 },
-            restitution: 0.4,
-            friction: 0.5,
-            render: { fillStyle: color, strokeStyle: '#ffffff', lineWidth: 2 }
+            chamfer: { radius: 13 },
+            restitution: 0.6,
+            friction: 0.3,
+            render: commonRender
           });
         }
+
         blocks.push(body);
       }
 
       Matter.Composite.add(engine.world, blocks);
 
-      // Chwytanie i przesuwaniem myszą/dotykiem
+      // Chwytanie i przesuwanie myszą/dotykiem
       const mouse = Matter.Mouse.create(render.canvas);
       const mouseConstraint = Matter.MouseConstraint.create(engine, {
         mouse: mouse,
@@ -204,28 +238,9 @@ export default function NotFound() {
           {t.title}
         </h2>
 
-        <p className="text-slate-500 text-sm sm:text-base max-w-md mx-auto mb-8 font-normal">
+        <p className="text-slate-500 text-sm sm:text-base max-w-md mx-auto font-normal">
           {t.desc}
         </p>
-
-        {/* PRZYCISKI POWROTU */}
-        <div className="flex items-center justify-center gap-3 pointer-events-auto">
-          <Link
-            href="/"
-            className="px-6 py-3 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm transition-all shadow-md flex items-center gap-2 cursor-pointer"
-          >
-            <Home className="w-4 h-4" />
-            {t.btnHome}
-          </Link>
-
-          <button
-            onClick={() => window.history.back()}
-            className="px-6 py-3 rounded-2xl bg-white/80 hover:bg-white text-slate-700 font-semibold text-sm transition-all border border-slate-200/80 shadow-sm flex items-center gap-2 cursor-pointer backdrop-blur-md"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            {t.btnBack}
-          </button>
-        </div>
       </main>
 
     </div>
