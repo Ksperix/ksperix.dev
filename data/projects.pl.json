@@ -21,18 +21,18 @@
     "id": "speech",
     "title": "Speech Bot",
     "image": "/speech.png",
-    "desc": "Zaawansowane i szybkie narzędzie tłumaczeniowe z funkcjami AI dostępne na Slacku"
+    "desc": "Zaawansowane i szybkie narzędzie tłumaczeniowe z funkcjami AI (podsumowanie wiadomości, szybka odpowiedź, własna odpowiedź) - dostępne na Slacku."
   },
   {
-    "id": "notifications",
-    "title": "Notifications System",
-    "image": "/notifications.png",
-    "desc": "System powiadomień w czasie rzeczywistym zintegrowany z zewnętrznymi API oraz botami komunikacyjnymi."
+    "id": "numizma",
+    "title": "Numizma",
+    "image": "/numizma.png",
+    "desc": "Dedykowany system identyfikacji katalogów z monetami online oraz kalkulator wyceny numizmatów z całego świata. Projekt wykorzystany przy wielu zleceniach."
   },
   {
     "id": "gamez",
-    "title": "Gamez & Automation",
+    "title": "GAMEZ by HQ",
     "image": "/gamez.png",
-    "desc": "Autorskie narzędzia automatyzujące oraz minigry wspierające zaangażowanie społeczności."
+    "desc": "Minigry wspierające zaaangażowanie społeczności HQ oraz specjalny system nagród wewnętrznych - realizowany jako odrębny, większy produkt ekosystemu."
   }
 ]
