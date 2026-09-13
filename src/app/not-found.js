@@ -1,9 +1,8 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { Home, ArrowLeft, RefreshCw, Compass } from 'lucide-react';
+import { Home, ArrowLeft } from 'lucide-react';
 
 function PolandFlag({ className = "w-5 h-5" }) {
   return (
@@ -43,21 +42,17 @@ function UKFlag({ className = "w-5 h-5" }) {
 const translations = {
   pl: {
     documentTitle: "Kurczę... Coś nie działa 🐣",
-    badge: "Błąd 404 — Zagubiono w czasoprzestrzeni",
     title: "Kurczę... Coś nie działa 🐣",
-    desc: "Wygląda na to, że strona, której szukasz, odleciała w nieznane albo nigdy nie istniała. Nie martw się, zdarza się najlepszym!",
-    btnHome: "Wróć na stronę główną",
-    btnBack: "Wróć do poprzedniej strony",
-    footerText: "Zagubiony? Skontaktuj się na ksperix.dev"
+    desc: "Strona, której szukasz nie istnieje.",
+    btnHome: "Strona główna",
+    btnBack: "Wróć"
   },
   en: {
-    documentTitle: "Oops... Something went wrong 🐣",
-    badge: "404 Error — Lost in Cyberspace",
-    title: "Oops... Something went wrong 🐣",
-    desc: "Looks like the page you are looking for flew away into the unknown or never existed in the first place. Don't worry, happens to the best of us!",
-    btnHome: "Back to Home",
-    btnBack: "Go Back",
-    footerText: "Lost? Reach out at ksperix.dev"
+    documentTitle: "Oh, snap… 📸",
+    title: "Oh, snap… 📸",
+    desc: "The page you are looking for does not exist.",
+    btnHome: "Home",
+    btnBack: "Go back"
   }
 };
 
@@ -65,89 +60,173 @@ export default function NotFound() {
   const [lang, setLang] = useState('pl');
   const t = translations[lang];
 
-  // Dynamiczne ustawianie tytułu karty w przeglądarce
+  const sceneRef = useRef(null);
+
+  // Zmiana tytułu karty przeglądarki
   useEffect(() => {
     document.title = t.documentTitle;
   }, [lang, t.documentTitle]);
 
-  return (
-    <div className="min-h-screen text-slate-800 relative selection:bg-blue-500/20 selection:text-blue-900 flex flex-col items-center justify-between p-6 bg-[#f8fafc] overflow-hidden">
-      
-      {/* TŁO FLUID Z ANIMACOWANĄ POŚWIATĄ */}
-      <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] sm:w-[600px] sm:h-[600px] rounded-full bg-gradient-to-tr from-blue-400/20 via-indigo-300/15 to-sky-200/25 blur-[120px]" />
-      </div>
+  // Ładowanie matter-js i inicjalizacja fizyki klocków
+  useEffect(() => {
+    let render, runner, engine;
 
-      {/* PASEK GÓRNY / PRZEŁĄCZNIK JĘZYKA */}
-      <header className="w-full max-w-4xl flex items-center justify-between relative z-10 pt-4">
+    import('matter-js').then((Matter) => {
+      const container = sceneRef.current;
+      if (!container) return;
+
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+
+      engine = Matter.Engine.create({
+        gravity: { x: 0, y: 1 }
+      });
+
+      render = Matter.Render.create({
+        element: container,
+        engine: engine,
+        options: {
+          width: width,
+          height: height,
+          wireframes: false,
+          background: 'transparent'
+        }
+      });
+
+      // Ściany i podłoga
+      const wallOptions = { isStatic: true, render: { visible: false } };
+      const ground = Matter.Bodies.rectangle(width / 2, height + 30, width * 2, 60, wallOptions);
+      const leftWall = Matter.Bodies.rectangle(-30, height / 2, 60, height * 2, wallOptions);
+      const rightWall = Matter.Bodies.rectangle(width + 30, height / 2, 60, height * 2, wallOptions);
+
+      Matter.Composite.add(engine.world, [ground, leftWall, rightWall]);
+
+      // Kolory klocków
+      const colors = ['#2563eb', '#3b82f6', '#60a5fa', '#10b981', '#f59e0b', '#8b5cf6', '#ec4899'];
+      const blocks = [];
+      const blockCount = Math.min(Math.floor(width / 45), 35);
+
+      for (let i = 0; i < blockCount; i++) {
+        const x = (width / (blockCount + 1)) * (i + 1) + (Math.random() * 20 - 10);
+        const y = height - 60 - Math.random() * 180;
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        const isCircle = Math.random() > 0.7;
+
+        let body;
+        if (isCircle) {
+          const radius = 18 + Math.random() * 18;
+          body = Matter.Bodies.circle(x, y, radius, {
+            restitution: 0.6,
+            friction: 0.3,
+            render: { fillStyle: color, strokeStyle: '#ffffff', lineWidth: 2 }
+          });
+        } else {
+          const w = 40 + Math.random() * 45;
+          const h = 28 + Math.random() * 35;
+          body = Matter.Bodies.rectangle(x, y, w, h, {
+            chamfer: { radius: 8 },
+            restitution: 0.4,
+            friction: 0.5,
+            render: { fillStyle: color, strokeStyle: '#ffffff', lineWidth: 2 }
+          });
+        }
+        blocks.push(body);
+      }
+
+      Matter.Composite.add(engine.world, blocks);
+
+      // Chwytanie i przesuwaniem myszą/dotykiem
+      const mouse = Matter.Mouse.create(render.canvas);
+      const mouseConstraint = Matter.MouseConstraint.create(engine, {
+        mouse: mouse,
+        constraint: {
+          stiffness: 0.2,
+          render: { visible: false }
+        }
+      });
+
+      if (mouseConstraint.mouse.element) {
+        mouseConstraint.mouse.element.removeEventListener("mousewheel", mouseConstraint.mouse.mousewheel);
+        mouseConstraint.mouse.element.removeEventListener("DOMMouseScroll", mouseConstraint.mouse.mousewheel);
+      }
+
+      Matter.Composite.add(engine.world, mouseConstraint);
+      render.mouse = mouse;
+
+      runner = Matter.Runner.create();
+      Matter.Runner.run(runner, engine);
+      Matter.Render.run(render);
+    });
+
+    return () => {
+      if (render && runner && engine) {
+        import('matter-js').then((Matter) => {
+          Matter.Render.stop(render);
+          Matter.Runner.stop(runner);
+          Matter.Composite.clear(engine.world, false);
+          Matter.Engine.clear(engine);
+        });
+      }
+    };
+  }, []);
+
+  return (
+    <div className="relative w-screen h-screen overflow-hidden bg-[#f8fafc] select-none text-slate-800">
+      
+      {/* KANWA DLA KLOCKÓW FIZYCZNYCH */}
+      <div ref={sceneRef} className="absolute inset-0 z-10 pointer-events-auto" />
+
+      {/* PASEK GÓRNY */}
+      <header className="absolute top-0 left-0 right-0 z-20 flex items-center justify-between px-6 py-6 max-w-5xl mx-auto pointer-events-auto">
         <Link 
           href="/"
-          className="font-semibold text-lg tracking-tight text-slate-900 hover:opacity-80 transition-opacity"
+          className="font-semibold text-lg tracking-tight text-slate-900 hover:opacity-80 transition-opacity bg-white/60 backdrop-blur-md px-4 py-2 rounded-full border border-white/80 shadow-sm"
         >
           ksperix<span className="text-blue-600 font-bold">.dev</span>
         </Link>
 
         <button
           onClick={() => setLang(lang === 'pl' ? 'en' : 'pl')}
-          className="w-9 h-9 rounded-full glass-card hover:bg-white border border-white/80 flex items-center justify-center transition-all cursor-pointer shadow-sm active:scale-95 overflow-hidden"
+          className="w-10 h-10 rounded-full glass-card hover:bg-white border border-white/80 flex items-center justify-center transition-all cursor-pointer shadow-sm active:scale-95 overflow-hidden"
           title={lang === 'pl' ? 'Switch to English' : 'Przełącz na polski'}
         >
           {lang === 'pl' ? <PolandFlag /> : <UKFlag />}
         </button>
       </header>
 
-      {/* GŁÓWNA KARTA 404 */}
-      <main className="relative z-10 max-w-2xl w-full my-auto py-12">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="glass-card p-8 sm:p-14 rounded-3xl border border-white/80 shadow-xl text-center backdrop-blur-2xl bg-white/70 relative overflow-hidden"
-        >
-          {/* BADGE NA GÓRZE KARTY */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-blue-600 text-xs font-bold mb-6">
-            <Compass className="w-3.5 h-3.5 animate-spin" style={{ animationDuration: '10s' }} />
-            <span>{t.badge}</span>
-          </div>
+      {/* TEKST 404 W TLE */}
+      <main className="absolute inset-0 z-0 flex flex-col items-center justify-center text-center px-4 pointer-events-none">
+        <h1 className="text-8xl sm:text-9xl font-black text-slate-900/10 tracking-tighter mb-2">
+          404
+        </h1>
 
-          {/* WIELKI NUMER 404 */}
-          <div className="text-7xl sm:text-9xl font-black tracking-tight text-slate-900/10 absolute -top-4 right-6 pointer-events-none select-none">
-            404
-          </div>
+        <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight mb-3">
+          {t.title}
+        </h2>
 
-          <h1 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight mb-4">
-            {t.title}
-          </h1>
+        <p className="text-slate-500 text-sm sm:text-base max-w-md mx-auto mb-8 font-normal">
+          {t.desc}
+        </p>
 
-          <p className="text-slate-600 text-base sm:text-lg leading-relaxed mb-8 font-normal max-w-lg mx-auto">
-            {t.desc}
-          </p>
+        {/* PRZYCISKI POWROTU */}
+        <div className="flex items-center justify-center gap-3 pointer-events-auto">
+          <Link
+            href="/"
+            className="px-6 py-3 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm transition-all shadow-md flex items-center gap-2 cursor-pointer"
+          >
+            <Home className="w-4 h-4" />
+            {t.btnHome}
+          </Link>
 
-          {/* PRZYCISKI AKCJI */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-            <Link
-              href="/"
-              className="w-full sm:w-auto px-7 py-3.5 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm transition-all shadow-md shadow-blue-500/20 flex items-center justify-center gap-2 cursor-pointer"
-            >
-              <Home className="w-4 h-4" />
-              {t.btnHome}
-            </Link>
-
-            <button
-              onClick={() => window.history.back()}
-              className="w-full sm:w-auto px-7 py-3.5 rounded-2xl bg-white hover:bg-slate-50 text-slate-700 font-semibold text-sm transition-all border border-slate-200 shadow-sm flex items-center justify-center gap-2 cursor-pointer"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              {t.btnBack}
-            </button>
-          </div>
-        </motion.div>
+          <button
+            onClick={() => window.history.back()}
+            className="px-6 py-3 rounded-2xl bg-white/80 hover:bg-white text-slate-700 font-semibold text-sm transition-all border border-slate-200/80 shadow-sm flex items-center gap-2 cursor-pointer backdrop-blur-md"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            {t.btnBack}
+          </button>
+        </div>
       </main>
-
-      {/* STOPKA */}
-      <footer className="relative z-10 text-center text-xs text-slate-400 py-4">
-        <p>{t.footerText}</p>
-      </footer>
 
     </div>
   );
