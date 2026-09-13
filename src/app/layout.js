@@ -1,8 +1,8 @@
 import './globals.css';
 
 export const metadata = {
-  title: 'Ksperix — Operations, Community & Tech Lead',
-  description: 'Portfolio Ksperix: 7 lat w zarządzaniu społecznościami, serwerami Discord, automatyzacją i systemami dla branży Adult UGC (VANTRX).',
+  title: 'Ksperix.Dev — Ecosystems',
+  description: 'Buduję dedykowane ekosystemy operacyjne, automatyzacje zespołowe i rozwiązania webowe.',
   icons: {
     icon: [
       { url: '/dev.png?v=2', type: 'image/png' },
@@ -14,7 +14,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="pl" className="scroll-smooth">
-      <body className="antialiased selection:bg-purple-500/30 selection:text-purple-200">
+      <body className="antialiased selection:bg-blue-500/20 selection:text-blue-900">
         {children}
       </body>
     </html>
