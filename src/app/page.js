@@ -132,6 +132,13 @@ export default function Home() {
   const [charIndex, setCharIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
 
+  // PRZYWRACANIE TYTUŁU STRONY PO WEJŚCIU Z 404
+  useEffect(() => {
+    document.title = lang === 'pl' 
+      ? "Ksperix.Dev — Ecosystems" 
+      : "Ksperix.Dev — Ecosystems";
+  }, [lang]);
+
   useEffect(() => {
     setTextIndex(0);
     setCharIndex(0);
@@ -1094,7 +1101,7 @@ export default function Home() {
 
           {/* EASTER EGG: NIEPOPULARNE OPINIE */}
           <Link
-            href="/opinions"
+            href="/opinie"
             className="text-slate-500 hover:text-amber-600 transition-colors flex items-center gap-1.5 text-xs font-medium"
           >
             <Flame className="w-3.5 h-3.5 text-amber-500" /> {t.Footer.unpopular_opinions}
