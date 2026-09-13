@@ -1,0 +1,38 @@
+[
+  {
+    "id": "brainlyhq",
+    "title": "BrainlyHQ Ecosystem",
+    "image": "/brainlyhq.png",
+    "desc": "Multi-server structure management, Slack/Discord bot integrations, and maintaining high uptime for the community ecosystem."
+  },
+  {
+    "id": "vantrx",
+    "title": "VANTRX Platform",
+    "image": "/vantrx.png",
+    "desc": "Private digital infrastructure and proprietary digital service distribution platform."
+  },
+  {
+    "id": "lesmoutons",
+    "title": "Les Moutons Bags",
+    "image": "/lesmoutonsbags.png",
+    "desc": "Visual identity, branding design, and graphic support for an accessories brand."
+  },
+  {
+    "id": "partnership",
+    "title": "Partnership Network",
+    "image": "/partnership.png",
+    "desc": "Partnership network growth and automation of verification and onboarding workflows."
+  },
+  {
+    "id": "notifications",
+    "title": "Notifications System",
+    "image": "/notifications.png",
+    "desc": "Real-time automated notification engine connected via webhooks and external APIs."
+  },
+  {
+    "id": "gamez",
+    "title": "Gamez & Automation",
+    "image": "/gamez.png",
+    "desc": "Custom automation tooling and interactive micro-apps driving community engagement."
+  }
+]
