@@ -1045,7 +1045,7 @@ export default function Home() {
 
             <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
               <div className="flex flex-wrap items-center gap-4 text-xs text-slate-600">
-                <span className="flex items-center gap-1.5"><Mail className="w-4 h-4 text-blue-600" /> contact@ksperix.com</span>
+                <span className="flex items-center gap-1.5"><Mail className="w-4 h-4 text-blue-600" /> hello@ksperix.dev</span>
                 <span className="flex items-center gap-1.5"><MessageSquare className="w-4 h-4 text-blue-600" /> Discord: ksperix.dev</span>
               </div>
 
