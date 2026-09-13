@@ -18,10 +18,10 @@
     "desc": "Identyfikacja wizualna, kreacja materiałów brandingowych oraz wsparcie graficzne dla polskiej marki akcesoriów."
   },
   {
-    "id": "partnership",
-    "title": "Partnership Network",
-    "image": "/partnership.png",
-    "desc": "Rozwój programu partnerskiego oraz automatyzacja przepływu zgłoszeń i weryfikacji partnerów."
+    "id": "speech",
+    "title": "Speech Bot",
+    "image": "/speech.png",
+    "desc": "Zaawansowane i szybkie narzędzie tłumaczeniowe z funkcjami AI dostępne na Slacku"
   },
   {
     "id": "notifications",
