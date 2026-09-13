@@ -30,9 +30,7 @@ import {
   Laptop,
   Compass,
   ArrowRight,
-  Sparkles,
-  X,
-  Maximize2
+  Sparkles
 } from 'lucide-react';
 
 import pl from '../../messages/pl.json';
@@ -127,7 +125,6 @@ export default function Home() {
   const [status, setStatus] = useState('idle');
   const [selectedEcosystem, setSelectedEcosystem] = useState('brainly');
   const [pricingCategory, setPricingCategory] = useState('ecosystems');
-  const [isEcosystemExpanded, setIsEcosystemExpanded] = useState(false);
 
   const typewriterPhrases = t.Typewriter;
   const [textIndex, setTextIndex] = useState(0);
@@ -606,7 +603,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5. SEKCJA PROJEKTÓW */}
+      {/* 5. SEKCJA PROJEKTÓW (NA CAŁĄ SZEROKOŚĆ - SIATKA BLOCZKÓW) */}
       <section id="showcase" className="my-32 px-6 max-w-7xl mx-auto scroll-mt-28">
         <div className="mb-12 text-center">
           <h2 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
@@ -642,46 +639,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 6. WYRÓŻNIONA SEKCJA EKOSYSTEMY (Z ANIMACJĄ POWIĘKSZANIA NA CAŁY EKRAN PO NAJECHANIU) */}
-      <section 
-        id="ecosystems" 
-        className={`transition-all duration-500 scroll-mt-28 ${
-          isEcosystemExpanded 
-            ? 'fixed inset-0 z-50 overflow-y-auto bg-slate-900/90 backdrop-blur-3xl p-4 sm:p-12 flex items-center justify-center' 
-            : 'my-32 px-6 max-w-5xl mx-auto'
-        }`}
-        onMouseLeave={() => setIsEcosystemExpanded(false)}
-      >
-        <motion.div 
-          layout
-          transition={{ type: 'spring', stiffness: 200, damping: 25 }}
-          className={`rounded-3xl border transition-all duration-500 w-full ${
-            isEcosystemExpanded 
-              ? 'bg-white p-8 sm:p-16 max-w-6xl shadow-2xl border-blue-400 relative my-auto' 
-              : 'glass-card p-8 sm:p-12 border-blue-200/80 shadow-xl bg-blue-50/40 backdrop-blur-xl'
-          }`}
-        >
-          {isEcosystemExpanded && (
-            <button
-              onClick={() => setIsEcosystemExpanded(false)}
-              className="absolute top-6 right-6 p-3 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors cursor-pointer flex items-center gap-2 text-xs font-bold shadow-sm"
-            >
-              <X className="w-5 h-5" /> Wróć do strony
-            </button>
-          )}
-
+      {/* 6. WYRÓŻNIONA SEKCJA EKOSYSTEMY */}
+      <section id="ecosystems" className="my-32 px-6 max-w-5xl mx-auto scroll-mt-28">
+        <div className="glass-card rounded-3xl p-8 sm:p-12 border border-blue-200/80 shadow-xl bg-blue-50/40 backdrop-blur-xl">
           <div className="mb-12">
-            <div 
-              className="inline-block group cursor-pointer"
-              onMouseEnter={() => setIsEcosystemExpanded(true)}
-            >
-              <h2 className="text-3xl md:text-5xl font-extrabold mb-4 text-slate-900 tracking-tight flex items-center gap-3">
-                <span>{t.Ecosystems.title}<span className="text-blue-600">?</span></span>
-                {!isEcosystemExpanded && (
-                  <Maximize2 className="w-5 h-5 text-blue-500 opacity-60 group-hover:opacity-100 group-hover:scale-125 transition-all inline-block" title="Najedź, aby powiększyć" />
-                )}
-              </h2>
-            </div>
+            <h2 className="text-3xl md:text-5xl font-extrabold mb-4 text-slate-900 tracking-tight">
+              {t.Ecosystems.title}<span className="text-blue-600">?</span>
+            </h2>
             <p className="text-slate-600 text-base sm:text-lg leading-relaxed max-w-3xl font-normal">
               {t.Ecosystems.subtitle}
             </p>
@@ -783,7 +747,7 @@ export default function Home() {
               </motion.div>
             </AnimatePresence>
           </div>
-        </motion.div>
+        </div>
       </section>
 
       {/* 7. SEKCJA CENNIK */}
@@ -923,7 +887,7 @@ export default function Home() {
                 </button>
               </div>
 
-              {/* 3. PAKIET PRO */}
+              {/* 3. PAKIET PRO (Z KRESKĄ SEPARUJĄCĄ PO PRAWEJ STRONIE NA LG) */}
               <div className="glass-card rounded-3xl p-6 border border-white/80 lg:border-r lg:border-r-slate-300/70 flex flex-col justify-between relative transition-all duration-300">
                 <div>
                   <h3 className="text-xl font-bold text-slate-900 mb-1">{pricingTiers[2].title}</h3>
