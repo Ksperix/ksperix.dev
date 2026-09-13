@@ -51,28 +51,15 @@
     "title": "What makes an effective Ecosystem",
     "subtitle": "Neither code alone nor a single webpage guarantees success. A true ecosystem is a connected organism where tools, automation, and people collaborate without friction.",
     "p1_title": "Centralized Communication",
-    "p1_text": "Integration of messaging platforms (Slack/Discord) with project management tools.",
+    "p1_text": "Integration of messaging platforms (Slack/Discord/Facebook) with project management tools.",
     "p2_title": "Task Automation",
-    "p2_text": "Eliminating routine work using custom bots and scripts.",
+    "p2_text": "Eliminating routine work using custom bots, scripts, and ready-made tools.",
     "p3_title": "Security & Availability",
-    "p3_text": "Permission controls, digital file protection, and 24/7 reliability.",
+    "p3_text": "Permission controls, digital file protection, and 24/7 reliability - including instant responses to client queries.",
     "p4_title": "Analytics & Scalability",
     "p4_text": "Tracking key growth metrics and readiness for rapid expansion.",
-    "brainly_sub": "Global Community Platform & Bot Distribution",
-    "brainly_desc": "Advanced moderation tools, automated bot integrations, notification pipelines, and a dedicated product marketplace for community members. Engineered to scale to tens of thousands of users.",
-    "brainly_btn": "Browse BrainlyHQ Products",
-    "vantrx_sub": "Digital Asset Security & Agency Automation",
-    "vantrx_desc": "A custom platform created to organize processes, protect digital assets, and automate daily administrative operations for creators and agencies in the Adult UGC sector.",
-    "vantrx_btn": "Go to VANTRX",
-    "metrics_title": "Key Performance Metrics",
-    "m1_label": "Number of Communities",
-    "m2_label": "Integrations",
-    "m3_label": "Uptime",
-    "m4_label": "Industry Experience",
-    "m4_val": "3+ Years",
-    "m5_label": "Data Protection",
-    "m6_label": "Efficiency",
-    "m6_val": "Automated Back-office"
+    "examples_note": "* Examples of ecosystems include VANTRX and BrainlyHQ, which you can see by visiting the link.",
+    "examples_link": "See selected projects"
   },
   "Pricing": {
     "title": "Pricing & Services",
@@ -156,5 +143,8 @@
     "btnSuccess": "Message sent!",
     "btnError": "An error occurred. Please try again.",
     "btnSend": "Send Message"
+  },
+  "Footer": {
+    "unpopular_opinions": "Unpopular opinions"
   }
 }
