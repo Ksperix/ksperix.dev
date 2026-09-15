@@ -12,7 +12,7 @@ import {
   Bot,
   Palette,
   Workflow,
-  TrendingUp,
+  TrendingUp,sc
   Zap,
   CheckCircle2,
   Code2,
@@ -205,7 +205,7 @@ export default function Home() {
     e.preventDefault();
     setStatus('loading');
 
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzGh_nN5BxKCrlmz-4Ou0yhwrOIg-IDxXIbqcZUdKYQqVrmi2Y7TdgRXj51X7LkR-8J/exec';
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx3octiY9MdilVwNKWRVD33qdFNJ8fHXohwxJySwpSCOLvcJHUlGkn_Pe7qk8hDZcgO7A/exec';
 
     try {
       // 1. Pobranie IP nadawcy
