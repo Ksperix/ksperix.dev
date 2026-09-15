@@ -205,7 +205,7 @@ export default function Home() {
     e.preventDefault();
     setStatus('loading');
 
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbypu_E6ENoWCCaDEdwFsKJih4fKc5AjsD3w1vtgzE2wJF-SdA06F8a1VVuW1r0d2cDoWw/exec';
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx2anU2wGFLiAh8TaQiuclBstiBcorA64LG15mQ1pN3OlZ5cmHUfzfXkUpFCqd86qb2fw/exec';
 
     try {
       // 1. Pobranie IP nadawcy
