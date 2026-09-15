@@ -12,7 +12,7 @@ import {
   Bot,
   Palette,
   Workflow,
-  TrendingUp,sc
+  TrendingUp,
   Zap,
   CheckCircle2,
   Code2,
