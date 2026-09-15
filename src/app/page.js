@@ -205,14 +205,34 @@ export default function Home() {
     e.preventDefault();
     setStatus('loading');
 
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwiHs1whihaOYLXzgvLhPJA1vd8b_wyues8BtydGk4deVIbY0eafVITraRzyteB5jvQNg/exec';
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbypu_E6ENoWCCaDEdwFsKJih4fKc5AjsD3w1vtgzE2wJF-SdA06F8a1VVuW1r0d2cDoWw/exec';
 
     try {
+      // 1. Pobranie IP nadawcy
+      let userIp = 'Nieznane';
+      try {
+        const ipRes = await fetch('https://api.ipify.org?format=json');
+        const ipData = await ipRes.json();
+        userIp = ipData.ip;
+      } catch (ipErr) {
+        console.warn('Nie udało się pobrać IP:', ipErr);
+      }
+
+      // 2. Przygotowanie paczki danych
+      const payload = {
+        name: formData.name,
+        email: formData.email,
+        subject: formData.subject,
+        message: formData.message,
+        ip: userIp
+      };
+
+      // 3. Wysyłka do Google Apps Script
       await fetch(SCRIPT_URL, {
         method: 'POST',
         mode: 'no-cors',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       });
 
       setStatus('success');
