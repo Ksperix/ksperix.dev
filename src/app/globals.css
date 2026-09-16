@@ -6,19 +6,28 @@
   color-scheme: light;
 }
 
+/* Ukrycie paska przewijania dla całego dokumentu (Firefox) */
+html {
+  scrollbar-width: none;
+  -ms-overflow-style: none; /* IE oraz Edge */
+}
+
+/* Ukrycie paska przewijania dla całego dokumentu (Chrome, Safari, Opera) */
+html::-webkit-scrollbar {
+  display: none;
+}
+
 body {
   background: #f8fafc;
   color: #0f172a;
   font-family: system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
   
-  /* Ukrycie paska przewijania (Firefox) */
+  /* Ukrycie paska również na poziomie body dla pewności */
   scrollbar-width: none;
-  /* Ukrycie paska przewijania (Internet Explorer i Edge) */
   -ms-overflow-style: none;
 }
 
-/* Ukrycie paska przewijania (Chrome, Safari i Opera) */
 body::-webkit-scrollbar {
   display: none;
 }
