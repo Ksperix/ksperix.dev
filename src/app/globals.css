@@ -11,6 +11,16 @@ body {
   color: #0f172a;
   font-family: system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
+  
+  /* Ukrycie paska przewijania (Firefox) */
+  scrollbar-width: none;
+  /* Ukrycie paska przewijania (Internet Explorer i Edge) */
+  -ms-overflow-style: none;
+}
+
+/* Ukrycie paska przewijania (Chrome, Safari i Opera) */
+body::-webkit-scrollbar {
+  display: none;
 }
 
 /* Szklane Karty (Jasny Liquid Glass) */
