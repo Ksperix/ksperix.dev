@@ -820,76 +820,78 @@ export default function Home() {
               </div>
 
               {/* 3. PAKIET PRO */}
-              <div className="glass-card rounded-3xl p-6 border border-white/80 lg:border-r lg:border-r-slate-300/70 flex flex-col justify-between relative transition-all duration-300">
-                <div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-1">{pricingTiers[2].title}</h3>
-                  <div className="mb-6">
-                    <div className="text-2xl sm:text-3xl font-black text-blue-600">
-                      {pricingTiers[2].price}
-                    </div>
-                  </div>
+<div className="glass-card rounded-3xl p-6 border border-white/80 flex flex-col justify-between relative transition-all duration-300
+                lg:after:content-[''] lg:after:absolute lg:after:top-6 lg:after:bottom-6
+                lg:after:-right-[13px] lg:after:w-px lg:after:bg-slate-300/70">
+  <div>
+    <h3 className="text-xl font-bold text-slate-900 mb-1">{pricingTiers[2].title}</h3>
+    <div className="mb-6">
+      <div className="text-2xl sm:text-3xl font-black text-blue-600">
+        {pricingTiers[2].price}
+      </div>
+    </div>
 
-                  {pricingTiers[2].includesPrevious && (
-                    <p className="text-[10px] font-semibold text-blue-600 italic -mt-4 mb-4">
-                      {pricingTiers[2].includesPrevious}
-                    </p>
-                  )}
+    {pricingTiers[2].includesPrevious && (
+      <p className="text-[10px] font-semibold text-blue-600 italic -mt-4 mb-4">
+        {pricingTiers[2].includesPrevious}
+      </p>
+    )}
 
-                  <ul className="space-y-3 mb-8">
-                    {pricingTiers[2].features.map((feat, fIdx) => (
-                      <li key={fIdx} className="flex items-start gap-2 text-xs text-slate-600 leading-snug break-words">
-                        <Check className="w-3.5 h-3.5 text-blue-600 shrink-0 mt-0.5" />
-                        <span>{feat}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+    <ul className="space-y-3 mb-8">
+      {pricingTiers[2].features.map((feat, fIdx) => (
+        <li key={fIdx} className="flex items-start gap-2 text-xs text-slate-600 leading-snug break-words">
+          <Check className="w-3.5 h-3.5 text-blue-600 shrink-0 mt-0.5" />
+          <span>{feat}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
 
-                <button
-                  onClick={() => scrollToSection('contact')}
-                  className="w-full py-3 rounded-2xl font-semibold text-sm transition-all cursor-pointer bg-slate-900 hover:bg-slate-800 text-white"
-                >
-                  {t.Pricing.pro_btn}
-                </button>
-              </div>
+  <button
+    onClick={() => scrollToSection('contact')}
+    className="w-full py-3 rounded-2xl font-semibold text-sm transition-all cursor-pointer bg-slate-900 hover:bg-slate-800 text-white"
+  >
+    {t.Pricing.pro_btn}
+  </button>
+</div>
 
-              {/* 4. PAKIET SPECIAL */}
-              <div className="glass-card rounded-3xl p-6 border border-white/80 flex flex-col justify-between relative transition-all duration-300">
-                <div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-1">{specialTier.title}</h3>
-                  <p className="text-xs font-semibold text-slate-500 mb-4">{specialTier.subtitle}</p>
+{/* 4. PAKIET SPECIAL */}
+<div className="glass-card rounded-3xl p-6 border border-white/80 flex flex-col justify-between relative transition-all duration-300">
+  <div>
+    <h3 className="text-xl font-bold text-slate-900 mb-1">{specialTier.title}</h3>
+    <p className="text-xs font-semibold text-slate-500 mb-4">{specialTier.subtitle}</p>
 
-                  <div className="mb-6">
-                    <div className="text-2xl sm:text-3xl font-black text-blue-600">
-                      {specialTier.price}
-                    </div>
-                  </div>
+    <div className="mb-6">
+      <div className="text-2xl sm:text-3xl font-black text-blue-600">
+        {specialTier.price}
+      </div>
+    </div>
 
-                  <ul className="space-y-3 mb-8">
-                    {specialTier.features.map((feat, fIdx) => (
-                      <li key={fIdx} className="flex items-start gap-2 text-xs text-slate-600 leading-snug break-words">
-                        <Check className="w-3.5 h-3.5 text-blue-600 shrink-0 mt-0.5" />
-                        <span>{feat}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+    <ul className="space-y-3 mb-8">
+      {specialTier.features.map((feat, fIdx) => (
+        <li key={fIdx} className="flex items-start gap-2 text-xs text-slate-600 leading-snug break-words">
+          <Check className="w-3.5 h-3.5 text-blue-600 shrink-0 mt-0.5" />
+          <span>{feat}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
 
-                <button
-                  onClick={() => scrollToSection('contact')}
-                  className="w-full py-3 rounded-2xl font-semibold text-sm transition-all cursor-pointer bg-slate-900 hover:bg-slate-800 text-white"
-                >
-                  {t.Pricing.special_btn}
-                </button>
-              </div>
+  <button
+    onClick={() => scrollToSection('contact')}
+    className="w-full py-3 rounded-2xl font-semibold text-sm transition-all cursor-pointer bg-slate-900 hover:bg-slate-800 text-white"
+  >
+    {t.Pricing.special_btn}
+  </button>
+</div>
 
-            </div>
+</div>
 
-            <p className="text-center text-xs text-slate-500 max-w-3xl mx-auto pt-6 leading-relaxed font-normal break-words">
-              {t.Pricing.note}
-            </p>
-          </motion.div>
-        )}
+<p className="text-center text-xs text-slate-500 max-w-3xl mx-auto pt-6 leading-relaxed font-normal break-words">
+  {t.Pricing.note}
+</p>
+</motion.div>
+)}
 
         {/* WARIANT 2: USŁUGI DISCORD */}
         {pricingCategory === 'discord' && (
