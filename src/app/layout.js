@@ -9,7 +9,6 @@ export const metadata = {
     ],
     apple: '/dev.png?v=2',
   },
-  // DODANE TAGI OPEN GRAPH DLA BANERU:
   openGraph: {
     title: 'Ksperix.Dev — Ecosystems',
     description: 'Buduję dedykowane ekosystemy operacyjne, automatyzacje zespołowe i rozwiązania webowe.',
@@ -17,7 +16,7 @@ export const metadata = {
     siteName: 'ksperix.dev',
     images: [
       {
-        url: 'https://ksperix.dev/og-image.png', // Pełny adres do Twojego banera
+        url: 'https://ksperix.dev/og-image.png?v=1',
         width: 1200,
         height: 630,
         alt: 'Ksperix.Dev Banner',
@@ -30,7 +29,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'Ksperix.Dev — Ecosystems',
     description: 'Buduję dedykowane ekosystemy operacyjne, automatyzacje zespołowe i rozwiązania webowe.',
-    images: ['https://ksperix.dev/og-image.png'],
+    images: ['https://ksperix.dev/og-image.png?v=1'],
   },
 };
 
